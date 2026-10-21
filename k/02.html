@@ -1,0 +1,1046 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Гипоксия High-Yield</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap">
+<style>
+/* Layout: single A4 column (≈180 mm text block), print-first; tags mark source of information */
+:root{
+  --indigo:#1E3A8A;
+  --ink:#1F2937;
+  --accent:#2563EB;
+  --muted:#64748B;
+  --danger:#DC2626;
+  --paper:#FFFFFF;
+  --ground:#EEF1F7;
+  --line:#CBD5E1;
+  --tint-blue:#EFF4FF;
+  --tint-indigo:#F3F5FB;
+  --tint-red:#FEF2F2;
+  --font:"Inter","Roboto",-apple-system,"SF Pro Text","Segoe UI",Arial,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{background:var(--ground);color:var(--ink);font-family:var(--font);font-size:10.5pt;line-height:1.55;margin:0;padding-inline:16px;padding-block:24px}
+.sheet{background:var(--paper);max-width:210mm;margin:0 auto;padding:16mm 15mm;box-shadow:0 1px 3px rgba(30,58,138,.12)}
+h1{color:var(--indigo);font-size:22pt;font-weight:800;line-height:1.15;margin:0 0 4px;letter-spacing:-.01em;text-wrap:balance}
+h2{color:var(--indigo);font-size:14pt;font-weight:700;margin:22px 0 8px;text-wrap:balance;break-after:avoid}
+h3{color:var(--indigo);font-size:11.5pt;font-weight:700;margin:14px 0 6px;break-after:avoid}
+h4{color:var(--ink);font-size:10.5pt;font-weight:700;margin:10px 0 4px;break-after:avoid}
+p{margin:0 0 7px}
+ul,ol{margin:0 0 8px;padding-left:20px}
+li{margin:0 0 3px}
+hr{border:0;border-top:2px solid var(--indigo);margin:20px 0 4px}
+b.t,.t{color:var(--accent);font-weight:700}
+.lat{color:var(--muted);font-style:italic}
+.sub{color:var(--muted);font-size:10pt;margin:0 0 6px}
+.meta{display:flex;flex-wrap:wrap;gap:6px 18px;color:var(--muted);font-size:9pt;border-bottom:2px solid var(--indigo);padding-bottom:8px;margin-bottom:14px}
+.tag{display:inline-block;font-size:8pt;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:3px;margin-bottom:6px}
+.tag-phys{background:var(--indigo);color:#fff}
+.tag-bio{background:var(--indigo);color:#fff}
+.tag-main{background:var(--ink);color:#fff}
+.tag-add{background:var(--accent);color:#fff}
+.tag-red{background:var(--danger);color:#fff}
+.box{border:1px solid var(--line);border-left:4px solid var(--indigo);background:var(--tint-indigo);padding:9px 12px;margin:10px 0;break-inside:avoid}
+.box.add{border-left-color:var(--accent);background:var(--tint-blue);color:var(--accent)}
+.box.add b{color:var(--accent)}
+.box.main{border-left-color:var(--ink);background:#fff}
+.alert{border:1.5px solid var(--danger);border-left:5px solid var(--danger);background:var(--tint-red);padding:9px 12px;margin:10px 0;break-inside:avoid}
+.alert .h{color:var(--danger);font-weight:700}
+.add-inline{color:var(--accent)}
+.chain{margin:4px 0 8px;padding:0;list-style:none}
+.chain li{padding-left:18px;position:relative;margin:0 0 3px}
+.chain li::before{content:"→";position:absolute;left:0;color:var(--indigo);font-weight:700}
+.chain.add li{color:var(--accent)}
+.chain.add li::before{color:var(--accent)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:9pt;margin:6px 0 10px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:12px;height:12px;border-radius:2px;display:inline-block}
+.tw{overflow-x:auto;margin:8px 0 12px}
+table{border-collapse:collapse;width:100%;font-size:9.3pt;line-height:1.4;break-inside:auto}
+th,td{border:1px solid #94A3B8;padding:5px 7px;vertical-align:top;text-align:left}
+th{background:var(--indigo);color:#fff;font-weight:600}
+tr{break-inside:avoid}
+tbody tr:nth-child(even) td{background:#F8FAFC}
+td.grp{background:var(--tint-indigo)!important;font-weight:700;color:var(--indigo)}
+.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid2>*{min-width:0}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:3px 12px;font-size:9.6pt}
+.kv dt{font-weight:600;color:var(--indigo)}
+.kv dd{margin:0;font-variant-numeric:tabular-nums}
+figure{margin:10px 0;break-inside:avoid}
+figcaption{font-size:9pt;color:var(--muted);margin-top:4px}
+.diagram{border:1px solid var(--line);padding:8px;overflow-x:auto;background:#fff}
+pre.mermaid{margin:0;background:#fff;text-align:center;font-family:var(--font)}
+svg text{font-family:var(--font)}
+.up{color:var(--danger);font-weight:700}
+.down{color:var(--accent);font-weight:700}
+.foot{margin-top:18px;font-size:8.5pt;color:var(--muted);border-top:1px solid var(--line);padding-top:6px}
+.pb{break-before:page}
+/* Pathogenesis flow: black step = textbook, blue arrow-link = mechanism added */
+.flow{margin:8px 0 12px;padding:0}
+.st{position:relative;margin:0;padding:5px 10px;font-weight:600;color:var(--ink);background:var(--paper);border:1.5px solid var(--ink);border-radius:4px;break-inside:avoid;page-break-inside:avoid}
+.st.end{border-color:var(--danger);background:var(--tint-red)}
+.st .n{color:var(--indigo);font-weight:800;margin-right:4px}
+.ln{position:relative;margin:0 0 0 16px;padding:4px 0 12px 16px;border-left:4px solid var(--accent);font-size:9.4pt;line-height:1.45;color:var(--accent)}
+.ln::before{content:"";position:absolute;left:-10px;bottom:-1px;border-left:8px solid transparent;border-right:8px solid transparent;border-top:11px solid var(--accent)}
+.ln:last-child::before{display:none}
+.ln.bk{color:var(--ink);border-left-color:var(--ink)}
+.ln.bk::before{border-top-color:var(--ink)}
+/* Card diagram */
+.dg{border:1.5px solid var(--indigo);background:var(--paper);padding:10px;margin:10px 0;break-inside:avoid;page-break-inside:avoid}
+.dg-h{font-weight:700;color:var(--indigo);font-size:10pt;margin:0 0 8px;text-align:center}
+.dg-row{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:stretch}
+.dg-row>.c{flex:1 1 180px;max-width:480px}
+.dg-cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;align-items:start}
+.dg-cols.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.dg-cols.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+.dg-col{display:flex;flex-direction:column;min-width:0}
+.dg-lane{font-size:7.5pt;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--indigo);text-align:center;border-bottom:1.5px solid var(--indigo);padding-bottom:3px;margin-bottom:6px}
+.dg-lane.red{color:var(--danger);border-color:var(--danger);margin-top:8px}
+.c{border:1.5px solid var(--ink);background:var(--paper);color:var(--ink);padding:5px 8px;font-size:9pt;line-height:1.32;text-align:center;border-radius:3px}
+.c.add{border-color:var(--accent);color:var(--accent);background:var(--tint-blue)}
+.c.red{border-color:var(--danger);color:var(--danger);background:var(--tint-red)}
+.c.key{border-color:var(--indigo);color:var(--indigo);background:var(--tint-indigo);font-weight:700}
+.dg-col>.c+.c{margin-top:4px}
+.a{position:relative;height:24px;width:100%}
+.a::before{content:"";position:absolute;left:50%;top:1px;bottom:9px;width:4px;margin-left:-2px;background:var(--ink)}
+.a::after{content:"";position:absolute;left:50%;bottom:0;margin-left:-8px;border-left:8px solid transparent;border-right:8px solid transparent;border-top:11px solid var(--ink)}
+.a.add::before{background:var(--accent)}.a.add::after{border-top-color:var(--accent)}
+.a.red::before{background:var(--danger)}.a.red::after{border-top-color:var(--danger)}
+.c.comp{border-style:dashed;border-width:2px}
+.loop{font-weight:800;font-size:12pt;margin-left:3px}
+.ln b{color:inherit}
+.br{margin:4px 0 10px;padding:6px 10px;border:1px dashed #94A3B8;background:#FAFBFD;break-inside:avoid}
+.br>.bt{font-weight:700;color:var(--indigo);font-size:9.6pt;margin-bottom:3px}
+.lvl{display:inline-block;font-size:7.5pt;font-weight:700;letter-spacing:.05em;text-transform:uppercase;border:1px solid var(--indigo);color:var(--indigo);padding:0 5px;border-radius:2px;margin-right:6px;vertical-align:1px}
+.vc{border:1.5px solid var(--danger);background:var(--tint-red);padding:6px 10px;margin:4px 0 10px;font-size:9.4pt;break-inside:avoid}
+.vc .vh{color:var(--danger);font-weight:700}
+.eq{font-variant-numeric:tabular-nums;background:var(--tint-blue);padding:0 4px;border-radius:2px;white-space:nowrap}
+.legend-top{display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px;font-size:9.5pt;color:var(--ink);padding:8px 0 10px;margin:8px 0 16px;border-bottom:3px solid var(--indigo);break-inside:avoid}
+.lg-title{font-weight:700;color:var(--ink)}
+.lg-item{display:inline-flex;align-items:center;gap:7px}
+.badge{display:inline-block;color:#fff;font-size:8pt;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:3px 9px;border-radius:4px;line-height:1.3}
+.b-main{background:var(--ink)}.b-add{background:var(--accent)}.b-red{background:var(--danger)}
+@media (max-width:640px){
+  .sheet{padding:18px 14px}
+  .grid2{grid-template-columns:1fr}
+  .dg-cols,.dg-cols.two,.dg-cols.four{grid-template-columns:1fr}
+  h1{font-size:18pt}
+}
+@page{size:A4;margin:14mm 13mm 15mm}
+@media print{
+  body{background:#fff;padding:0;font-size:10pt}
+  .dg{padding:7px}
+  .dg .c{font-size:8.4pt;padding:3px 6px}
+  .dg .a{height:18px}
+  .dg .a::before{bottom:8px}
+  .dg .a::after{border-top-width:9px}
+  table,tr,thead,.box,.alert,.vc,.br,.dg,figure,.callout,.grid2,.kv,.legend{break-inside:avoid!important;page-break-inside:avoid!important}
+  thead{display:table-header-group}
+  h1,h2,h3,h4{break-after:avoid!important;page-break-after:avoid!important}
+  hr{break-before:page;page-break-before:always;margin-top:0}
+  .st{break-after:avoid;page-break-after:avoid}
+  .sheet{box-shadow:none;max-width:none;padding:0;margin:0}
+  a{color:inherit;text-decoration:none}
+  h2{margin-top:16px}
+  .tw{overflow:visible}
+  .diagram{overflow:visible}
+}
+</style>
+
+<div class="sheet">
+
+<h1>ГИПОКСИЯ</h1>
+<div class="legend-top">
+  <span class="lg-title">Белгілер:</span>
+  <span class="lg-item"><span class="badge b-main">Басты тізбек</span>оқулық мәтіні</span>
+  <span class="lg-item"><span class="badge b-add">Қосымша</span>тереңдетілген талдау (оқулықта жоқ)</span>
+  <span class="lg-item"><span class="badge b-red">Қауіп</span>асқыну, ескерту</span>
+</div>
+
+<!-- ============ 1 ============ -->
+<h2>1. Анықтамасы және жіктелуі</h2>
+<h3>1.1. Анықтамасы</h3>
+<div class="box main">
+<p><b class="t">Гипоксия</b> <span class="lat">(грек. hypo – аз, төмен; лат. oxygenium – оттегі)</span> – ағзалар мен тіндерде <b>оттегінің жеткіліксіздігі</b>. Ол тіндерге оттегінің аз жеткізілуінен <b>немесе</b> жасушалардың оттегін тотығу-тотықсыздану үрдістеріне пайдалануы бұзылуынан дамиды.</p>
+<p style="margin:0">Кейде <span class="lat">hypo- + oxydation</span> сөздерімен байланыстырып, <b>биологиялық тотығу-тотықсыздану үрдістерінің жеткіліксіздігі</b> деп те түсіндіреді. Себептері әртүрлі болғанымен, дамитын дерттер мен икемделістік серпілістердің көріністері өзара тығыз байланысты, сондықтан гипоксия <b class="t">біртектес дерттік үрдіс</b> <span class="lat">(типтік патологиялық процесс)</span> қатарына жатады.</p>
+</div>
+<div class="box add">
+<p style="margin:0">Терминдерді ажырату: <b>гипоксемия</b> – артериялық қандағы pO<sub>2</sub>/SaO<sub>2</sub> төмендеуі (қан көрсеткіші); <b>гипоксия</b> – тін деңгейіндегі оттегі тапшылығы; <b>аноксия</b> – оттегінің толық болмауы. Гипоксемиясыз гипоксия болуы мүмкін (қандық, циркуляциялық, тіндік түрлері).</p>
+</div>
+
+<h3>1.2. Өту жылдамдығы бойынша</h3>
+<div class="tw"><table>
+<thead><tr><th style="width:18%">Түрі</th><th style="width:22%">Даму уақыты</th><th>Мысалдар</th></tr></thead>
+<tbody>
+<tr><td><b class="t">Қауырт</b> <span class="lat">(найзағай тәрізді)</span></td><td>бірнеше секунд</td><td>цианидтермен улану</td></tr>
+<tr><td><b class="t">Жіті</b></td><td>бірнеше минут</td><td>асфиксия, ауыр қансыраудан кейін, қатты иіс (CO) тигенде, сілейме <span class="lat">(шок)</span>, коллапс, өкпе ісінуі</td></tr>
+<tr><td><b class="t">Созылмалы</b></td><td>бірнеше апта, айлар–жылдар</td><td>ұзақ өтетін өкпе аурулары, жүрек әлсіздігі, анемиялар</td></tr>
+</tbody></table></div>
+
+<h3>1.3. Пайда болу себептері мен даму жолдары бойынша <span class="lat">(И.Р. Петров, 1949)</span></h3>
+<div class="tw"><table>
+<thead><tr><th style="width:17%">Топ</th><th style="width:22%">Түрі</th><th style="width:31%">Негізгі бұзылыс</th><th>Себеп / мысал</th></tr></thead>
+<tbody>
+<tr><td class="grp" rowspan="2">I. Экзогендік</td><td><b class="t">Гипобариялық</b></td><td>атмосфералық қысым ↓ → дем алатын ауадағы pO<sub>2</sub> ↓</td><td>теңіз деңгейінен жоғары биіктікке көтерілу (тау, биіктік ауруы)</td></tr>
+<tr><td><b class="t">Нормобариялық</b></td><td>барометрлік қысым қалыпты, бірақ ауадағы pO<sub>2</sub> ↓</td><td>ауасы алмаспайтын тар кеңістік, терең құдық, хирургиялық операцияда демалдыратын құралдың істен шығуы</td></tr>
+<tr><td class="grp" rowspan="5">II. Эндогендік</td><td><b class="t">Тыныстық</b> <span class="lat">(респирациялық)</span></td><td>вентиляция, диффузия, перфузия бұзылыстары → артериялық қан O<sub>2</sub>-мен қанықпайды</td><td>сыртқы тыныс жеткіліксіздігі</td></tr>
+<tr><td><b class="t">Қанайналымдық</b> <span class="lat">(циркуляциялық)</span></td><td>қан ағуы баяулайды → тіндерге O<sub>2</sub> тасымалы ↓</td><td>жүрек аурулары, сілейме, коллапс, сусыздану, ТІШҚҰ <span class="lat">(ДВС-синдром)</span>; жергілікті/жалпы</td></tr>
+<tr><td><b class="t">Қандық</b> <span class="lat">(гемдік)</span></td><td>қанның O<sub>2</sub>-ге сыйымдылығы ↓</td><td>а) анемиялық; б) Hb әсерсізденуі – карбоксигемоглобин (CO), метгемоглобин (азот тотықтары т.б.)</td></tr>
+<tr><td><b class="t">Тіндік</b> <span class="lat">(гистотоксиндік)</span></td><td>O<sub>2</sub> жеткілікті, бірақ жасуша оны пайдалана алмайды</td><td>цианидтер, монойодацетат, этанол, эфир, уретан, витамин тапшылығы, ажыратқыштар</td></tr>
+<tr><td><b class="t">Аралас</b></td><td>бірнеше түрдің қосылуы</td><td>ауыр сілейме, иіс газымен улану</td></tr>
+<tr><td class="grp" rowspan="2">III. Қазіргі түрлер</td><td><b class="t">Жүктемелік</b></td><td>ағзаның O<sub>2</sub>-ге мұқтаждығы жеткізу мүмкіндігінен асып кетеді</td><td>тым ауыр қол жұмысы (қаңқа бұлшықеттері, жүрек еті), қажу</td></tr>
+<tr><td><b class="t">Субстраттық</b></td><td>O<sub>2</sub> жеткілікті, тотығатын зат (глюкоза) жоқ</td><td>мида глюкоза жетіспеуі <span class="add-inline">(гипогликемия)</span></td></tr>
+</tbody></table></div>
+
+<!-- ============ 3 ============ -->
+<hr>
+<h2>2. Интеграция: қалыпты механизмдер</h2>
+<div class="grid2">
+<div class="box">
+<span class="tag tag-phys">[Физиология]</span>
+<h4 style="margin-top:2px">Оттегі тасымалы – негізгі сандар</h4>
+<dl class="kv">
+<dt>1 г Hb</dt><dd>1,34 мл O<sub>2</sub> байланыстырады</dd>
+<dt>Hb қанда</dt><dd>145–160 г/л</dd>
+<dt>Hb-мен байл. O<sub>2</sub></dt><dd>19,4–21,4 мл / 100 мл қан</dd>
+<dt>Еріген O<sub>2</sub></dt><dd>0,3 мл / 100 мл қан</dd>
+<dt>O<sub>2</sub> сыйымдылығы</dt><dd>19,3–21,3 көл.%</dd>
+<dt>SaO<sub>2</sub></dt><dd>95–98%</dd>
+<dt>А–В айырмасы</dt><dd>қалыпты ≈ 5 көл.%</dd>
+</dl>
+<p style="margin:6px 0 0;font-size:9.6pt"><b class="t">Қанның оттегіге сыйымдылығы</b> – 100 мл қанның ең көп байланыстыра алатын O<sub>2</sub> мөлшері (көл.%).</p>
+</div>
+<div class="box">
+<span class="tag tag-phys">[Физиология]</span>
+<h4 style="margin-top:2px">Реттелу және оттегінің қатерлі кернеуі</h4>
+<ul style="font-size:9.8pt">
+<li>Қандағы CO<sub>2</sub> мен H<sup>+</sup> <b class="t">қолқа және ұйқы артериялары қойнауларының хеморецепторларын</b> қоздырып, тыныс орталығын белсендіреді.</li>
+<li>CO<sub>2</sub>-нің белгілі мөлшері <b>ми мен жүрек тамырларының тонусын</b> ұстап тұру үшін қажет.</li>
+<li><b class="t">Оттегінің қатерлі кернеуі</b> – тіндерде тотығу-тотықсыздану әлі жүре алатын қандағы ең төменгі O<sub>2</sub> деңгейі: <span class="num"><b>артерияда 27–33 мм с.б.</b></span>, <span class="num"><b>венада 19 мм с.б.</b></span> Одан төмен – тіндік тыныс толық бұзылады.</li>
+</ul>
+</div>
+</div>
+
+<div class="box">
+<span class="tag tag-bio">[Биохимия]</span>
+<h4 style="margin-top:2px">Жасушалық тыныс және энергия түзілуі</h4>
+<ul>
+<li>Субстраттардан сутегін <b class="t">NAD-тәуелді</b> және <b class="t">флавиндік (FAD) дегидрогеназалар</b> алады; электрондар тыныс тізбегі арқылы соңғы фермент – <b class="t">цитохромоксидазаға</b> жетіп, O<sub>2</sub>-ні тотықсыздандырады.</li>
+<li>Тотығу <b>фосфорланумен ұласады</b> – бөлінген энергия АТФ түрінде жиналады.</li>
+<li>Коферменттер витаминдерден түзіледі: <b>рибофлавин (B<sub>2</sub>)</b> → флавиндік ферменттер; <b>никотин қышқылы (PP)</b> → NAD; <b>тиамин (B<sub>1</sub>)</b> → <b class="t">тиаминпирофосфат</b> (глюкоза тотығуының коферменті).</li>
+<li>O<sub>2</sub> жетіспесе энергия <b class="t">анаэробты гликолизбен</b> түзіледі → сүт қышқылы.</li>
+<li>Иондық градиентті <b class="t">Na<sup>+</sup>,K<sup>+</sup>-АТФ-аза</b> және <b class="t">Ca<sup>2+</sup>-АТФ-аза</b> ұстайды (АТФ-тәуелді).</li>
+<li>Эритроцит ішіндегі <b class="t">2,3-дифосфоглицерат</b> мен АТФ Hb-нің O<sub>2</sub>-ге үйірлігін азайтып, тіндерге беруін жақсартады.</li>
+</ul>
+</div>
+<div class="box add">
+<p style="margin:0">Глюкозаның аэробты тотығуы ≈ 30–32 АТФ береді, анаэробты гликолиз – тек 2 АТФ. Сондықтан гипоксияда энергия тапшылығы тез дамиды. Тиаминпирофосфат <b>пируватдегидрогеназа</b> мен <b>α-кетоглутаратдегидрогеназаның</b> коферменті: B<sub>1</sub> тапшылығында пируват Кребс цикліне кірмей, лактатқа айналады. Цитохромоксидаза – тыныс тізбегінің IV кешені; цианид оның Fe<sup>3+</sup>-іне байланысады.</p>
+</div>
+
+<h3>Оксигемоглобиннің диссоциациялық сызығы</h3>
+<figure>
+<div class="diagram">
+<svg viewBox="0 0 560 290" width="100%" style="max-width:560px;display:block;margin:0 auto" role="img" aria-label="Оксигемоглобин диссоциация қисығы">
+  <g stroke="#E2E8F0" stroke-width="1">
+    <line x1="50" y1="30" x2="470" y2="30"/><line x1="50" y1="70" x2="470" y2="70"/><line x1="50" y1="110" x2="470" y2="110"/><line x1="50" y1="150" x2="470" y2="150"/><line x1="50" y1="190" x2="470" y2="190"/>
+    <line x1="134" y1="30" x2="134" y2="230"/><line x1="218" y1="30" x2="218" y2="230"/><line x1="302" y1="30" x2="302" y2="230"/><line x1="386" y1="30" x2="386" y2="230"/><line x1="470" y1="30" x2="470" y2="230"/>
+  </g>
+  <line x1="50" y1="230" x2="470" y2="230" stroke="#1F2937" stroke-width="1.2"/>
+  <line x1="50" y1="30" x2="50" y2="230" stroke="#1F2937" stroke-width="1.2"/>
+  <g font-size="10" fill="#64748B" text-anchor="end">
+    <text x="44" y="233">0</text><text x="44" y="193">20</text><text x="44" y="153">40</text><text x="44" y="113">60</text><text x="44" y="73">80</text><text x="44" y="33">100</text>
+  </g>
+  <g font-size="10" fill="#64748B" text-anchor="middle">
+    <text x="50" y="246">0</text><text x="134" y="246">20</text><text x="218" y="246">40</text><text x="302" y="246">60</text><text x="386" y="246">80</text><text x="470" y="246">100</text>
+  </g>
+  <text x="260" y="266" font-size="10.5" fill="#1F2937" text-anchor="middle">pO₂, мм с.б.</text>
+  <text x="14" y="130" font-size="10.5" fill="#1F2937" text-anchor="middle" transform="rotate(-90 14 130)">HbO₂, %</text>
+  <path fill="none" stroke="#64748B" stroke-width="1.6" stroke-dasharray="5 3" d="M54.2,229.9 L62.6,228.8 L71.0,225.4 L79.4,218.9 L87.8,209.2 L96.2,196.8 L104.6,182.4 L113.0,167.0 L121.4,151.6 L129.8,136.9 L138.2,123.4 L146.6,111.4 L155.0,100.8 L163.4,91.6 L171.8,83.7 L180.2,76.9 L188.6,71.1 L197.0,66.2 L205.4,61.9 L213.8,58.3 L222.2,55.2 L230.6,52.5 L239.0,50.1 L247.4,48.1 L255.8,46.3 L264.2,44.8 L272.6,43.4 L281.0,42.2 L289.4,41.2 L297.8,40.2 L306.2,39.4 L314.6,38.6 L323.0,38.0 L331.4,37.4 L339.8,36.8 L348.2,36.3 L356.6,35.9 L365.0,35.5 L373.4,35.1 L381.8,34.8 L390.2,34.5 L398.6,34.2 L407.0,33.9 L415.4,33.7 L423.8,33.5 L432.2,33.3 L440.6,33.1 L449.0,32.9 L457.4,32.8 L465.8,32.6 L470.0,32.6"/>
+  <path fill="none" stroke="#1E3A8A" stroke-width="2.4" d="M54.2,230.0 L62.6,229.5 L71.0,227.9 L79.4,224.8 L87.8,220.0 L96.2,213.4 L104.6,205.2 L113.0,195.5 L121.4,184.7 L129.8,173.4 L138.2,161.8 L146.6,150.4 L155.0,139.4 L163.4,129.0 L171.8,119.4 L180.2,110.6 L188.6,102.6 L197.0,95.4 L205.4,89.0 L213.8,83.3 L222.2,78.2 L230.6,73.6 L239.0,69.6 L247.4,66.0 L255.8,62.8 L264.2,59.9 L272.6,57.4 L281.0,55.1 L289.4,53.1 L297.8,51.2 L306.2,49.6 L314.6,48.1 L323.0,46.8 L331.4,45.5 L339.8,44.4 L348.2,43.4 L356.6,42.5 L365.0,41.7 L373.4,40.9 L381.8,40.2 L390.2,39.6 L398.6,39.0 L407.0,38.5 L415.4,38.0 L423.8,37.5 L432.2,37.1 L440.6,36.7 L449.0,36.4 L457.4,36.0 L465.8,35.7 L470.0,35.6"/>
+  <path fill="none" stroke="#DC2626" stroke-width="1.8" d="M54.2,230.0 L62.6,229.8 L71.0,229.0 L79.4,227.6 L87.8,225.4 L96.2,222.2 L104.6,218.0 L113.0,212.8 L121.4,206.7 L129.8,199.8 L138.2,192.2 L146.6,184.0 L155.0,175.6 L163.4,167.0 L171.8,158.4 L180.2,149.9 L188.6,141.7 L197.0,133.8 L205.4,126.3 L213.8,119.2 L222.2,112.6 L230.6,106.5 L239.0,100.8 L247.4,95.5 L255.8,90.6 L264.2,86.2 L272.6,82.1 L281.0,78.3 L289.4,74.9 L297.8,71.7 L306.2,68.8 L314.6,66.2 L323.0,63.7 L331.4,61.5 L339.8,59.4 L348.2,57.6 L356.6,55.8 L365.0,54.2 L373.4,52.8 L381.8,51.4 L390.2,50.1 L398.6,49.0 L407.0,47.9 L415.4,46.9 L423.8,46.0 L432.2,45.1 L440.6,44.3 L449.0,43.6 L457.4,42.9 L465.8,42.2 L470.0,41.9"/>
+  <g fill="#1E3A8A">
+    <circle cx="218" cy="84" r="4"/><circle cx="302" cy="50" r="4"/><circle cx="470" cy="36.6" r="4"/>
+  </g>
+  <g font-size="9.5" fill="#1E3A8A" font-weight="600">
+    <text x="226" y="98">40 мм → 73%</text>
+    <text x="300" y="66" text-anchor="middle">60 мм → 90%</text>
+    <text x="466" y="26" text-anchor="end">100 мм → 92–97%</text>
+  </g>
+  <g font-size="10">
+    <line x1="482" y1="60" x2="500" y2="60" stroke="#64748B" stroke-width="1.6" stroke-dasharray="5 3"/><text x="504" y="56" fill="#64748B">Солға</text><text x="504" y="68" fill="#64748B">үйірлік↑</text>
+    <line x1="482" y1="100" x2="500" y2="100" stroke="#1E3A8A" stroke-width="2.4"/><text x="504" y="104" fill="#1E3A8A">Қалыпты</text>
+    <line x1="482" y1="140" x2="500" y2="140" stroke="#DC2626" stroke-width="1.8"/><text x="504" y="136" fill="#DC2626">Оңға</text><text x="504" y="148" fill="#DC2626">үйірлік↓</text>
+  </g>
+</svg>
+</div>
+<figcaption>Оксигемоглобиннің диссоциациялық сызығы: pO<sub>2</sub> 100 мм с.б. → 92–97%, 60 → 90%, 40 → 73% <span class="lat">(P<sub>50</sub> ≈ 27 мм с.б.)</span>.</figcaption>
+</figure>
+
+<div class="tw"><table>
+<thead><tr><th>Сызықтың ығысуы</th><th>Себептері</th><th>Салдары</th></tr></thead>
+<tbody>
+<tr><td><b class="t">Солға</b></td><td>дене қызуы ↓ (30° қалыпты; 20°, 10°-қа дейін), <b>гипокапния / алкалоз</b></td><td>Hb-нің O<sub>2</sub>-ге үйірлігі ↑: аз pO<sub>2</sub>-де жақсы байланыстырады, бірақ <b>тіндерге беруі нашарлайды</b>. Эритроциттерде 2,3-ДФГ жиналып, беруді жақсартады</td></tr>
+<tr><td><b class="t">Оңға</b></td><td>дене қызуы ↑, <b>pH ↓ (ацидоз)</b>, <b>pCO<sub>2</sub> ↑</b>, 2,3-ДФГ, АТФ ↑</td><td>үйірлік ↓: тіндерге беру ↑. <b>Бірақ</b> үйірлік тым аз болса, өкпеде O<sub>2</sub> жеткілікті болса да байланыстыру мен SaO<sub>2</sub> нашарлайды</td></tr>
+</tbody></table></div>
+<div class="box add">
+<p style="margin:0">CO<sub>2</sub>/H<sup>+</sup> әсерінен оңға ығысу – <b>Бор әсері</b>. Ұрықтық Hb (HbF) 2,3-ДФГ-ны нашар байланыстырады, сондықтан оның қисығы солға ығысқан – жаңа туғандардың гипоксияға төзімділігінің бір себебі. Метгемоглобин және карбоксигемоглобин қалған гем бөліктерінің үйірлігін арттырып, қисықты солға ығыстырады – тіндерге беру екі есе нашарлайды.</p>
+</div>
+
+<!-- ============ 3 PATHO ============ -->
+<hr>
+<h2>3. Патогенез</h2>
+<h3>3.1. Патогенездің үш деңгейлі сызбасы</h3>
+<div class="dg">
+  <div class="dg-row"><div class="c key">Этиология: дем ауасында pO<sub>2</sub> ↓ · сыртқы тыныс бұзылысы · Hb ↓ немесе әсерсізденуі · қанайналым бұзылысы · тыныс ферменттерінің тежелуі</div></div>
+  <div class="a"></div>
+  <div class="dg-row"><div class="c key">Бастапқы триггер: тіндерге O<sub>2</sub> жеткізу немесе оны пайдалану төмендейді → тіндерде pO<sub>2</sub> ↓</div></div>
+  <div class="dg-cols"><div class="a"></div><div class="a"></div><div class="a"></div></div>
+  <div class="dg-cols">
+    <div class="dg-col">
+      <div class="dg-lane">1. Жүйелік деңгей</div>
+      <div class="c add">Каротид денешігі: O<sub>2</sub>-сезгіш K<sup>+</sup>-арналар жабылады → гломус-жасуша деполяризациясы</div>
+      <div class="a add"></div>
+      <div class="c">Хеморецепторлар (CO<sub>2</sub>, H<sup>+</sup>) → тыныс орталығының қозымдылығы ↑</div>
+      <div class="a"></div>
+      <div class="c">Гипервентиляция → өкпеде ауа алмасу ↑</div>
+      <div class="a"></div>
+      <div class="c">CO<sub>2</sub> артық шығарылады → гипокапния, тыныстық алкалоз</div>
+      <div class="a"></div>
+      <div class="c">Гипоталамус → ГГБҮБ сыртқы қабаты + симпатоадреналдық жүйе</div>
+      <div class="a"></div>
+      <div class="c comp">Тахикардия, жүрек лақтырысы ↑, қан ағу жылдамдығы ↑</div>
+      <div class="a"></div>
+      <div class="c comp">Шеткері тамырлар тарылады → қанның қайта бөлінуі: ми, жүрек, өкпе</div>
+      <div class="a"></div>
+      <div class="c comp">Қорлардан қан шығарылады → эритроциттер мен Hb ↑</div>
+    </div>
+    <div class="dg-col">
+      <div class="dg-lane">2. Ағзалық деңгей</div>
+      <div class="c">Тіндерде метаболиттер жиналады: гистамин, адениндік нуклеотидтер, сүт қышқылы</div>
+      <div class="a add"></div>
+      <div class="c add">Аденозин → A<sub>2A</sub>-рецептор → цАМФ → K<sub>АТФ</sub>-арналар ашылады</div>
+      <div class="a"></div>
+      <div class="c comp">Ми мен жүрек тамырлары кеңейеді, қызмет атқаратын капиллярлар ↑</div>
+      <div class="a"></div>
+      <div class="c comp">Hb: өкпеде O<sub>2</sub> байланыстыру ↑, тіндерде беру ↑; эритроциттерде АТФ, 2,3-ДФГ ↑</div>
+      <div class="a"></div>
+      <div class="c comp">Гликогенолиз, глюконеогенез → қанда глюкоза ↑</div>
+      <div class="a add"></div>
+      <div class="c add">HIF-1α тұрақтанады → эритропоэтин, VEGF, GLUT-1 гендері</div>
+      <div class="a"></div>
+      <div class="c comp">Тұрақты бейімделу: гиперплазия, гипертрофия, митохондриялар ↑</div>
+    </div>
+    <div class="dg-col">
+      <div class="dg-lane">3. Молекулалық / жасушалық деңгей</div>
+      <div class="c add">Тыныс тізбегінде соңғы акцептор жоқ → NADH/NAD<sup>+</sup> ↑ → Кребс циклі тежеледі</div>
+      <div class="a"></div>
+      <div class="c">Тотығу-тотықсыздану бұзылады → АТФ ↓</div>
+      <div class="a"></div>
+      <div class="c">Анаэробты гликолиз → лактат; кетон денелері → метаболизмдік ацидоз</div>
+      <div class="a"></div>
+      <div class="c">Na<sup>+</sup>,K<sup>+</sup>-АТФ-аза, Ca<sup>2+</sup>-АТФ-аза ↓ → жасуша ішінде Na<sup>+</sup>, Ca<sup>2+</sup> ↑, K<sup>+</sup> ↓</div>
+      <div class="a"></div>
+      <div class="c">Ca<sup>2+</sup> → фосфолипаза, протеаза белсенеді</div>
+      <div class="a"></div>
+      <div class="c">Лизосома мембранасы бүлінеді → қышқыл протеазалар босайды</div>
+      <div class="a"></div>
+      <div class="c">Митохондрия мен жасуша мембраналары бүлінеді; ДНҚ, РНҚ түзілуі бұзылады</div>
+      <div class="a"></div>
+      <div class="c comp">Глюкокортикоидтар мембрана мен лизосоманы тұрақтандырады</div>
+    </div>
+  </div>
+  <div class="dg-cols two"><div class="a"></div><div class="a red"></div></div>
+  <div class="dg-cols two">
+    <div class="c comp">Тетіктер жеткілікті → <b>1-кезең: теңгерілген гипоксия</b></div>
+    <div class="c red">Тетіктер қалжырайды → <b>2-кезең: теңгерілмеген гипоксия</b></div>
+  </div>
+  <div class="dg-lane red">Circulus vitiosus</div>
+  <div class="dg-cols four">
+    <div class="c red">Гипокапния → ми тамырлары тарылады → ми гипоксиясы ↑ <span class="loop">↺</span></div>
+    <div class="c red">Миокард гипоксиясы → аритмия, жиырылғыштық ↓ → жүрек лақтырысы ↓ <span class="loop">↺</span></div>
+    <div class="c red">ОЖЖ тежелуі → тыныс орталығы, Чейн-Стокс → гипоксемия ↑ <span class="loop">↺</span></div>
+    <div class="c red">Ca<sup>2+</sup> ↑ → митохондрия бүлінеді → АТФ ↓ → Ca<sup>2+</sup> ↑ <span class="loop">↺</span></div>
+  </div>
+</div>
+
+<p><b>Екі кезең:</b> <b class="t">1) теңгерілген (компенсацияланған)</b> – икемделу-бейімделу тетіктері жұмылдырылып, ағзалар мен тіндердің O<sub>2</sub>-мен қамтамасыз етілуі белгілі деңгейде ұсталады; <b class="t">2) теңгерілмеген (декомпенсацияланған)</b> – тетіктер қалжырайды.</p>
+<hr>
+<h2>3.2. Икемделу-бейімделу тетіктері</h2>
+<h3>3.2.1. Жедел (тұрақсыз) икемделу-бейімделу</h3>
+
+<div class="br">
+  <div class="bt">I. Сыртқы тыныс жүйесі – гипервентиляция</div>
+  <div class="flow" style="margin-bottom:0">
+    <p class="st">Қанда CO<sub>2</sub> мен H<sup>+</sup> жиналады, PaO<sub>2</sub> төмендейді</p>
+    <p class="ln">Перифериялық хеморецепторлар (қолқа доғасы, ұйқы артериясының бөлінген жері) PaO<sub>2</sub>, PaCO<sub>2</sub> және pH-ты; орталық хеморецепторлар ми-жұлын сұйықтығының pH-ын сезеді. Серпін Геринг нерві (IX) мен кезеген нерв (X) арқылы сопақша мидың дорсальды және вентральды тыныс топтарына барады.</p>
+    <p class="st">Тыныс орталығының қозымдылығы артады → тыныс жиілеп, тереңдейді</p>
+    <p class="ln">Диафрагма мен қабырғааралық еттер жиі әрі күшті жиырылады → минуттық вентиляция ↑ → альвеолалық pO<sub>2</sub> атмосфералық деңгейге жақындайды.</p>
+    <p class="st">Өкпеде ауа алмасу артады → O<sub>2</sub> кемдігі толтырылады</p>
+    <p class="ln">Бірақ CO<sub>2</sub> бір мезгілде шығарылады.</p>
+    <p class="st">Гипокапния дамиды (3.3.1-бөлім)</p>
+  </div>
+</div>
+
+<div class="br">
+  <div class="bt">II. Нейроэндокриндік іске қосылу – барлық келесі тетіктердің бастауы</div>
+  <div class="flow" style="margin-bottom:0">
+    <p class="st">O<sub>2</sub> жетіспеуі гипоталамус пен хеморецепторларды қоздырады</p>
+    <p class="ln">Гипоталамустан кортиколиберин → гипофиздің АКТГ-сы → бүйрек үсті безінің сыртқы қабатынан <b>глюкокортикоидтар</b>. Бір мезгілде симпатикалық орталықтар → бүйрек үсті безінің милы қабатынан <b>адреналин</b>, симпатикалық ұштардан <b>норадреналин</b>.</p>
+    <p class="st">«Гипоталамус – гипофиз – бүйрек үсті безінің сыртқы қабаты» және симпатоадреналдық жүйе әсерленеді</p>
+    <p class="ln" style="margin-bottom:0">Катехоламиндер α<sub>1</sub>-, β<sub>1</sub>-, β<sub>2</sub>-адренорецепторлар арқылы; глюкокортикоидтар ядролық рецепторлар арқылы гендердің транскрипциясын өзгерту арқылы әсер етеді.</p>
+  </div>
+</div>
+
+<div class="br">
+  <div class="bt">III. Қанайналым жүйесі</div>
+  <div class="flow" style="margin-bottom:0">
+    <p class="st">Жүрек соғу жиілігі және қан ағу жылдамдығы ұлғаяды</p>
+    <p class="ln">β<sub>1</sub>-рецепторлар → цАМФ → протеинкиназа А → синус түйінінде If тогы мен L-типті Ca<sup>2+</sup>-арналар белсенеді → <b>тахикардия</b>; кардиомиоциттерде Ca<sup>2+</sup> кіруі ↑ → жиырылу күші ↑ → <b>жүрек лақтырысы ↑</b>.</p>
+    <p class="st">Қызмет атқаратын капиллярлар саны көбейеді</p>
+    <p class="ln">Тіндердегі метаболиттер прекапиллярлық сфинктерлерді ашады → диффузия ауданы ↑, капиллярдан жасушаға дейінгі қашықтық ↓ (Фик заңы бойынша O<sub>2</sub> жеткізу жақсарады).</p>
+    <p class="st">Шеткері тамырлар тарылады → тері, бұлшықет, ішектерге қан келу шектеледі</p>
+    <p class="ln">Бұл тамырларда α<sub>1</sub>-адренорецепторлар көп → Gq → IP<sub>3</sub> → тегіс бұлшықетте Ca<sup>2+</sup> ↑ → вазоконстрикция. Ми мен коронарлық тамырларда α<sub>1</sub>-рецепторлар аз, ал метаболиттік реттелу басым болғандықтан олар тарылмайды.</p>
+    <p class="st">Метаболиттер (гистамин, адениндік нуклеотидтер, сүт қышқылы) майда тамырларды кеңейтеді</p>
+    <p class="ln"><b>Аденозин</b> (АТФ → АДФ → АМФ → аденозин) A<sub>2A</sub>-рецепторлар → цАМФ → K<sub>АТФ</sub>-арналар ашылады → тегіс бұлшықет гиперполяризацияланады → коронарлық және ми тамырлары кеңейеді. Лактат пен H<sup>+</sup> те K<sup>+</sup>-арналарды ашады.</p>
+    <p class="st">Қанның қайта бөлінуі: тіршілікке маңызды ағзалар (ми, жүрек, өкпе) артық қамтамасыз етіледі</p>
+    <p class="ln" style="margin-bottom:0">Бағасы: ішек, бүйрек, тері ишемиясы (ұзақ болса ішек шырышты қабатының зақымы, бүйрек жеткіліксіздігі).</p>
+  </div>
+</div>
+
+<div class="br">
+  <div class="bt">IV. Қан жүйесі</div>
+  <div class="flow" style="margin-bottom:0">
+    <p class="st">Қорлардан (көкбауыр, бауыр, тері) қан тамырларға шығарылады</p>
+    <p class="ln">Катехоламиндер көкбауыр капсуласы мен трабекулаларындағы тегіс бұлшықеттерді (α<sub>1</sub>) жиырады → қоймадағы эритроциттерге бай қан айналымға қосылады (минуттар ішінде).</p>
+    <p class="st">Қанда эритроциттер мен Hb көбейеді → O<sub>2</sub> сыйымдылығы артады</p>
+    <p class="ln" style="margin-bottom:0">Кейінірек (тәуліктер): бүйректің перитубулярлық фибробласттарында HIF-2α тұрақтанады → <b>эритропоэтин</b> → сүйек кемігінде эритроидтық ізашарлардың апоптозы азайып, көбеюі артады → ретикулоцитоз (3–5 тәулік).</p>
+  </div>
+</div>
+
+<div class="br">
+  <div class="bt">V. Гемоглобиннің қасиеттерінің өзгеруі</div>
+  <div class="flow" style="margin-bottom:0">
+    <p class="st">Өкпеде: сыртқы ауада pO<sub>2</sub> азайса да Hb оны жоғары деңгейде байланыстырады</p>
+    <p class="ln">Қисықтың жоғарғы тегіс бөлігі (плато): pO<sub>2</sub> 100-ден 60 мм с.б.-ға төмендесе де қанығу 97%-дан тек 90%-ға азаяды. Бұл Hb-нің 4 суббірлігінің <b>кооперативтік байланысуымен</b> (S-тәрізді қисық) түсіндіріледі.</p>
+    <p class="st">Тіндерде: pO<sub>2</sub> аз → Hb–O<sub>2</sub> байланысы әлсірейді → тін қаннан O<sub>2</sub>-ні артық алады</p>
+    <p class="ln">Қисықтың тік бөлігі: pO<sub>2</sub> аз ғана төмендесе де көп O<sub>2</sub> босайды. CO<sub>2</sub>, H<sup>+</sup>, температура жоғары болған тіндерде Бор әсері тағы қосылады.</p>
+    <p class="st">Эритроциттерде АТФ мен 2,3-ДФГ көбейеді → O<sub>2</sub> беру артады</p>
+    <p class="ln" style="margin-bottom:0">2,3-ДФГ гликолиздің Рапопорт–Люберинг шунтында түзіледі және Hb-нің β-тізбектері арасындағы қуысқа байланысып, T-күйді тұрақтандырады. Анемия мен биіктікте маңызды.</p>
+  </div>
+</div>
+
+<div class="br">
+  <div class="bt">VI. Тіндік (метаболизмдік) бейімделу</div>
+  <div class="flow" style="margin-bottom:0">
+    <p class="st">Гликогенолиз, глюконеогенез артады</p>
+    <p class="ln">Адреналин (β<sub>2</sub>) → цАМФ → гликогенфосфорилаза белсенеді (бауыр, бұлшықет); глюкагон мен кортизол бауырда глюконеогенез ферменттерін (ФЕПКК) индукциялайды → қанда глюкоза ↑ → мида субстрат жеткілікті болады.</p>
+    <p class="st">Анаэробты гликолиз күшейеді</p>
+    <p class="ln"><b>Пастер әсері:</b> АТФ ↓ және АМФ ↑ фосфофруктокиназаны аллостерикалық белсендіреді → гликолиз ағыны ↑. 1 моль глюкозадан тек 2 АТФ, сондықтан бұл қысқа мерзімді шара.</p>
+    <p class="st">Глюкокортикоидтар жасуша мембраналары мен лизосома қабықтарын тұрақтандырады</p>
+    <p class="ln" style="margin-bottom:0">Липокортин (аннексин-1) түзілуі → фосфолипаза A<sub>2</sub> тежеледі → мембрана фосфолипидтерінің ыдырауы мен арахидон қышқылы каскады азаяды; лизосома ферменттерінің шығуы тежеледі (3.4.2-бөлімдегі зақымға қарсы).</p>
+  </div>
+</div>
+
+<h3>3.2.2. Баяу (тұрақты) бейімделу</h3>
+<div class="flow">
+  <p class="st">Ұзақ гипоксия → жасушалардың гендік құралдары әсерленеді</p>
+  <p class="ln">Қалыпты O<sub>2</sub>-де <b>HIF-1α</b> пролилгидроксилаза (O<sub>2</sub>, Fe<sup>2+</sup>, α-кетоглутарат қажет) арқылы гидроксилденіп, VHL-нәруызы арқылы протеасомада ыдырайды. Гипоксияда гидроксилдену болмайды → HIF-1α тұрақтанып, ядроға өтеді → HIF-1β-мен қосылып, гипоксияға жауап беретін элементтерге (HRE) байланысады.</p>
+  <p class="st">ДНҚ, РНҚ, нәруыздардың түзілуі артады</p>
+  <p class="ln">Нысана гендер: <b>эритропоэтин</b> (эритропоэз), <b>VEGF</b> (ангиогенез, капилляр тығыздығы ↑), <b>GLUT-1</b> және гликолиз ферменттері, <b>трансферрин</b> рецепторы (темір сіңіру), iNOS (вазодилатация).</p>
+  <p class="st">O<sub>2</sub> тасымалдауға жауапты ағзаларда гипертрофия мен гиперплазия</p>
+  <p class="ln">Тыныс бұлшықеттері, өкпе ұяшықтарының беті, жүрек еті көлемі ↑ (жүктеме гипертрофиясы); сүйек кемігі гиперплазиясы → тұрақты эритроцитоз.</p>
+  <p class="st">Тіндерде митохондриялар көбейіп, көлемі ұлғаяды</p>
+  <p class="ln" style="margin-bottom:0">PGC-1α арқылы митохондрия биогенезі → тыныс тізбегінің қуаты ↑ → O<sub>2</sub>-ні аз қысымда да тиімді пайдалану. Миоглобин мөлшері де артады.</p>
+</div>
+<div class="alert">
+<span class="tag tag-red">[Маңызды ескерту]</span>
+<p style="margin:0">Бейімделу мүмкіндігі гипоксия түріне тәуелді. <b>Тыныстық және циркуляциялық</b> гипоксияда сол жүйелердің өзі зақымдалғандықтан, олардың бейімделуге қатысуы шектеулі. <b>Тіндік</b> гипоксияда O<sub>2</sub> тасымалдайтын жүйелердің (тыныс, қан, қанайналым) бейімделуі <b>нәтижесіз</b>, себебі мәселе O<sub>2</sub>-ні пайдалануда.</p>
+</div>
+
+
+<hr>
+<h2>3.3. Гипоксия түрлерінің патогенезі</h2>
+<!-- 4.1 Гипобариялық -->
+<h3>3.3.1. Гипобариялық экзогендік гипоксия</h3>
+<div class="flow">
+  <p class="st"><span class="n">1.</span><span class="lvl">Орта</span>Биіктікке көтерілу → атмосфералық қысым төмендейді</p>
+  <p class="ln"><b>Дальтон заңы:</b> pO<sub>2</sub> = 0,21 × (P<sub>атм</sub> − 47). Теңіз деңгейінде дем ауасында pO<sub>2</sub> ≈ 150 мм с.б.; 5500 м-де P<sub>атм</sub> ≈ 380 → дем ауасында pO<sub>2</sub> ≈ 70, альвеолада ≈ 40–45 мм с.б. Оттегінің үлесі (21%) өзгермейді, тек парциалды қысымы азаяды.</p>
+  <p class="st"><span class="n">2.</span><span class="lvl">Өкпе</span>Альвеолалық ауада pO<sub>2</sub> төмендейді</p>
+  <p class="ln"><b>Фик заңы:</b> диффузия жылдамдығы альвеола–капилляр арасындағы ΔpO<sub>2</sub>-ге тура пропорционал. Градиент азайғандықтан эритроцит капиллярдан өткен 0,75 с ішінде толық қанықпайды.</p>
+  <p class="st"><span class="n">3.</span><span class="lvl">Қан</span>Артериялық гипоксемия: PaO<sub>2</sub> ↓, SaO<sub>2</sub> ↓</p>
+  <p class="ln"><b>Перифериялық хеморецепция:</b> PaO<sub>2</sub> &lt; 60 мм с.б. болғанда (қисықтың тік бөлігі) ұйқы артериясы денешігінің гломус-жасушаларында O<sub>2</sub>-сезгіш K<sup>+</sup>-арналар жабылады → деполяризация → кернеуге тәуелді Ca<sup>2+</sup>-арналар ашылады → медиатор (АТФ, дофамин) босайды → IX (Геринг нерві) және X жұп арқылы сопақша мидағы тыныс орталығына серпін.</p>
+  <p class="st"><span class="n">4.</span><span class="lvl">Жүйе</span>Тыныс жиілейді – гипервентиляция</p>
+  <p class="ln">CO<sub>2</sub> өндірілуі тұрақты, ал шығарылуы альвеолалық вентиляцияға тура пропорционал: <span class="eq">PaCO<sub>2</sub> ≈ VCO<sub>2</sub> / V<sub>A</sub></span>. Вентиляция екі есе артса, PaCO<sub>2</sub> шамамен екі есе азаяды.</p>
+  <p class="st"><span class="n">5.</span><span class="lvl">Қан</span>CO<sub>2</sub> артық шығарылады → <b class="t">гипокапния</b></p>
+  <p class="ln">Гипокапния бір мезгілде төрт бағытта әсер етеді (5а–5г):</p>
+</div>
+
+<div class="br">
+  <div class="bt">5а. Қышқыл-сілтілік тепе-теңдік</div>
+  <div class="flow" style="margin-bottom:0">
+    <p class="st">Тыныстық алкалоз</p>
+    <p class="ln"><b>Гендерсон–Гассельбах:</b> <span class="eq">pH = 6,1 + lg [HCO<sub>3</sub><sup>−</sup>] / (0,03 × pCO<sub>2</sub>)</span>. Бөлім (pCO<sub>2</sub>) азаяды → pH артады. Бүйрек 2–3 тәулікте HCO<sub>3</sub><sup>−</sup> шығаруды арттырып, ішінара теңгереді.</p>
+    <p class="st">O<sub>2</sub> жетіспеуінен қышқыл өнімдер жиналады → метаболизмдік ацидоз қосылады</p>
+    <p class="ln" style="margin-bottom:0">Тіндерде пируват митохондрияға кірмей, лактатдегидрогеназа арқылы <b>лактатқа</b> айналады (NAD<sup>+</sup> қалпына келеді, гликолиз жалғасады). Нәтижесінде <b>аралас бұзылыс</b>: қанда тыныстық алкалоз, тін ішінде метаболизмдік ацидоз.</p>
+  </div>
+</div>
+
+<div class="br">
+  <div class="bt">5б. Ми мен жүрек тамырлары</div>
+  <div class="flow" style="margin-bottom:0">
+    <p class="st">CO<sub>2</sub> азаяды → ми мен жүрек тамырларының тонусы бұзылады</p>
+    <p class="ln">CO<sub>2</sub> тамыр қабырғасына оңай өтіп, тегіс бұлшықет маңындағы H<sup>+</sup>-ты арттырады; H<sup>+</sup> K<sup>+</sup>-арналарды ашып, тамырды кеңейтеді. Гипокапнияда керісінше: тамыр маңы алкалозы → Ca<sup>2+</sup>-тың тегіс бұлшықетке кіруі ↑ → <b>вазоконстрикция</b>. PaCO<sub>2</sub> 1 мм с.б.-ға азайса, ми қан ағымы ≈ 2–4%-ға азаяды.</p>
+    <p class="st end">Ми мен жүректің қанмен қамтамасыз етілуі нашарлайды</p>
+  </div>
+  <div class="vc"><span class="vh">Тұйық шеңбер:</span> гипоксемия → гипервентиляция → гипокапния → ми тамырлары тарылады → ми гипоксиясы күшейеді → тыныс орталығы бұзылады.</div>
+</div>
+
+<div class="br">
+  <div class="bt">5в. Тыныс орталығы</div>
+  <div class="flow" style="margin-bottom:0">
+    <p class="st">Тыныс орталығының қозымдылығы төмендейді</p>
+    <p class="ln">Тыныстың негізгі ынталандырушысы – сопақша мидың вентральды бетіндегі <b>орталық хеморецепторлар</b>, олар ми-жұлын сұйықтығындағы H<sup>+</sup>-ты сезеді. CO<sub>2</sub> азайса, сұйықтықтың pH-ы артады → орталық тыныс ынталандыруы басылады. Перифериялық (гипоксиялық) ынталандыру мен орталық (гипокапниялық) тежеу бір-біріне қарсы әсер етеді.</p>
+    <p class="st">Бастапқы тахипноэ <b class="t">брадипноэмен</b> ауысады</p>
+    <p class="ln" style="margin-bottom:0">Вентиляция азаяды → альвеолалық pO<sub>2</sub> одан әрі төмендейді → гипоксемия тереңдейді. Ұйқыда бұл тербеліс <b>мерзімді тынысқа</b> (Чейн-Стокс) әкеледі.</p>
+  </div>
+</div>
+
+<div class="br">
+  <div class="bt">5г. Гемоглобиннің қасиеттері</div>
+  <div class="flow" style="margin-bottom:0">
+    <p class="st">Оксигемоглобиннің оттегіге үйірлігі артады</p>
+    <p class="ln">Алкалозда Hb-нің гистидин қалдықтары протонсызданады → молекула O<sub>2</sub>-ге үйірлігі жоғары <b>R-күйде</b> тұрақтанады → қисық солға ығысады (кері Бор әсері).</p>
+    <p class="st end">O<sub>2</sub>-нің ажырауы және тіндерге берілуі тежеледі</p>
+    <p class="ln" style="margin-bottom:0"><b>Компенсация:</b> алкалоз фосфофруктокиназаны белсендіреді → эритроцит гликолизі ↑ → <b>2,3-ДФГ</b> 12–24 сағатта артады → Hb-нің T-күйін тұрақтандырып, қисықты оңға қайтарады.</p>
+  </div>
+</div>
+
+<div class="flow">
+  <p class="st end"><span class="n">6.</span>Өкпеде Hb-нің қанығуы нашар → тотықсызданған Hb артады → <b>цианоз</b></p>
+  <p class="ln" style="margin-bottom:0">Цианоз капилляр қанында тотықсызданған Hb ≈ 50 г/л-ден асқанда көрінеді. Тіндерде O<sub>2</sub> <b class="t">қатерлі кернеуден</b> (артерияда 27–33, венада 19 мм с.б.) төмендегенде тіндік тыныс толық бұзылады.</p>
+</div>
+
+<!-- 4.2 Нормобариялық -->
+<h3>3.3.2. Нормобариялық экзогендік гипоксия</h3>
+<div class="flow">
+  <p class="st"><span class="n">1.</span><span class="lvl">Орта</span>Ауасы алмаспайтын тар кеңістік, терең құдық, наркоз аппаратының ақауы</p>
+  <p class="ln">Әр демде O<sub>2</sub> тұтынылып, CO<sub>2</sub> бөлінеді; жаңа ауа келмейді → кеңістікте O<sub>2</sub> үлесі біртіндеп азайып, CO<sub>2</sub> үлесі артады. Барометрлік қысым өзгермейді.</p>
+  <p class="st"><span class="n">2.</span><span class="lvl">Өкпе</span>Дем ауасында pO<sub>2</sub> ↓ және pCO<sub>2</sub> ↑</p>
+  <p class="ln">Альвеолалық газ теңдеуі: <span class="eq">P<sub>A</sub>O<sub>2</sub> = P<sub>i</sub>O<sub>2</sub> − P<sub>A</sub>CO<sub>2</sub> / 0,8</span>. Дем ауасындағы O<sub>2</sub> азаюы мен альвеолада CO<sub>2</sub> жиналуы альвеолалық pO<sub>2</sub>-ні екі жақтан төмендетеді. Сыртқы ауада CO<sub>2</sub> көп болғандықтан, оны шығаратын градиент жойылады.</p>
+  <p class="st"><span class="n">3.</span><span class="lvl">Қан</span>Артериялық <b class="t">гипоксемия + гиперкапния</b></p>
+  <p class="ln">Нормобариялық гипоксияның гипобариялықтан басты айырмасы осы: CO<sub>2</sub> азаймайды, керісінше жиналады.</p>
+</div>
+<div class="grid2">
+<div class="br" style="margin-top:0">
+  <div class="bt">3а. Шамалы гиперкапния – компенсация</div>
+  <div class="flow" style="margin-bottom:0">
+    <p class="st">Ми мен жүректе қанайналым жақсарады</p>
+    <p class="ln">Тамыр маңы H<sup>+</sup> ↑ → K<sub>АТФ</sub>-арналар ашылады, NO түзіледі → ми мен коронарлық тамырлар кеңейеді.</p>
+    <p class="st">Тыныс орталығының қозымдылығы артады</p>
+    <p class="ln">Орталық хеморецепторлар H<sup>+</sup>-қа жауап береді → вентиляция ↑. Бор әсері тіндерге O<sub>2</sub> беруді жақсартады.</p>
+  </div>
+</div>
+<div class="br" style="margin-top:0">
+  <div class="bt">3б. Артық гиперкапния – декомпенсация</div>
+  <div class="flow" style="margin-bottom:0">
+    <p class="st">Газдық (тыныстық) ацидоз</p>
+    <p class="ln">Эритроцитте карбоангидраза: <span class="eq">CO<sub>2</sub> + H<sub>2</sub>O ⇄ H<sub>2</sub>CO<sub>3</sub> ⇄ H<sup>+</sup> + HCO<sub>3</sub><sup>−</sup></span> → H<sup>+</sup> жиналады, pH ↓.</p>
+    <p class="st">Hb-нің O<sub>2</sub>-ге үйірлігі азаяды</p>
+    <p class="ln">H<sup>+</sup> Hb-ні протондап, T-күйді тұрақтандырады → қисық оңға. Альвеолада pO<sub>2</sub> онсыз да төмен (қисықтың тік бөлігі), сондықтан Hb-нің қанығуы күрт азаяды.</p>
+    <p class="st end">Гипоксия одан сайын күшейеді</p>
+  </div>
+</div>
+</div>
+<div class="vc"><span class="vh">Тұйық шеңбер:</span> гиперкапния → ацидоз → өкпеде O<sub>2</sub> байланыстыру ↓ → гипоксемия ↑ → тыныс орталығы тежеледі (PaCO<sub>2</sub> &gt; 80–90 мм с.б. кезінде <b>CO<sub>2</sub>-наркоз</b>) → вентиляция ↓ → CO<sub>2</sub> одан әрі жиналады. Ми тамырларының шамадан тыс кеңеюі бассүйек ішілік қысымды арттырады.</div>
+
+<!-- 4.3 Тыныстық -->
+<h3>3.3.3. Тыныстық (респирациялық) гипоксия</h3>
+<p>Өкпедегі ауа алмасудың үш буынының кез келгені бұзылғанда артериялық қан O<sub>2</sub>-мен қанықпайды.</p>
+<div class="tw"><table>
+<thead><tr><th style="width:18%">Бұзылған буын</th><th style="width:27%">Себептер</th><th>Механизм: бұзылыстан гипоксемияға дейін</th></tr></thead>
+<tbody>
+<tr><td><b class="t">Вентиляция</b></td><td>бронх обструкциясы, өкпенің рестрикциясы, тыныс орталығының тежелуі, тыныс еттерінің салдануы</td><td class="add-inline">Альвеолаға жаңа ауа аз келеді → P<sub>A</sub>O<sub>2</sub> ↓ және P<sub>A</sub>CO<sub>2</sub> ↑ → <b>гипоксемия + гиперкапния</b>. Альвеола–артерия градиенті қалыпты (таза гиповентиляцияда).</td></tr>
+<tr><td><b class="t">Диффузия</b></td><td>альвеола-капилляр мембранасының қалыңдауы (ісіну, фиброз), диффузия ауданының азаюы</td><td class="add-inline">Фик заңы: <span class="eq">V = D·S·ΔP / T</span>; T ↑ немесе S ↓ → O<sub>2</sub> өтуі баяулайды. CO<sub>2</sub> O<sub>2</sub>-ден ≈ 20 есе жақсы диффузияланады → <b>алдымен гипоксемия</b>, CO<sub>2</sub> қалыпты, тіпті гипервентиляциядан гипокапния болады. Жүктемеде (қан тез ағып, жанасу уақыты қысқарғанда) күшейеді.</td></tr>
+<tr><td><b class="t">Перфузия / V/Q</b></td><td>өкпе эмболиясы (өлі кеңістік), ателектаз, пневмония (шунт)</td><td class="add-inline">Желденбейтін альвеоладан өткен қан (шунт) O<sub>2</sub> ала алмайды және қалыпты қанмен араласып, оны сұйылтады. Қисықтың жоғарғы тегіс бөлігіне байланысты жақсы желденетін аймақ бұл кемдікті толтыра алмайды. <b>Таза шунтта O<sub>2</sub> беру тиімсіз.</b></td></tr>
+</tbody></table></div>
+<div class="flow">
+  <p class="st">PaO<sub>2</sub> ↓, SaO<sub>2</sub> ↓ → артериялық гипоксемия</p>
+  <p class="ln">Тотықсызданған Hb артериялық қанда-ақ көбейеді → <b>орталық (диффуздық) цианоз</b>; хеморецепторлар арқылы гипервентиляция мен тахикардия іске қосылады (3.2.1-бөлім).</p>
+  <p class="st end">Тіндерге O<sub>2</sub> жеткізу азаяды</p>
+</div>
+<div class="vc"><span class="vh">Тұйық шеңбер:</span> альвеолалық гипоксия → <b>гипоксиялық өкпе вазоконстрикциясы</b> (Эйлер–Лильестранд) → жайылмалы болса өкпе гипертензиясы → оң қарыншаға жүктеме → <b>өкпелік жүрек</b> → жүрек лақтырысы ↓ → циркуляциялық гипоксия қосылады. Созылмалы гипоксемия → эритропоэтин → эритроцитоз → қан тұтқырлығы ↑ → микроциркуляция нашарлайды.</div>
+
+<!-- 4.4 Қандық -->
+<h3>3.3.4. Қандық (гемдік) гипоксия</h3>
+<p>Негізгі теңдеу (артериялық қандағы O<sub>2</sub> мөлшері): <span class="eq">CaO<sub>2</sub> = 1,34 × Hb × SaO<sub>2</sub> + 0,003 × PaO<sub>2</sub></span>. Қандық гипоксияда <b>Hb</b> немесе оның <b>байланыстыру қабілеті</b> азаяды, ал PaO<sub>2</sub> қалыпты болып қалады.</p>
+
+<div class="br">
+  <div class="bt">а) Анемиялық</div>
+  <div class="flow" style="margin-bottom:0">
+    <p class="st">Эритроциттер мен Hb азаяды → қанның O<sub>2</sub>-ге сыйымдылығы ↓</p>
+    <p class="ln">PaO<sub>2</sub> пен SaO<sub>2</sub> қалыпты (өкпеде Hb толық қанығады, тек Hb-нің өзі аз). <b>Перифериялық хеморецепторлар PaO<sub>2</sub>-ні сезеді, CaO<sub>2</sub>-ні емес</b> → гипервентиляция болмайды, ентік тек жүктемеде пайда болады.</p>
+    <p class="st">CaO<sub>2</sub> ↓ → тіндерге жеткізілетін O<sub>2</sub> (DO<sub>2</sub> = ЖЛ × CaO<sub>2</sub>) ↓</p>
+    <p class="ln">Компенсация: (1) қан тұтқырлығы ↓ → шеткері кедергі ↓ + симпатикалық белсенділік → <b>жүрек лақтырысы ↑</b> (тахикардия); (2) эритроциттерде <b>2,3-ДФГ ↑</b> → қисық оңға → тіндерге беру ↑ (анемиядағы қорғаныстық маңызы); (3) бүйрек гипоксиясы → эритропоэтин → сүйек кемігі.</p>
+    <p class="st end">Тотықсызданған Hb мөлшері аз → цианоз жоқ, тері бозарған</p>
+  </div>
+</div>
+
+<div class="br">
+  <div class="bt">б) Көміртегі тотығымен улану – карбоксигемоглобин (HbCO)</div>
+  <div class="flow" style="margin-bottom:0">
+    <p class="st">CO + Hb → HbCO; Hb-нің CO-ға үйірлігі O<sub>2</sub>-ге қарағанда ≈300 есе жоғары</p>
+    <p class="ln">CO гемнің Fe<sup>2+</sup>-іне O<sub>2</sub>-мен бірдей орынға байланысады, бірақ өте баяу ажырайды → ауада 0,1% CO болса да Hb-нің жартысы бос емес.</p>
+    <p class="st">O<sub>2</sub> тасымалдайтын Hb азаяды</p>
+    <p class="ln">Сонымен қатар қалған гем бөліктерінің O<sub>2</sub>-ге үйірлігі артып, қисық <b>солға</b> ығысады (Холдейн әсері) → тіндерде O<sub>2</sub> босамайды. Нәтижесінде гипоксия жай анемиядан әлдеқайда ауыр (HbCO 50% ≈ Hb 50% жоғалтудан ауыр).</p>
+    <p class="st">CO тіндерге де әсер етеді</p>
+    <p class="ln">CO цитохромоксидазаның Fe<sup>2+</sup>-іне және миоглобинге байланысады → <b>тіндік гипоксия</b> + миокард зақымы → <b>циркуляциялық гипоксия</b> (аралас гипоксия).</p>
+    <p class="st end">PaO<sub>2</sub> қалыпты → хеморецепторлар қозбайды; тері қызғылт-шие түсті</p>
+  </div>
+</div>
+
+<div class="br">
+  <div class="bt">в) Метгемоглобинемия (MetHb)</div>
+  <div class="flow" style="margin-bottom:0">
+    <p class="st">Азот тотықтары т.б. тотықтырғыштар Hb-ге әсер етеді</p>
+    <p class="ln">Нитриттер, нитраттар, анилин, кейбір дәрілер (сульфаниламидтер, жергілікті анестетиктер) гем темірінен электрон тартып алады: Fe<sup>2+</sup> → <b>Fe<sup>3+</sup></b>. Қалыпты жағдайда NADH-цитохром b<sub>5</sub>-редуктаза MetHb-ні 1–2%-да ұстайды; тотықтырғыш көп болса, бұл жүйе үлгермейді.</p>
+    <p class="st">Үш валентті темірлі Hb O<sub>2</sub>-ні байланыстыра алмайды</p>
+    <p class="ln">Тетрамердің қалған Fe<sup>2+</sup> гемдерінің үйірлігі артады → қисық солға → тіндерге беру тағы азаяды.</p>
+    <p class="st end">Қан қоңыр түсті, сұр-көкшіл цианоз (MetHb &gt; 10–15%); &gt; 70% – өмірге қауіпті</p>
+  </div>
+</div>
+
+<!-- 4.5 Циркуляциялық -->
+<h3>3.3.5. Қанайналымдық (циркуляциялық) гипоксия</h3>
+<div class="flow">
+  <p class="st"><span class="n">1.</span><span class="lvl">Себеп</span>Жүрек аурулары, сілейме, коллапс, сусыздану, ТІШҚҰ; жергілікті бұзылыстар</p>
+  <p class="ln">Үш негізгі механизм: <b>жүрек лақтырысы ↓</b> (жүрек әлсіздігі); <b>айналымдағы қан көлемі ↓</b> (сусыздану, қансырау); <b>тамыр тонусы ↓</b> (коллапс, сілейме) немесе <b>микротромбтар</b> (ТІШҚҰ, сладж). Ишемиялық түрде қан аз келеді; іркілістік түрде вена арқылы кетуі баяулайды.</p>
+  <p class="st"><span class="n">2.</span><span class="lvl">Қан</span>Артериялық қанның O<sub>2</sub> сыйымдылығы және Hb қанығуы қалыпты</p>
+  <p class="ln">Өкпе зақымданбаған (үлкен шеңбер бұзылысында). Мәселе O<sub>2</sub>-нің мөлшерінде емес, оны жеткізу жылдамдығында: <span class="eq">DO<sub>2</sub> = ЖЛ × CaO<sub>2</sub></span>.</p>
+  <p class="st"><span class="n">3.</span><span class="lvl">Микроциркуляция</span>Капиллярларда қан ағу жылдамдығы баяулайды</p>
+  <p class="ln">Эритроцит капиллярда ұзақ тұрады → тін әр миллилитр қаннан O<sub>2</sub>-ні толығырақ алады (экстракция қалыпты 25%-дан 60–70%-ға дейін өседі).</p>
+  <p class="st"><span class="n">4.</span><span class="lvl">Қан</span>Веналық қанда O<sub>2</sub> күрт азаяды → <b class="t">А–В айырмасы артады</b> (қалыпты 5 көл.%)</p>
+  <p class="ln">Капиллярлар мен веналарда тотықсызданған Hb көп → <b>шеткері цианоз (акроцианоз)</b>, суық, көгерген қол-аяқ.</p>
+  <p class="st"><span class="n">5.</span><span class="lvl">Тін</span>Тіндерде CO<sub>2</sub> жиналады → HbO<sub>2</sub>-нің ажырауы тездейді</p>
+  <p class="ln"><b>Бор әсері:</b> CO<sub>2</sub> және H<sup>+</sup> Hb-нің O<sub>2</sub>-ге үйірлігін азайтып, тіндерге беруді арттырады. Бұл жергілікті компенсация, бірақ жеткізілетін қанның жалпы көлемін толтыра алмайды.</p>
+  <p class="st end"><span class="n">6.</span>Уақыт бірлігінде жеткізілетін O<sub>2</sub> жеткіліксіз → гипоксия</p>
+</div>
+<p><b>Кіші шеңбер бұзылысы</b> (мысалы, сол қарынша әлсіздігінде өкпе іркілісі, ісінуі): <span class="add-inline">өкпе капиллярларында гидростатикалық қысым ↑ → интерстициалды ісіну → диффузия ↓</span> → артериялық қанның қанығуы бұзылады → тыныстық гипоксия қосылады.</p>
+<div class="vc"><span class="vh">Тұйық шеңберлер (сілейме):</span> (1) жүрек лақтырысы ↓ → коронарлық қан ағымы ↓ → миокард гипоксиясы → жиырылғыштық ↓ → жүрек лақтырысы одан әрі ↓. (2) Тін ацидозы мен метаболиттер прекапиллярлық сфинктерлерді босаңсытады, ал венулалар тарылған күйінде қалады → капиллярларда қан іркіледі → плазма тамырдан шығады → айналымдағы қан көлемі ↓ → жүрекке қайтатын қан ↓.</div>
+
+<!-- 4.6 Тіндік -->
+<h3>3.3.6. Тіндік (гистотоксиндік) гипоксия</h3>
+<p>Ортақ соңғы нәтиже: O<sub>2</sub> жеткізіледі, бірақ тыныс тізбегі оны қабылдамайды немесе энергия АТФ-қа айналмайды.</p>
+<div class="br">
+  <div class="bt">а) Цитохромоксидазаның әсерсізденуі (цианидтер)</div>
+  <div class="flow" style="margin-bottom:0">
+    <p class="st">CN<sup>−</sup> цитохромоксидазаның (IV кешен) Fe<sup>3+</sup>-іне байланысады</p>
+    <p class="ln">Электрондар соңғы акцептор O<sub>2</sub>-ге жете алмайды → бүкіл тізбек тотықсызданған күйде «тұрып қалады» → ішкі мембранада протон градиенті түзілмейді → АТФ-синтаза тоқтайды.</p>
+    <p class="st">АТФ күрт азаяды; NADH жиналады</p>
+    <p class="ln">NADH/NAD<sup>+</sup> ↑ → Кребс циклінің NAD-тәуелді ферменттері тежеледі → пируват лактатқа айналады → <b>лактатацидоз</b>.</p>
+    <p class="st end">O<sub>2</sub> пайдаланылмайды → веналық қанда O<sub>2</sub> жоғары, вена қаны ашық қызыл; цианоз жоқ</p>
+  </div>
+</div>
+<div class="br">
+  <div class="bt">б) Дегидрогеназалардың әсерсізденуі (этанол, эфир, уретан)</div>
+  <div class="flow" style="margin-bottom:0">
+    <p class="st">Субстраттан сутегін алатын дегидрогеназалар тежеледі</p>
+    <p class="ln">Тізбекке электрон бастапқы буында түспейді → тотығу мен фосфорлану төмендейді. Ми нейрондары мұндай әсерге ең сезімтал (наркоздық әсердің бір негізі).</p>
+  </div>
+</div>
+<div class="br">
+  <div class="bt">в) Ферменттер түзілуінің бұзылуы – витамин тапшылығы</div>
+  <div class="flow" style="margin-bottom:0">
+    <p class="st">B<sub>1</sub> (тиамин) жетіспейді → тиаминпирофосфат түзілмейді</p>
+    <p class="ln">Пируватдегидрогеназа мен α-кетоглутаратдегидрогеназа жұмыс істемейді → пируват ацетил-КоА-ға айналмай, лактатқа өтеді → глюкозадан энергия алу бұзылады. Ми тек глюкозаны пайдаланатындықтан, ең алдымен ми зақымданады.</p>
+    <p class="st">B<sub>2</sub> (рибофлавин) → FAD, FMN жетіспейді</p>
+    <p class="ln">I кешен (FMN) және II кешен – сукцинатдегидрогеназа (FAD) бұзылады.</p>
+    <p class="st">PP (никотин қышқылы) → NAD жетіспейді</p>
+    <p class="ln" style="margin-bottom:0">NAD-тәуелді дегидрогеназалар жұмыс істемейді → тізбектің бастапқы буыны бұзылады.</p>
+  </div>
+</div>
+<div class="br">
+  <div class="bt">г) Тотығу мен фосфорланудың ұласпауы (тиреотоксикоз, α-динитрофенол)</div>
+  <div class="flow" style="margin-bottom:0">
+    <p class="st">Протондар АТФ-синтазаны айналып, матрикске қайтады</p>
+    <p class="ln">α-динитрофенол – протонофор (ішкі мембранадан H<sup>+</sup>-ты тасымалдайды); тиреоид гормондары ажыратқыш нәруыздардың (UCP) түзілуін арттырады. Протон градиенті АТФ-қа емес, жылуға жұмсалады.</p>
+    <p class="st end">O<sub>2</sub> тұтынылады (тіпті артады), бірақ АТФ түзілмейді → энергия жылу түрінде тарайды → дене қызуы ↑</p>
+  </div>
+</div>
+<div class="br">
+  <div class="bt">д) Еркін радикалдық асқын тотығу</div>
+  <div class="flow" style="margin-bottom:0">
+    <p class="st">Ауыр металдар, CCl<sub>4</sub>, иондағыш сәулелер, реоксигенация → бос радикалдар түзіледі</p>
+    <p class="ln">Супероксид (O<sub>2</sub><sup>•−</sup>), гидроксил радикалы (OH<sup>•</sup>) май қышқылдарының қос байланыстарына шабуыл жасайды → тізбекті реакция → <b>гидроасқын тотықтар</b>. Реоксигенацияда: ишемия кезінде АТФ ыдырап, <b>гипоксантин</b> жиналады, ал ксантиндегидрогеназа Ca<sup>2+</sup>-тәуелді протеолизбен <b>ксантиноксидазаға</b> айналады; O<sub>2</sub> қайта келгенде гипоксантин + O<sub>2</sub> → супероксид.</p>
+    <p class="st end">Митохондрия мембраналары бүлінеді → тотығу-тотықсыздану бұзылады</p>
+    <p class="ln" style="margin-bottom:0">Ішкі мембрананың кардиолипині тотығып, тыныс тізбегі кешендері жұмысын тоқтатады → тізбектен электрондар «ағып», жаңа радикалдар түзіледі (тұйық шеңбер).</p>
+  </div>
+</div>
+<p><b>Тіндік гипоксияның қан көрсеткіштері:</b> PaO<sub>2</sub> қалыпты, SaO<sub>2</sub> <b class="num">95–98%</b>; тін O<sub>2</sub>-ні алмағандықтан <b>веналық O<sub>2</sub> ↑</b> → <b class="t">А–В айырмасы ↓</b>; тотықсызданған Hb аз → <b>цианоз жоқ</b>.</p>
+
+<h3>3.3.7. Аралас, жүктемелік және субстраттық гипоксиялар</h3>
+<div class="flow">
+  <p class="st">Ауыр сілейме: циркуляциялық гипоксия</p>
+  <p class="ln">Өкпе микроциркуляциясы бұзылып, «шоктық өкпе» дамиды (альвеола-капилляр мембранасы ісінеді, сурфактант азаяды) → <b>тыныстық</b> гипоксия қосылады.</p>
+  <p class="st">+ тыныстық гипоксия</p>
+  <p class="ln">Ацидоз, бос радикалдар және лизосома ферменттері митохондрияны бүлдіреді → <b>тіндік</b> гипоксия қосылады.</p>
+  <p class="st end">+ тіндік гипоксия → ағзаның ауыр бүлінісі</p>
+</div>
+<div class="flow">
+  <p class="st">Иіс газы: HbCO ↑ → гемдік гипоксия</p>
+  <p class="ln">CO цитохромоксидазаға байланысады.</p>
+  <p class="st">Тотығу ферменттерінің белсенділігі ↓ → тіндік гипоксия</p>
+  <p class="ln">Миокард энергиясы азаяды, миоглобин де CO-мен байланысады.</p>
+  <p class="st end">Жүрек қызметі әлсірейді → циркуляциялық гипоксия</p>
+</div>
+<p><b class="t">Жүктемелік:</b> ауыр жұмыста бұлшықеттің O<sub>2</sub> тұтынуы 10–20 есе артады <span class="add-inline">→ жүрек лақтырысы мен вентиляцияның шегіне жетеді → бұлшықетте анаэробты гликолиз → лактат, H<sup>+</sup>, бейорганикалық фосфат жиналады → актин-миозин көпірлерінің түзілуі мен Ca<sup>2+</sup> босауы тежеледі</span> → <b>қажу</b>. Жүрек етінде де болады.</p>
+<p><b class="t">Субстраттық:</b> мида глюкоза жетіспейді <span class="add-inline">(гипогликемия: инсулин артықтығы, аштық) → нейрондар глюкозаны тасымалдаушы GLUT арқылы алады, гликоген қоры жоқ → гликолиз бен Кребс цикліне субстрат түспейді</span> → O<sub>2</sub> жеткілікті болса да пайдаланылмайды.</p>
+
+
+<hr>
+<h2>3.4. Декомпенсация: зат алмасу мен қызметтердің бұзылыстары</h2>
+<h3>3.4.1. Энергетикалық құлдырау: біртұтас тізбек</h3>
+<div class="flow">
+  <p class="st"><span class="n">1.</span><span class="lvl">Митохондрия</span>O<sub>2</sub> жетіспейді → тыныс тізбегінде соңғы акцептор жоқ</p>
+  <p class="ln">Тізбек кешендері тотықсызданған күйде қалады → NADH пен FADH<sub>2</sub> тотықпайды → <b>NADH/NAD<sup>+</sup> қатынасы артады</b>.</p>
+  <p class="st"><span class="n">2.</span><span class="lvl">Митохондрия</span>Кребс циклі тежеледі</p>
+  <p class="ln">Изоцитрат-, α-кетоглутарат- және малатдегидрогеназалар NAD<sup>+</sup>-ты қажет етеді; NAD<sup>+</sup> болмаса цикл тоқтайды → ацетил-КоА жұмсалмайды.</p>
+  <p class="st"><span class="n">3.</span><span class="lvl">Цитозоль</span>АТФ азаяды, АДФ, АМФ, бейорганикалық фосфат көбейеді</p>
+  <p class="ln">Креатинфосфат қоры бірінші секундтарда жұмсалады; аденилаткиназа (2 АДФ → АТФ + АМФ) АМФ-ты көбейтеді → АМФ → аденозин → гипоксантин.</p>
+  <p class="st"><span class="n">4.</span><span class="lvl">Цитозоль</span>Гликоген азайып, глюкоза тотығуы аяғына дейін жүрмейді → сүт қышқылы жиналады</p>
+  <p class="ln">Фосфофруктокиназа белсенеді, пируват ЛДГ арқылы лактатқа айналады (NAD<sup>+</sup> қалпына келеді). H<sup>+</sup> жиналып, <b>жасушаішілік ацидоз</b> дамиды → ацидоз фосфофруктокиназаның өзін тежейді → гликолиз де тоқтайды → <b>энергияның соңғы көзі жабылады</b>.</p>
+</div>
+<div class="grid2">
+<div class="br" style="margin-top:0">
+  <div class="bt">Май алмасуы</div>
+  <div class="flow" style="margin-bottom:0">
+    <p class="st">Май қышқылдарының β-тотығуы тежеледі</p>
+    <p class="ln">β-тотығу NAD<sup>+</sup> мен FAD-ты қажет етеді → ұзын тізбекті ацил-КоА және ацилкарнитиндер жиналады (мембраналарға детергент сияқты әсер етеді).</p>
+    <p class="st">Кетон денелері (ацетон, ацетосірке, β-оксимай қышқылы) жиналады</p>
+    <p class="ln">Бауырда Кребс циклі тежелгендіктен ацетил-КоА кетогенезге бұрылады.</p>
+    <p class="st end">Метаболизмдік ацидоз; май қышқылдарының асқын тотығуы артады</p>
+  </div>
+</div>
+<div class="br" style="margin-top:0">
+  <div class="bt">Нәруыз алмасуы</div>
+  <div class="flow" style="margin-bottom:0">
+    <p class="st">Нәруыз түзілуі азаяды</p>
+    <p class="ln">Трансляция (аминоацил-тРНҚ түзілуі, элонгация) АТФ пен ГТФ-ты көп жұмсайды; энергия тапшылығында тоқтайды.</p>
+    <p class="st">Аралық өнімдер көбейеді → аммиак артады</p>
+    <p class="ln">Аминқышқылдар дезаминденеді, ал аммиакты залалсыздандыратын мочевина циклі АТФ-тәуелді (карбамоилфосфатсинтетаза) → бұзылады.</p>
+    <p class="st end">Теріс азоттық баланс</p>
+  </div>
+</div>
+</div>
+
+<h3>3.4.2. Иондық және мембраналық бүліну</h3>
+<div class="flow">
+  <p class="st"><span class="n">5.</span><span class="lvl">Мембрана</span>АТФ тапшылығынан Na<sup>+</sup>,K<sup>+</sup>-АТФ-аза мен Ca<sup>2+</sup>-АТФ-аза белсенділігі төмендейді</p>
+  <p class="ln">Na<sup>+</sup>,K<sup>+</sup>-АТФ-аза жасушаның бүкіл энергиясының ≈ 30%-ын (нейронда 50–70%) жұмсайды, сондықтан АТФ азайғанда ең алдымен сол тоқтайды.</p>
+  <p class="st"><span class="n">6.</span><span class="lvl">Мембрана</span>Жасуша ішінде Na<sup>+</sup> көбейіп, K<sup>+</sup> азаяды</p>
+  <p class="ln">Na<sup>+</sup>-пен бірге су осмостық жолмен кіреді → <b>цитотоксикалық ісіну</b> (ми ісінуі, «бұлыңғыр ісіну»). K<sup>+</sup> жасушадан шығып, жасушааралық K<sup>+</sup> артады.</p>
+  <p class="st"><span class="n">7.</span><span class="lvl">Мембрана</span>Қозымды тіндерде тыныштық электр потенциалы бұзылады</p>
+  <p class="ln">Na<sup>+</sup>/K<sup>+</sup> градиенті азаяды → мембрана <b>деполяризацияланады</b> → кернеуге тәуелді Ca<sup>2+</sup>-арналар ашылады; Na<sup>+</sup>/Ca<sup>2+</sup>-алмастырғыш кері бағытта жұмыс істеп, Ca<sup>2+</sup>-ты жасушаға кіргізеді.</p>
+  <p class="st"><span class="n">8.</span><span class="lvl">Цитозоль</span>Ca<sup>2+</sup> жасуша ішінде көп жиналады</p>
+  <p class="ln">Ca<sup>2+</sup>-АТФ-аза (плазмолемма және эндоплазмалық тор, SERCA) Ca<sup>2+</sup>-ты шығара алмайды; эндоплазмалық тордан да Ca<sup>2+</sup> босайды.</p>
+  <p class="st"><span class="n">9.</span><span class="lvl">Фермент</span>Фосфолипаза мен протеаза ферменттерінің белсенділігі артады</p>
+  <p class="ln"><b>Фосфолипаза A<sub>2</sub></b> → мембрана фосфолипидтері ыдырайды → лизофосфолипидтер (детергент) + арахидон қышқылы → простагландиндер, лейкотриендер (қабыну, тамыр өзгерістері). <b>Калпаин</b> (Ca<sup>2+</sup>-тәуелді протеаза) → цитоскелет нәруыздары (спектрин) ыдырайды. <b>Эндонуклеазалар</b> → ДНҚ фрагменттеледі. Калпаин ксантиндегидрогеназаны ксантиноксидазаға айналдырады (3.3.6-д).</p>
+  <p class="st"><span class="n">10.</span><span class="lvl">Органелла</span>Мембрана фосфолипидтері мен нәруыздары ыдырап, қызметтері бұзылады</p>
+  <p class="ln">Митохондрия артық Ca<sup>2+</sup>-ты жұтады → ішкі мембрана потенциалы жойылады → <b>өткізгіштігі ауыспалы тесік (mPTP)</b> ашылады → митохондрия ісінеді, АТФ-синтез толық тоқтайды, цитохром С цитозольге шығады.</p>
+</div>
+<div class="br">
+  <div class="bt">Лизосомалар – параллель тармақ</div>
+  <div class="flow" style="margin-bottom:0">
+    <p class="st">Қышқыл өнімдер мен май қышқылдарының асқын тотықтары → лизосома мембраналары бүлінеді</p>
+    <p class="ln">Жасушаішілік ацидоз бен асқын тотығу мембрананы тұрақсыздандырады; мембрананы тұрақтандыратын глюкокортикоидтардың әсері сарқылады.</p>
+    <p class="st">Қышқыл протеазалар (катепсиндер) босайды</p>
+    <p class="ln">Ацидтік ортада бұл ферменттер барынша белсенді → жасуша құрылымдары өз ферменттерімен қорытылады (аутолиз).</p>
+    <p class="st end">Митохондрия мембраналары бүлінеді → энергия түзілуі одан әрі бұзылады</p>
+  </div>
+</div>
+<div class="flow">
+  <p class="st end"><span class="n">11.</span><span class="lvl">Ядро</span>Ядроның құрылымдық-функциялық өзгерістері; ДНҚ, РНҚ, нәруыз түзілуі бүлінеді</p>
+  <p class="ln" style="margin-bottom:0"><b>Нәтиже:</b> АТФ ішінара сақталса, цитохром С → апоптосома → каспаза-9 → каспаза-3 → <b>апоптоз</b>; АТФ толық жойылса, мембрана жарылып, <b>некроз</b> (қабыну реакциясымен) дамиды.</p>
+</div>
+<div class="vc"><span class="vh">Жасушалық тұйық шеңберлер:</span> (1) АТФ ↓ → Ca<sup>2+</sup> ↑ → митохондрия бүлінеді → АТФ одан әрі ↓. (2) Бүлінген тыныс тізбегінен электрондар «ағып» → бос радикалдар → асқын тотығу → мембрана мен тізбек одан әрі бүлінеді. (3) Ацидоз → лизосома бүлінеді → митохондрия зақымы → гликолиз бен тотығу тоқтайды → ацидоз тереңдейді.</div>
+
+<div class="dg">
+  <p class="dg-h">Жасушалық деңгейдегі бүліну схемасы</p>
+  <div class="dg-row"><div class="c key">O<sub>2</sub> жетіспейді</div></div>
+  <div class="a add"></div>
+  <div class="dg-row"><div class="c add">Тыныс тізбегі тоқтайды, NADH жиналады → Кребс циклі тежеледі</div></div>
+  <div class="a"></div>
+  <div class="dg-row"><div class="c">АТФ азаяды, АДФ, АМФ, бейорганикалық фосфат көбейеді</div></div>
+  <div class="dg-cols two"><div class="a"></div><div class="a"></div></div>
+  <div class="dg-cols two">
+    <div class="dg-col">
+      <div class="dg-lane">Метаболизмдік тармақ</div>
+      <div class="c">Гликоген ↓, анаэробты гликолиз → лактат, H<sup>+</sup></div>
+      <div class="a"></div>
+      <div class="c">Жасушаішілік ацидоз; кетон денелері</div>
+      <div class="a add"></div>
+      <div class="c add">Ацидоз фосфофруктокиназаны тежейді → гликолиз де тоқтайды</div>
+      <div class="a"></div>
+      <div class="c">Лизосома мембранасы бүлінеді → қышқыл протеазалар босайды</div>
+    </div>
+    <div class="dg-col">
+      <div class="dg-lane">Иондық тармақ</div>
+      <div class="c">Na<sup>+</sup>,K<sup>+</sup>-АТФ-аза және Ca<sup>2+</sup>-АТФ-аза тоқтайды</div>
+      <div class="a"></div>
+      <div class="c">Ішінде Na<sup>+</sup> ↑, K<sup>+</sup> ↓; <span style="color:var(--accent)">су кіреді → цитотоксикалық ісіну</span></div>
+      <div class="a add"></div>
+      <div class="c add">Деполяризация → кернеуге тәуелді Ca<sup>2+</sup>-арналар, Na<sup>+</sup>/Ca<sup>2+</sup>-алмастырғыш кері жұмыс істейді</div>
+      <div class="a"></div>
+      <div class="c">Цитозольде Ca<sup>2+</sup> ↑ → фосфолипаза, протеаза <span style="color:var(--accent)">(A<sub>2</sub>, калпаин, эндонуклеаза)</span></div>
+      <div class="a add"></div>
+      <div class="c add">Митохондрия Ca<sup>2+</sup> жұтады → mPTP ашылады, цитохром С шығады</div>
+    </div>
+  </div>
+  <div class="dg-cols two"><div class="a"></div><div class="a"></div></div>
+  <div class="dg-row">
+    <div class="c">Мембрана фосфолипидтері мен нәруыздары ыдырайды; митохондриялар бүлінеді</div>
+    <div class="c">Еркін радикалдық асқын тотығу</div>
+  </div>
+  <div class="a"></div>
+  <div class="dg-row"><div class="c">Ядро өзгерістері: ДНҚ, РНҚ, нәруыз түзілуі бүлінеді</div></div>
+  <div class="a red"></div>
+  <div class="dg-row"><div class="c red">АТФ ішінара сақталса – апоптоз (каспазалар); АТФ толық жойылса – некроз</div></div>
+  <div class="dg-lane red">Жасушалық тұйық шеңберлер</div>
+  <div class="dg-cols">
+    <div class="c red">Митохондрия бүлінеді → АТФ ↓ → иондық сораптар тоқтайды → Ca<sup>2+</sup> ↑ ↺</div>
+    <div class="c red">Бүлінген тыныс тізбегі → бос радикалдар → асқын тотығу → мембрана бүлінуі ↺</div>
+    <div class="c red">Ацидоз → лизосома бүлінеді → митохондрия зақымы → гликолиз бен тотығу тоқтайды ↺</div>
+  </div>
+</div>
+
+
+<h3>3.4.3. Ағзалық деңгей: неге әр ағза әртүрлі зақымданады</h3>
+<p>Сезімталдықтың төрт факторы және олардың механизмі:</p>
+<div class="tw"><table>
+<thead><tr><th style="width:30%">Фактор</th><th>Механизмі</th></tr></thead>
+<tbody>
+<tr><td>Зат алмасу қарқыны</td><td class="add-inline">Ми дене салмағының 2%-ы, бірақ O<sub>2</sub>-нің 20%-ын тұтынады; миокард тыныштықта O<sub>2</sub>-нің 70–75%-ын алып қояды, яғни экстракция қорын пайдалана алмайды.</td></tr>
+<tr><td>O<sub>2</sub>-ге мұқтаждық немесе оттегісіз энергия түзу қабілеті</td><td class="add-inline">Нейрондар энергияның 90%-дан астамын тотығып фосфорланудан алады; қаңқа бұлшықеттері мен бүйрек милы қабаты анаэробты жолға бейім.</td></tr>
+<tr><td>Гликолиздік жүйенің қуаты</td><td class="add-inline">Мида гликоген қоры 2–3 минутқа ғана жетеді; бауыр мен бұлшықетте қор мол.</td></tr>
+<tr><td>Гендік құралдардың мүмкіндіктері</td><td class="add-inline">Нейрондар бөлінбейтін жасушалар, жоғалғанын қалпына келтіре алмайды; эпителий мен бауыр жасушалары регенерацияға қабілетті.</td></tr>
+</tbody></table></div>
+
+<div class="br">
+  <div class="bt">Орталық жүйке жүйесі – ең сезімтал</div>
+  <div class="flow" style="margin-bottom:0">
+    <p class="st">Нейрондарда АТФ тапшылығы ерте дамиды</p>
+    <p class="ln"><b>ГАМҚ</b> глутаматтан глутаматдекарбоксилаза (кофакторы – B<sub>6</sub>) арқылы түзіледі, ал ГАМҚ-шунт Кребс циклімен тікелей байланысты → цикл тежелгенде ГАМҚ азаяды. <b>Глицин</b> түзілуі де энергияға тәуелді. ГАМҚ<sub>A</sub>-рецепторлардың Cl<sup>−</sup>-тогы жасушаішілік Cl<sup>−</sup> градиентіне (KCC2 тасымалдаушысы, АТФ-тәуелді) байланысты, сондықтан тежеуіш әсер тіпті ГАМҚ бар болса да әлсірейді.</p>
+    <p class="st">Тежеуіш медиаторлар (ГАМҚ, глицин) аз түзіледі немесе рецепторлардың сезімталдығы төмендейді</p>
+    <p class="ln">Ең алдымен ми қыртысындағы тежеуіш интернейрондар зақымданады (жоғары жиілікті, энергияны көп жұмсайтын жасушалар).</p>
+    <p class="st">ОЖЖ-ның төменгі бөлімдері тежеуіш ықпалдан шығады</p>
+    <p class="ln">Қыртысасты құрылымдар (лимбикалық жүйе) бақылаусыз қалады.</p>
+    <p class="st">Эмоциялық және қимылдық қозу, тоқмейілсу (эйфория), өз мүмкіндігін асыра бағалау; кейде тұнжырау, немқұрайлылық</p>
+    <p class="ln">Гипоксия ұзаққа созылса: деполяризацияланған нейрондардан <b>глутамат</b> артық босайды, ал оны кері сіңіру (Na<sup>+</sup>-тәуелді) тоқтайды → NMDA-рецепторлар → Ca<sup>2+</sup> одан әрі кіреді (<b>эксайтотоксичность</b>) → деполяризациялық блок → нейрондар серпін өткізбейді.</p>
+    <p class="st">Қозу тежелумен ауысады, рефлекстер бұзылады, тыныс пен қанайналымның реттелуі өзгереді</p>
+    <p class="ln">Сопақша мидағы тыныс және вазомоторлық орталықтар зақымданады.</p>
+    <p class="st end">Ауыр гипоксия: естен тану, сіңір тартылуы, тырыспа-селкілдек</p>
+    <p class="ln" style="margin-bottom:0">Тырыспа – тежеудің толық жойылып, моторлы нейрондардың синхронды разрядының салдары. Қан ағымы толық тоқтаса, 10–15 секундта естен тану, 4–6 минуттан кейін қайтымсыз өзгерістер басталады.</p>
+  </div>
+</div>
+
+<div class="grid2">
+<div class="br" style="margin-top:0">
+  <div class="bt">Жүрек</div>
+  <div class="flow" style="margin-bottom:0">
+    <p class="st">Кардиомиоциттерде АТФ ↓</p>
+    <p class="ln">K<sub>АТФ</sub>-арналар ашылып, K<sup>+</sup> шығады → әрекет потенциалының ұзақтығы қысқарады; Na<sup>+</sup>,K<sup>+</sup>-АТФ-аза тоқтайды → тыныштық потенциалы азаяды.</p>
+    <p class="st">Қозымдылық пен өткізгіштік бұзылады</p>
+    <p class="ln">Миокард аймақтарының рефрактерлық кезеңі әртүрлі болады → <b>re-entry</b>; Ca<sup>2+</sup> артығы → кейінгі деполяризация → эктопиялық ошақтар.</p>
+    <p class="st">Жиырылғыштық төмендейді</p>
+    <p class="ln">H<sup>+</sup> тропонин C-ға байланысу үшін Ca<sup>2+</sup>-пен бәсекелеседі; бейорганикалық фосфат көпірлердің түзілуін тежейді.</p>
+    <p class="st end">Тахикардия, ырғақ өзгерісі – аритмия</p>
+  </div>
+</div>
+<div class="br" style="margin-top:0">
+  <div class="bt">Тыныс</div>
+  <div class="flow" style="margin-bottom:0">
+    <p class="st">Тыныс орталығының CO<sub>2</sub>-ге сезімталдығы төмендейді</p>
+    <p class="ln">Тыныс тоқтаған кезде (апноэ) CO<sub>2</sub> жиналады; шекті деңгейге жеткенде орталық қайта қозады → тыныс біртіндеп тереңдеп, CO<sub>2</sub> шығарылады → орталық қайтадан тынышталады.</p>
+    <p class="st end">Тыныс ырғағы өзгереді, жиі үзілісті <b>Чейн-Стокс</b> тынысы</p>
+    <p class="ln" style="margin-bottom:0">Ми қан ағымының баяулауы (хеморецепторға сигнал кешігіп жетуі) тербелісті күшейтеді.</p>
+  </div>
+</div>
+<div class="br" style="margin-top:0">
+  <div class="bt">Асқорыту жүйесі</div>
+  <div class="flow" style="margin-bottom:0">
+    <p class="st">Қанның қайта бөлінуінен ішек тамырлары тарылады</p>
+    <p class="ln">Шырышты қабаттың ишемиясы → без жасушаларында АТФ ↓ → секреция тоқтайды; тегіс бұлшықет энергиясы азаяды.</p>
+    <p class="st end">Асқазан, ішек, ұйқыбездің сөл шығаруы мен қимылдық қызметтері әлсірейді</p>
+    <p class="ln" style="margin-bottom:0">Ұзақ ишемияда шырышты қабат тосқауылы бұзылып, бактериялар мен эндотоксиндер қанға өтеді.</p>
+  </div>
+</div>
+<div class="br" style="margin-top:0">
+  <div class="bt">Термореттеу</div>
+  <div class="flow" style="margin-bottom:0">
+    <p class="st">Зат алмасу қарқыны азаяды</p>
+    <p class="ln">Тотығу тежелгендіктен жылу түзілуі азаяды; гипоталамустың термореттеу орталығы гипоксиядан бұзылады; шеткері вазоконстрикция мен дірілдің тиімділігі төмендейді.</p>
+    <p class="st end">Ауыр түрлерінде дене қызуы төмендейді</p>
+    <p class="ln" style="margin-bottom:0">Бұл қорғаныстық маңызға да ие: температура 10°C төмендесе O<sub>2</sub> тұтыну 2–3 есе азаяды (4.2-бөлім).</p>
+  </div>
+</div>
+</div>
+<p>Басқа мүшелер мен жүйелердің бүліністері: <b>ОЖЖ реттеуші әрекеттерінің бұзылуымен</b>, <b>энергия тапшылығымен</b>, <b>зат алмасудың улы өнімдерінің жиналуымен</b> түсіндіріледі.</p>
+
+<div class="alert">
+<span class="tag tag-red">[Қауіпті асқыну]</span>
+<p style="margin:0"><span class="h">Жүйелік тұйық шеңберлер:</span> (1) миокард гипоксиясы → аритмия, жиырылғыштық ↓ → жүрек лақтырысы ↓ → циркуляциялық гипоксия күшейеді; (2) ми гипоксиясы → тыныс орталығы тежеледі → Чейн-Стокс → гипоксемия тереңдейді; (3) метаболизмдік ацидоз → тамырлардың катехоламиндерге сезімталдығы ↓ → артериялық қысым түседі → перфузия ↓; (4) ішек тосқауылы бұзылады → эндотоксинемия → жүйелік қабыну, ТІШҚҰ → микроциркуляция нашарлайды.</p>
+</div>
+<div class="alert">
+<span class="tag tag-red">[Маңызды ескерту]</span>
+<p style="margin:0">Эйфория мен өз мүмкіндігін асыра бағалау – ең ерте, бірақ ең қауіпті белгі: адам (ұшқыш, альпинист, сүңгуір) жағдайының ауырлығын сезбейді.</p>
+</div>
+
+<!-- ============ 7 ============ -->
+<hr>
+<h2>4. Клиника және дифференциалды диагностика</h2>
+<h3>4.1. Дифференциалды диагностика: гипоксия түрлерін салыстыру</h3>
+<p class="sub">↑ артады, ↓ азаяды, N қалыпты.</p>
+<div class="tw"><table>
+<thead><tr><th>Көрсеткіш</th><th>Экзогендік</th><th>Тыныстық</th><th>Қандық (анемия)</th><th>Қандық (CO / MetHb)</th><th>Циркуляциялық</th><th>Тіндік</th></tr></thead>
+<tbody>
+<tr><td><b>Ауадағы pO<sub>2</sub></b></td><td class="down">↓</td><td>N</td><td>N</td><td>N</td><td>N</td><td>N</td></tr>
+<tr><td><b>PaO<sub>2</sub></b> (артерия)</td><td class="down">↓</td><td class="down">↓</td><td class="add-inline">N</td><td class="add-inline">N</td><td>N</td><td>N</td></tr>
+<tr><td><b>SaO<sub>2</sub></b></td><td class="down">↓</td><td class="down">↓</td><td class="add-inline">N</td><td class="add-inline">↓ (нақты)<br>пульсоксиметр «N» көрсетеді</td><td>N</td><td>N (95–98%)</td></tr>
+<tr><td><b>O<sub>2</sub> сыйымдылығы</b></td><td>N</td><td>N</td><td class="down">↓</td><td class="down">↓</td><td>N</td><td>N</td></tr>
+<tr><td><b>Веналық O<sub>2</sub></b></td><td class="down">↓</td><td class="down">↓</td><td class="add-inline">↓</td><td class="add-inline">↓</td><td class="down">↓↓</td><td class="up">↑</td></tr>
+<tr><td><b>А–В айырмасы</b></td><td class="add-inline">N/↓</td><td class="add-inline">N/↓</td><td class="add-inline">↓</td><td class="add-inline">↓</td><td class="up">↑↑</td><td class="down">↓↓</td></tr>
+<tr><td><b>PaCO<sub>2</sub></b></td><td>гипобар: ↓<br>нормобар: ↑</td><td class="add-inline">↑ (гиповентил.)</td><td class="add-inline">N</td><td class="add-inline">N</td><td class="add-inline">N</td><td class="add-inline">N</td></tr>
+<tr><td><b>Цианоз</b></td><td><b>бар</b> (диффуздық)</td><td class="add-inline">бар (орталық)</td><td class="add-inline">жоқ – бозарған</td><td class="add-inline">CO: қызғылт-шие түсті; MetHb: қоңыр-сұр</td><td class="add-inline">бар (акроцианоз, шеткері)</td><td><b>жоқ</b></td></tr>
+<tr><td><b>O<sub>2</sub> берудің тиімділігі</b></td><td class="add-inline">жоғары</td><td class="add-inline">жоғары / орташа</td><td class="add-inline">төмен</td><td class="add-inline">ГБО тиімді (CO)</td><td class="add-inline">төмен</td><td class="add-inline">өте төмен</td></tr>
+</tbody></table></div>
+
+<div class="alert">
+<span class="tag tag-red">[Маңызды ескерту]</span>
+<p style="margin:0"><b>Цианоз</b> тотықсызданған Hb мөлшеріне байланысты, сондықтан <b>тіндік гипоксияда цианоз болмайды</b> (веналық қанда HbO<sub>2</sub> көп). <span class="add-inline">Ауыр анемияда да тотықсызданған Hb критикалық деңгейге (≈50 г/л) жетпейді – цианоз білінбейді. CO-улануда пульсоксиметр HbCO-ны HbO<sub>2</sub>-ден ажыратпайды – жалған қалыпты SpO<sub>2</sub>.</span></p>
+</div>
+
+<h3>4.2. Ағзаның гипоксияға төзімділігі</h3>
+<div class="grid2">
+<div class="box">
+<h4 style="margin-top:0">Жаңа туғандар төзімдірек, себебі:</h4>
+<ul>
+<li>ОЖЖ толық дамымаған;</li>
+<li>тіндерде көмірсулардың <b>оттегісіз ыдырау</b> мүмкіндігі басым;</li>
+<li>қанында O<sub>2</sub>-ні жақсы байланыстыратын <b class="t">ұрықтық гемоглобин</b> сақталған.</li>
+</ul>
+</div>
+<div class="box">
+<h4 style="margin-top:0">Төзімділік артатын жағдайлар:</h4>
+<ul>
+<li>ОЖЖ терең тежелуі және зат алмасу төмендеуі: <b>ұйқы, наркоз, гипотермия, қысқы ұйқы</b>.</li>
+<li>Жасанды түрде арттыру: <b class="t">гипотермия</b> <span class="add-inline">(жүрек хирургиясында, жаңа туғандар асфиксиясында қолданылады)</span>.</li>
+</ul>
+</div>
+</div>
+
+<h3>4.3. Емдеу қағидалары</h3>
+<ol>
+<li><b>Этиотроптық:</b> ең алдымен себепкер ықпалды жою. Емдеу даму сатысына, дәрежесіне, түріне және ағзаның жауап ерекшеліктеріне негізделеді.</li>
+<li><b class="t">Оксигенотерапия:</b> тіндердің O<sub>2</sub> пайдалануы бұзылмаған жағдайда тиімді.</li>
+<li><b class="t">Гипербариялық оксигенация</b> (жоғары қысымда оттегілеу): CO, барбитураттармен улану, жүрек қақпақшаларының туа біткен ақаулары т.с.с.</li>
+<li><b class="t">Карбоген</b> (O<sub>2</sub> + CO<sub>2</sub>) – тыныс орталығын ынталандырады, гипокапнияның алдын алады.</li>
+<li><b>Біртіндеп жаттықтыру:</b> атмосфералық қысымды төмендететін барокамераларда – O<sub>2</sub> тапшылығына және басқа қоздырғыштарға (жұқпа, улану, ауыртпалық) төзімділік артады. Гипопластикалық, темір тапшылықты анемияларда, өкпенің созылмалы ауруларында, жүктемелік гипоксияда тиімді.</li>
+<li><b class="t">Антигипоксанттар:</b> тыныс тізбегінде электрондарды жасанды тасымалдаушылар – <b>цитохром С</b>, гидрохинонға сәйкес препараттар.</li>
+<li><b class="t">Антиоксиданттар:</b> май қышқылдарының асқын тотығуын тежейді.</li>
+</ol>
+<div class="alert">
+<span class="tag tag-red">[Қауіпті асқыну]</span>
+<p style="margin:0"><span class="h">Оттегі – күшті тотықтырғыш.</span> Оның артықтығы ағзаға уытты әсер етеді. <span class="add-inline">Ұзақ жоғары концентрациялы O<sub>2</sub> – өкпенің оттегілік зақымы, шала туғандарда ретинопатия; созылмалы гиперкапниясы бар науқаста (ӨСОА) жоғары O<sub>2</sub> гипоксиялық тыныс ынталандыруын жойып, CO<sub>2</sub>-наркозға әкелуі мүмкін.</span></p>
+</div>
+
+<!-- ============ 8 ============ -->
+<hr>
+<h2>5. Асфиксия (тұншығу) сатылары</h2>
+<p><b>Себептері:</b> кеуденің екі жағында пневмоторакс; мидағы тыныс орталығының қатты тежелуі; жүйке серпіндерінің тыныс еттеріне өткізілуінің бұзылуы (<b>ботулизм</b>, <b>миорелаксанттар</b>); кеуде қуысы қозғалысының қатты шектелуі (өкпеқап қабынуы, қатты ауыру, сырттан ауыр заттармен қысылу).</p>
+<div class="tw"><table>
+<thead><tr><th style="width:18%">Саты</th><th>Тыныс</th><th>Вегетативтік және басқа өзгерістер</th></tr></thead>
+<tbody>
+<tr><td><b class="t">1. Инспирациялық ентік</b></td><td>терең, жиі (стеноздық); ішке тарту сыртқа шығарудан ауыр әрі ұзақ</td><td>ағза қозған; <b>симпатикалық тонус ↑</b>: мидриаз, тахикардия, АҚҚ ↑; жалпы тырыспа-селкілдек, еріксіз дәрет</td></tr>
+<tr><td><b class="t">2. Экспирациялық ентік</b></td><td>жиілігі сирейді, тереңдігі жоғары; сыртқа шығару ауырлап, ұзарады</td><td><b>парасимпатикалық тонус ↑</b>: миоз, АҚҚ ↓, брадикардия</td></tr>
+<tr><td><b class="t">3. Жантәсілім алды</b></td><td>тереңдігі мен жиілігі азайып, тоқтайды – <b>терминалдық үзіліс</b></td><td>естен тану; тыныс және вазомоторлық орталықтар тежеледі; рефлекстер жоғалады</td></tr>
+<tr><td><b class="t">4. Ақтық</b> <span class="lat">(агониялық)</span></td><td><b>Гаспинг тынысы</b>: әлсіз → күшейеді → біртіндеп әлсіреп, біржола тоқтайды</td><td>барлық тыныс бұлшықеттері қатты жиырылады, қосымша бұлшықеттер (ауыз, мойын) қатысады; бас артқа шалқаяды, ауыз кең ашылады; <b>жүрек 5–15 минут жиырылуы мүмкін</b></td></tr>
+</tbody></table></div>
+<div class="alert">
+<span class="tag tag-red">[Маңызды ескерту]</span>
+<p style="margin:0">Терминалдық үзіліс пен агония кезінде жүрек әлі 5–15 минут жиырылады – бұл реанимациялық шаралардың тиімді «терезесі».</p>
+</div>
+
+</div>
+
+<script>
+/* viewer bridge: two-finger pinch is sent to the reader, zoom keeps the point under the fingers in place, theme follows the reader */
+(function(){
+  if (window.parent === window) return;
+  var z = 1, pinch = null, focal = null, lastW = innerWidth, lastH = innerHeight;
+  function send(m){ try { parent.postMessage(m, '*'); } catch (e) {} }
+  addEventListener('message', function(e){
+    var d = e.data;
+    if (!d || typeof d !== 'object') return;
+    if (d.__viewer === 'zoom' && typeof d.z === 'number') z = d.z;
+    if (d.__viewer === 'theme') {
+      if (d.theme) document.documentElement.setAttribute('data-theme', d.theme);
+      else document.documentElement.removeAttribute('data-theme');
+    }
+  });
+  function dist(t){ var dx = t[0].clientX - t[1].clientX, dy = t[0].clientY - t[1].clientY; return Math.sqrt(dx*dx + dy*dy); }
+  function mid(t){ return { x: (t[0].clientX + t[1].clientX) / 2, y: (t[0].clientY + t[1].clientY) / 2 }; }
+  document.addEventListener('touchstart', function(e){
+    if (e.touches.length === 2) { pinch = { d: dist(e.touches) * z, z: z }; focal = mid(e.touches); e.preventDefault(); }
+  }, { passive: false });
+  document.addEventListener('touchmove', function(e){
+    if (!pinch || e.touches.length !== 2) return;
+    e.preventDefault();
+    focal = mid(e.touches);
+    var d = dist(e.touches) * z;
+    if (pinch.d > 0) send({ __viewer: 'pinch', z: pinch.z * d / pinch.d });
+  }, { passive: false });
+  function end(e){
+    if (pinch && e.touches.length < 2) {
+      pinch = null; send({ __viewer: 'pinchend' });
+      setTimeout(function(){ if (!pinch) focal = null; }, 300);
+    }
+  }
+  document.addEventListener('touchend', end);
+  document.addEventListener('touchcancel', end);
+  ['gesturestart', 'gesturechange'].forEach(function(t){ document.addEventListener(t, function(e){ e.preventDefault(); }); });
+  /* trackpad pinch / ctrl + wheel on a computer */
+  var wt = 0;
+  addEventListener('wheel', function(e){
+    if (!e.ctrlKey) return;
+    e.preventDefault();
+    focal = { x: e.clientX, y: e.clientY };
+    send({ __viewer: 'pinch', z: z * Math.exp(-e.deltaY * 0.01) });
+    clearTimeout(wt);
+    wt = setTimeout(function(){ focal = null; send({ __viewer: 'pinchend' }); }, 400);
+  }, { passive: false });
+  addEventListener('resize', function(){
+    var w = innerWidth, h = innerHeight, r = lastW / w, rh = lastH / h;
+    var oldW = lastW, oldH = lastH;
+    lastW = w; lastH = h;
+    /* width and height change by the same factor only when the zoom changed (not on rotation) */
+    if (Math.abs(r - 1) < 0.01 || Math.abs(r - rh) > 0.04 * r) return;
+    var f = focal || { x: oldW / 2, y: oldH / 2 };
+    var dx = f.x - f.x / r, dy = f.y - f.y / r;
+    window.scrollBy(0, dy);
+    var el = document.elementFromPoint(f.x / r, f.y / r);
+    while (el && el !== document.body && el !== document.documentElement) {
+      if (el.scrollWidth > el.clientWidth + 1) {
+        var ox = getComputedStyle(el).overflowX;
+        if (ox === 'auto' || ox === 'scroll') { el.scrollLeft += dx; break; }
+      }
+      el = el.parentElement;
+    }
+    if (focal) focal = { x: f.x / r, y: f.y / r };
+  });
+  send({ __viewer: 'ready' });
+})();
+</script>
+</body></html>

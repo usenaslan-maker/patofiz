@@ -65,6 +65,12 @@ h1{font-family:var(--display);font-weight:600;font-size:clamp(22px,6.4vw,30px);l
 .tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--ru);border:1px solid currentColor;border-radius:999px;padding:0 7px;line-height:17px;margin-left:8px;vertical-align:2px}
 .chev{flex:none;color:var(--ink2)}
 .cont{margin-top:20px}
+.tabs{display:flex;gap:4px;margin-top:22px;padding:4px;background:var(--press);border:1px solid var(--line);border-radius:14px}
+.tab{flex:1;min-width:0;border:0;border-radius:10px;background:transparent;padding:8px 4px;cursor:pointer;font-size:13.5px;font-weight:600;line-height:1.25;color:var(--ink2)}
+.tab[aria-selected="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.tab .tn{display:block;margin-top:1px;font-size:12px;font-weight:500;color:var(--ink2);font-variant-numeric:tabular-nums}
+.tabs+.secs{margin-top:18px}
+.empty{background:var(--surface);border:1px dashed var(--line);border-radius:14px;padding:18px 16px;font-size:14px;line-height:1.55;color:var(--ink2);margin:0}
 .cont .sh{margin-bottom:8px}
 
 /* reader */
@@ -92,9 +98,10 @@ h1{font-family:var(--display);font-weight:600;font-size:clamp(22px,6.4vw,30px);l
 <div id="list">
   <div class="wrap">
     <p class="eyebrow"><span id="eb">Схемалар</span></p>
-    <h1>Патофизиология схемалары</h1>
-    <p class="lead">Тақырыпты таңдаңыз. Схема ашылған соң оны екі саусақпен немесе жоғарыдағы − / + түймелерімен үлкейтіп-кішірейтуге болады. Түйінді басқанда түсіндірме ашылады.</p>
+    <h1>Патофизиология</h1>
+    <p class="lead">Бөлім мен тақырыпты таңдаңыз. Ашылған бетті екі саусақпен немесе жоғарыдағы − / + түймелерімен үлкейтіп-кішірейтуге болады. Схемада түйінді басқанда түсіндірме ашылады.</p>
     <div class="cont" id="cont" hidden></div>
+    <div class="tabs" id="tabs" role="tablist" aria-label="Бөлімдер"></div>
     <div class="secs" id="secs"></div>
   </div>
 </div>
@@ -123,8 +130,9 @@ h1{font-family:var(--display);font-weight:600;font-size:clamp(22px,6.4vw,30px);l
 
 <script>
 (function(){
-/* the list of sections and schemes lives in schemes.json, so a new scheme only needs a new file and one line there */
-let SECTIONS=[];
+/* everything listed lives in library.json: tabs (schemes t/, notes k/, practice tasks c/) → sections → items,
+   so a new page only needs a new file and one line there. A page is addressed by tab key + id, e.g. t22, k01 */
+let TABS=[],tab='t';
 const ALL={};
 
 const $=id=>document.getElementById(id);
@@ -138,22 +146,43 @@ let cur=null,pushed=false,toastTimer=0,frame=null;
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const CHEV='<svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>';
 function row(it){
-  return `<button type="button" class="row" data-id="${it.id}"><span class="txt"><span class="t">${esc(it.t)}${it.ru?'<span class="tag">орысша</span>':''}</span>${it.sub?`<span class="s">${esc(it.sub)}</span>`:''}</span>${CHEV}</button>`;
+  return `<button type="button" class="row" data-id="${it.key}"><span class="txt"><span class="t">${esc(it.t)}${it.ru?'<span class="tag">орысша</span>':''}</span>${it.sub?`<span class="s">${esc(it.sub)}</span>`:''}</span>${CHEV}</button>`;
+}
+function prepare(data){
+  TABS=(data&&Array.isArray(data.tabs)?data.tabs:[]).filter(t=>t&&/^[a-z]$/.test(t.key));
+  TABS.forEach(t=>{
+    t.sections=(Array.isArray(t.sections)?t.sections:[]).filter(s=>s&&Array.isArray(s.items));
+    t.count=0;
+    t.sections.forEach(s=>{
+      s.items=s.items.filter(it=>it&&/^\d+$/.test(it.id));
+      s.items.forEach(it=>{it.key=t.key+it.id;it.src=t.key+'/'+it.id+'.html';ALL[it.key]=it;t.count++});
+    });
+  });
+  const saved=store.get('pfs-tab');
+  tab=TABS.some(t=>t.key===saved)?saved:(TABS[0]?TABS[0].key:'t');
+  $('eb').textContent=TABS.filter(t=>t.count).map(t=>`${t.count} ${t.unit||''}`.trim()).join(' · ');
 }
 function renderList(){
-  let total=0;
-  SECTIONS.forEach(s=>{s.items=s.items.filter(it=>it&&/^\d+$/.test(it.id));s.items.forEach(it=>{ALL[it.id]=it;total++})});
-  $('secs').innerHTML=SECTIONS.map((s,i)=>
+  $('tabs').innerHTML=TABS.map(t=>
+    `<button type="button" class="tab" role="tab" data-tab="${t.key}" aria-selected="${t.key===tab}">${esc(t.s||t.n)}<span class="tn">${t.count}</span></button>`).join('');
+  const t=TABS.find(x=>x.key===tab);
+  if(!t){$('secs').innerHTML='';return}
+  $('secs').innerHTML=t.count?t.sections.filter(s=>s.items.length).map((s,i)=>
     `<section><h2 class="sh"><span class="sq" style="background:var(--c${i%8+1})"></span>${esc(s.n)}<span class="cnt">${s.items.length}</span></h2>`+
-    `<div class="list">${s.items.map(row).join('')}</div></section>`).join('');
-  $('eb').textContent=`${total} схема · ${SECTIONS.length} бөлім`;
+    `<div class="list">${s.items.map(row).join('')}</div></section>`).join('')
+    :`<p class="empty">${esc(t.empty||'Әзірге бос.')}</p>`;
 }
 function renderContinue(){
-  const id=store.get('pfs-last'),box=$('cont');
+  let id=store.get('pfs-last');const box=$('cont');
+  if(id&&/^\d+$/.test(id))id='t'+id;
   if(id&&ALL[id]){box.innerHTML=`<h2 class="sh">Соңғы ашылған</h2><div class="list">${row(ALL[id])}</div>`;box.hidden=false}
   else box.hidden=true;
 }
-listEl.addEventListener('click',e=>{const b=e.target.closest('[data-id]');if(b)open(b.dataset.id,true)});
+listEl.addEventListener('click',e=>{
+  const tb=e.target.closest('[data-tab]');
+  if(tb){tab=tb.dataset.tab;store.set('pfs-tab',tab);renderList();return}
+  const b=e.target.closest('[data-id]');if(b)open(b.dataset.id,true);
+});
 
 /* zoom: the frame gets a viewport of (stage size ÷ zoom) and is scaled back up, like browser zoom */
 const clamp=v=>Math.min(ZMAX,Math.max(ZMIN,v));
@@ -234,16 +263,17 @@ function showHint(){
 toast.addEventListener('click',()=>toast.classList.add('off'));
 
 /* navigation between the library and the reader */
-const hashId=()=>{const m=/^#t(\d+)$/.exec(location.hash);return m&&ALL[m[1]]?m[1]:null};
+const hashId=()=>{const m=/^#([a-z]\d+)$/.exec(location.hash);return m&&ALL[m[1]]?m[1]:null};
 function open(id,push){
   const it=ALL[id];
   if(!it)return;
   cur=id;store.set('pfs-last',id);
+  if(tab!==id[0]){tab=id[0];store.set('pfs-tab',tab);renderList()}
   rt.textContent=it.t;
   listEl.hidden=true;reader.hidden=false;
   loader.textContent='Жүктелуде…';loader.hidden=false;
-  mountFrame('t/'+id+'.html');
-  if(push){try{history.pushState({t:id},'','#t'+id);pushed=true}catch(_){pushed=false}}
+  mountFrame(it.src);
+  if(push){try{history.pushState({t:id},'','#'+id);pushed=true}catch(_){pushed=false}}
   showHint();
 }
 function showList(){
@@ -277,8 +307,8 @@ addEventListener('keydown',e=>{
   else if(e.key==='0')applyZoom(1);
 });
 
-fetch('schemes.json',{cache:'no-cache'}).then(r=>r.ok?r.json():Promise.reject(r.status)).then(data=>{
-  SECTIONS=Array.isArray(data)?data.filter(s=>s&&Array.isArray(s.items)):[];
+fetch('library.json',{cache:'no-cache'}).then(r=>r.ok?r.json():Promise.reject(r.status)).then(data=>{
+  prepare(data);
   renderList();
   const start=hashId();
   if(start)open(start,false);else renderContinue();
