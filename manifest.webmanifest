@@ -1,0 +1,16 @@
+{
+  "name": "Патофизиология схемалары",
+  "short_name": "Патофизиология",
+  "description": "Ісіну, су-электролит, ион, қышқыл-сілті және гипоксия схемалары",
+  "lang": "kk",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#F5F4EF",
+  "theme_color": "#2F55A4",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

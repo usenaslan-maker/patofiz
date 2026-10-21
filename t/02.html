@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="kk">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>body{margin:0}</style>
+<title>Жүректік ісіну патогенезі</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+/* Layout: title → one-line legend → pathogenesis map on a 5-column grid (rows sized to content) + explanation panel (docked ≥1100px, bottom sheet below) */
+:root{
+  --bg:#FAFAF7; --node:#FFFFFF; --fg:#2B2B2B; --fg2:#6B6B6B; --line:#D9D9D4; --arrow:#6B6B6B;
+  --t-etio:#8C8C8C; --t-main:#3B5BA9; --t-damage:#C8553D; --t-protect:#4E8F6A;
+  --t-loop:#C8553D; --t-cross:#9A9A9A; --t-clinic:#B07D2B;
+  --d-hemo:#3B7EA1; --d-neuro:#7A5BA6; --d-metab:#C08A2E; --d-immune:#B5536B; --d-cell:#4A8C8C; --d-organ:#6B7B3A;
+  --font:"Noto Sans","Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#1E1F1C; --node:#2A2B27; --fg:#ECECE8; --fg2:#A9A9A3; --line:#3D3E39; --arrow:#8F908A;
+    --t-etio:#989898; --t-main:#4F6BB2; --t-damage:#CE6650; --t-protect:#609A79;
+    --t-loop:#CE6650; --t-cross:#A5A5A5; --t-clinic:#B88A40;
+    --d-hemo:#4F8BAA; --d-neuro:#876BAF; --d-metab:#C69643; --d-immune:#BC647A; --d-cell:#5C9898; --d-organ:#7A884E;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1E1F1C; --node:#2A2B27; --fg:#ECECE8; --fg2:#A9A9A3; --line:#3D3E39; --arrow:#8F908A;
+  --t-etio:#989898; --t-main:#4F6BB2; --t-damage:#CE6650; --t-protect:#609A79;
+  --t-loop:#CE6650; --t-cross:#A5A5A5; --t-clinic:#B88A40;
+  --d-hemo:#4F8BAA; --d-neuro:#876BAF; --d-metab:#C69643; --d-immune:#BC647A; --d-cell:#5C9898; --d-organ:#7A884E;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--font);font-size:15px;line-height:1.5}
+.page{max-width:1600px;margin:0 auto;padding-inline:16px;padding-block:24px 40px}
+@media (min-width:700px){.page{padding-inline:24px}}
+h1{font-size:20px;font-weight:600;margin:0 0 6px;text-wrap:balance}
+.lead{font-size:15px;color:var(--fg2);max-width:76ch;margin:0 0 14px;line-height:1.6}
+
+.legend{display:flex;align-items:center;gap:16px;overflow-x:auto;white-space:nowrap;padding-block:10px;margin-bottom:16px;border-block:1px solid var(--line);font-size:13px;color:var(--fg2)}
+.lg{display:inline-flex;align-items:center;gap:6px;flex:none}
+.lg-sep{width:1px;height:18px;background:var(--line);flex:none}
+.tag{display:inline-block;font-size:13px;font-weight:600;line-height:18px;padding:0 5px;border-radius:6px;color:var(--fg);border:1px solid var(--d);background:color-mix(in srgb,var(--d) 8%,transparent);flex:none}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--t);flex:none}
+.lg svg{flex:none}
+
+.layout{display:block}
+@media (min-width:1100px){.layout{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:20px;align-items:start}}
+.scroller{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--bg);min-width:0}
+.canvas{position:relative;margin:0 auto}
+svg.edges{position:absolute;left:0;top:0;overflow:visible;pointer-events:none}
+
+.node{position:absolute;top:0;width:200px;background:var(--node);color:var(--fg);border:1.5px solid var(--d);border-radius:10px;padding:9px 12px 10px;text-align:left;font:inherit;cursor:pointer;display:flex;flex-direction:column;gap:4px}
+.node.main{border-width:2px}
+.node[aria-pressed="true"]{box-shadow:0 0 0 1.5px var(--d);background:color-mix(in srgb,var(--d) 8%,var(--node))}
+.node:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+.node .meta{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:13px;font-weight:500;color:var(--fg2);line-height:18px}
+.node .ty{display:inline-flex;align-items:center;gap:6px;min-width:0}
+.node .ttl{font-size:14px;font-weight:500;line-height:1.4}
+.node .term,.term-txt{font-size:13px;font-style:italic;color:var(--fg2);line-height:1.4}
+.faded{opacity:.3}
+
+.e-main path.ln{stroke:var(--arrow)} .e-main .hd{fill:var(--arrow)}
+.e-loop path.ln{stroke:var(--t-loop)} .e-loop .hd{fill:var(--t-loop)}
+.e-cross path.ln{stroke:var(--t-cross);stroke-dasharray:5 4} .e-cross .hd{fill:var(--t-cross)}
+.e-inh path.ln,.e-inh .bar{stroke:var(--t-protect)}
+path.ln{fill:none;stroke-width:1.5}
+.elabel{font-family:var(--font);font-size:13px;fill:var(--fg2);paint-order:stroke;stroke:var(--bg);stroke-width:5px;stroke-linejoin:round}
+.loop-ic{fill:none;stroke:var(--t-loop);stroke-width:1.5}
+.loop-hd{fill:var(--t-loop)}
+.loop-lb{font-family:var(--font);font-size:13px;font-weight:500;fill:var(--t-loop);paint-order:stroke;stroke:var(--bg);stroke-width:5px}
+
+.panel{--pd:var(--t-main);position:relative;background:var(--node);border:1px solid var(--line);border-radius:10px;padding:20px 22px 22px 26px;display:none}
+.panel::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--pd);border-radius:10px 0 0 10px}
+@media (min-width:1100px){
+  .panel{display:block;position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);max-height:calc(100vh - 32px);overflow-y:auto}
+  .panel-close{display:none!important}
+}
+@media (max-width:1099px){
+  .panel.open{display:block;position:fixed;left:0;right:0;bottom:0;max-height:60vh;overflow-y:auto;z-index:20;border-radius:10px 10px 0 0;border-bottom:0;padding-bottom:calc(22px + env(safe-area-inset-bottom,0px))}
+  .panel.open::before{border-radius:10px 0 0 0}
+}
+.p-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.panel h2{font-size:20px;font-weight:600;margin:0;line-height:1.35;text-wrap:balance}
+.panel-close{font:inherit;font-size:13px;font-weight:600;color:var(--fg);background:transparent;border:1px solid var(--line);border-radius:10px;padding:4px 10px;cursor:pointer;flex:none}
+.p-dir{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:15px;font-weight:600}
+.p-type{display:flex;align-items:center;gap:6px;margin-top:6px;font-size:13px;color:var(--fg2)}
+.p-sec{margin-top:16px}
+.p-sec h3{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--fg2);margin:0 0 4px}
+.p-sec p{font-size:15px;font-weight:400;line-height:1.6;margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.chip{font:inherit;font-size:13px;color:var(--fg);background:var(--node);border:1px solid var(--d);border-radius:10px;padding:3px 9px;cursor:pointer;text-align:left}
+.chip:focus-visible,.panel-close:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+.chip-lb{font-size:13px;color:var(--fg2);margin-top:8px}
+</style>
+
+<div class="page">
+  <h1 id="h1"></h1>
+  <p class="lead" id="lead"></p>
+  <div class="legend" id="legend" aria-label="Шартты белгілер"></div>
+  <div class="layout">
+    <div class="scroller" id="scroller">
+      <div class="canvas" id="canvas">
+        <svg class="edges" id="edges" aria-hidden="true"></svg>
+      </div>
+    </div>
+    <aside class="panel" id="panel" aria-live="polite"></aside>
+  </div>
+</div>
+
+<script>
+/* geometry helpers used by the scheme data */
+const LANE=1182;
+const hm=(a,b)=>(Math.max(a.t,b.t)+Math.min(a.b,b.b))/2;
+const vm=(a,b)=>(Math.max(a.l,b.l)+Math.min(a.r,b.r))/2;
+const D=(a,b)=>{const x=vm(a,b);return [[x,a.b],[x,b.t]]};
+const U=(a,b)=>{const x=vm(a,b);return [[x,a.t],[x,b.b]]};
+const Rt=(a,b)=>{const y=hm(a,b);return [[a.r,y],[b.l,y]]};
+const Lf=(a,b)=>{const y=hm(a,b);return [[a.l,y],[b.r,y]]};
+const BT=(s,t,fo)=>{const x=s.l+s.w*fo,y=t.t-24;return [[x,s.b],[x,y],[t.cx,y],[t.cx,t.t]]};
+const ST=(s,t,side,fo)=>{const x=side==='l'?s.l:s.r,y=fo==null?s.cy:s.t+s.h*fo;return [[x,y],[t.cx,y],[t.cx,t.t]]};
+const BS=(s,t,side)=>[[s.cx,s.b],[s.cx,t.cy],[side==='l'?t.l:t.r,t.cy]];
+const BTo=(s,t,tx)=>[[s.cx,s.b],[s.cx,t.t-20],[tx,t.t-20],[tx,t.t]];
+const BB=(s,t,x0,Y,tx)=>[[x0,s.b],[x0,Y],[tx,Y],[tx,t.b]];
+</script>
+<script>
+const SCHEME={
+title:'Жүректік ісіну патогенезі',
+lead:'Жүрек жеткіліксіздігінде ісіну екі жолмен дамиды. Көктамырлық іркіліс қылтамырдағы гидростатикалық қысымды арттырады, ал жүректің минуттық көлемі азайғанда бүйрек РААЖ арқылы Na⁺ пен суды ұстайды.',
+lane:true,
+nodes:[
+{id:'e1',c:2,r:0,dir:'organ',type:'etio',t:'Жүрек жеткіліксіздігі',term:'сердечная недостаточность',s:[
+'Жүрек қанды қажетті мөлшерде айдай алмайды. Ісіну көбіне оң қарыншалық немесе тотал жеткіліксіздікте дамиды.',
+'Себептері: жүректің ишемиялық ауруы, миокард инфарктісі, артериялық гипертензия, қақпақша ақаулары, кардиомиопатиялар, өкпелік жүрек.',
+'Бір жағынан көктамырда қан іркіледі, екінші жағынан артерия жүйесіне қан аз түседі.',
+'Ентігу, әлсіздік, тахикардия, ісіну.',
+'Негізгі ауруды емдеу; жүрек жеткіліксіздігінің базалық емі: АӨФ тежегіштері/АРБ немесе сакубитрил-валсартан, бета-блокаторлар, спиронолактон, SGLT2 тежегіштері.',
+'Сердечная недостаточность; insufficientia cordis']},
+{id:'k2',c:0,r:1,dir:'organ',type:'clinic',t:'Мойын көктамыры толады, бауыр үлкейеді',term:'набухание шейных вен',s:[
+'Мойын көктамырлары жартылай отырғанда да толып тұрады; бауыр ұлғайып, қабырға доғасынан шығады, сыздап ауырады.',
+'Орталық көктамыр қысымы жоғары; бауыр капсуласы созылады.',
+'Ұзақ іркілісте бауырдың «мускат» өзгерісі, кейін кардиалдық фиброз дамиды.',
+'Бауырды басқанда мойын көктамыры одан әрі толады (гепатоюгулярлық рефлюкс).',
+'Іркілісті азайту: диуретиктер, жүрек жеткіліксіздігін емдеу.',
+'Набухание шейных вен, застойная гепатомегалия; hepar moschatum']},
+{id:'a2',c:1,r:1,dir:'hemo',type:'main',t:'Оң қарынша әлсіреп, көктамырда қан іркіледі',term:'венозный застой',s:[
+'Оң қарынша келген қанды өкпе артериясына толық айдай алмайды; қан қуыс көктамырларда және үлкен қанайналым шеңберінде іркіледі.',
+'Оң қарыншаның жиырылу күші азаяды, соңғы диастолалық қысым артады, оң жүрекшеге қан ағуы қиындайды.',
+'Орталық көктамыр қысымы көтеріледі; бауыр, ішек, аяқ көктамырлары қанға толады.',
+'Мойын көктамырларының ісінуі, бауырдың үлкеюі.',
+'Диуретиктер алдыңғы жүктемені азайтады; нитраттар көктамырларды кеңейтеді.',
+'Венозный застой, повышение ЦВД; stasis venosa']},
+{id:'a1',c:3,r:1,dir:'hemo',type:'main',t:'Жүректің минуттық көлемі азаяды',term:'снижение сердечного выброса',s:[
+'Жүрек әр минутта аортаға аз қан айдайды.',
+'Миокардтың жиырылу қабілеті төмендейді немесе қанмен толуы бұзылады.',
+'Артерия жүйесі «толмай қалады»: бүйрек, ми, бұлшықеттер қанмен нашар қамтамасыз етіледі.',
+'Әлсіздік, тез шаршау, тахикардия, тері бозғылт-көкшіл.',
+'Бета-блокаторлар (ұзақ мерзімде), SGLT2 тежегіштері; ауыр жағдайда инотроптар.',
+'Сниженный сердечный выброс; low cardiac output']},
+{id:'liv',c:0,r:2,dir:'organ',type:'damage',t:'Бауырда қан іркіледі, нәруыз түзілуі азаяды',term:'застойная печень',s:[
+'Іркіліс пен гипоксия гепатоциттерді зақымдап, бауырдың нәруыз түзу қызметі төмендейді.',
+'Бауыр бөлікшелерінің ортасында, орталық көктамыр маңында гипоксия мен атрофия басым болады.',
+'Альбумин синтезі азаяды; ішек қабырғасының іркілісінен нәруыз сіңірілуі де нашарлайды.',
+'Қанда альбумин төмендейді; ұзақ жеткіліксіздікте кардиалдық кахексия.',
+'Негізгі ем — іркілісті жою; толыққанды тамақтану.',
+'Застойная печень, кардиальный фиброз']},
+{id:'a3',c:1,r:2,dir:'hemo',type:'main',t:'Қылтамырда гидростатикалық қысым артады',term:'гемодинамический фактор',s:[
+'Көктамыр қысымы қылтамырдың көктамырлық бөлігіне беріліп, ондағы гидростатикалық қысым көтеріледі.',
+'Старлинг заңы бойынша сүзетін күш артып, кері сіңіретін күш азаяды.',
+'Сұйықтық қылтамырдан тінаралық кеңістікке көп шығады — жүректік ісінудің басты (гемодинамикалық) факторы.',
+'Ісіну алдымен төмен орналасқан жерлерде (аяқ, сан, бел) пайда болады.',
+'Диуретиктер, тұзды шектеу, аяқты көтеріп қою.',
+'Гидростатическое давление; pressio hydrostatica']},
+{id:'h1',c:2,r:2,dir:'cell',type:'damage',t:'Тін гипоксиясы: қылтамыр қабырғасы өткізгіш болады',term:'тканевая гипоксия',s:[
+'Тіндерге оттегі аз жетеді; қылтамыр эндотелийі мен базальды мембрана зақымданады.',
+'Минуттық көлемнің азаюы мен қанның баяу ағуы (циркуляциялық гипоксия) зат алмасуды бұзады, анаэробтық өнімдер жиналады.',
+'Қылтамыр өткізгіштігі артады (қантамырлық фактор); тінде ұсақ молекулалар көбейіп, тіндік осмостық қысым көтеріледі (тіндік фактор).',
+'Акроцианоз, тері суық; ұзақ ісінуде теріде трофикалық өзгерістер.',
+'Оттегімен қамтамасыз ету, жүрек қызметін жақсарту.',
+'Циркуляторная гипоксия, повышение проницаемости']},
+{id:'b1',c:3,r:2,dir:'organ',type:'damage',t:'Бүйректе қан ағымы азаяды',term:'гипоперфузия почек',s:[
+'Бүйрек артериолаларына қан аз келеді, шумақтық сүзу төмендейді.',
+'Минуттық көлемнің азаюы және симпатикалық вазоконстрикция.',
+'Юкстагломерулалық жасушалар ренинді көп бөледі; сүзілетін Na⁺ азаяды.',
+'Олигурия, никтурия; қанда креатинин жоғарылауы (кардиоренальдық синдром).',
+'Бүйрек перфузиясын жақсарту; диуретиктерді бүйрек қызметін бақылап беру.',
+'Гипоперфузия почек, кардиоренальный синдром']},
+{id:'onc',c:0,r:3,dir:'metab',type:'damage',t:'Онкотикалық қысым төмендейді',term:'онкотический фактор',s:[
+'Плазмадағы альбумин азайып, қанның онкотикалық қысымы төмендейді.',
+'Альбумин — сұйықтықты қылтамыр ішінде ұстайтын негізгі нәруыз.',
+'Сұйықтықтың тінаралыққа өтуі жеңілдейді; жүректік ісінуге онкотикалық фактор қосылады.',
+'Ұзақ ағымды жүрек жеткіліксіздігінде ісіну айқындалып, асцит қосылады.',
+'Тамақтануды түзету; ауыр гипоальбуминемияда диуретиктердің әсері әлсірейді.',
+'Онкотическое давление; pressio oncotica']},
+{id:'l1',c:1,r:3,dir:'hemo',type:'damage',t:'Лимфаның көктамырға ағуы қиындайды',term:'лимфогенный фактор',s:[
+'Кеуде лимфа өзегі сол жақ бұғана асты көктамырына құяды; көктамыр қысымы жоғары болғанда лимфа ағуы баяулайды.',
+'Лимфа өзегі құятын жердегі қысым жоғары, лимфа «тіреліп» қалады.',
+'Тінаралықтан артық сұйықтық пен нәруыз әкетілмейді; лимфа арқылы компенсация әлсірейді (лимфогендік фактор).',
+'Ісіну ұзақ сақталып, тығыздала бастайды.',
+'Орталық көктамыр қысымын төмендету; аяқты көтеру.',
+'Динамическая лимфатическая недостаточность']},
+{id:'b2',c:3,r:3,dir:'neuro',type:'protect',t:'РААЖ, АДГ, симпатикалық жүйе белсенеді',term:'вторичный гиперальдостеронизм',s:[
+'Ренин–ангиотензин–альдостерон жүйесі, антидиуретикалық гормон және симпатикалық жүйке жүйесі белсенеді.',
+'Организм азайған артериялық толымдылықты қан көлемін ұлғайту арқылы қалпына келтіруге тырысады (жүйкелік-эндокриндік фактор).',
+'Альдостерон Na⁺, АДГ су сіңіруін арттырады; ангиотензин II тамырларды тарылтады. Ұзақ уақытта бұл бейімделу зиянды болады.',
+'Қанда ренин мен альдостерон жоғары; гипонатриемия (АДГ артығынан).',
+'АӨФ тежегіштері, АРБ, сакубитрил-валсартан, спиронолактон, эплеренон, бета-блокаторлар.',
+'Ренин-ангиотензин-альдостероновая система, вторичный гиперальдостеронизм']},
+{id:'b3',c:3,r:4,dir:'metab',type:'main',t:'Na⁺ мен су ұсталады',term:'задержка натрия и воды',s:[
+'Бүйрек Na⁺ пен суды аз шығарады; жасушадан тыс сұйықтық көлемі артады.',
+'Альдостерон, АДГ, ангиотензин II әсері және шумақтық сүзудің азаюы.',
+'Айналымдағы қан көлемі ұлғаяды.',
+'Дене салмағы күн сайын артады, диурез азаяды.',
+'Ас тұзын шектеу, ілмектік диуретиктер (фуросемид, торасемид), қажет болса тиазидтер.',
+'Задержка натрия и воды; retentio natrii']},
+{id:'p1',c:4,r:4,dir:'neuro',type:'protect',t:'Натрийуретикалық пептидтер бөлінеді',term:'ПНП, МНП',s:[
+'Созылған жүрекшелерден ПНП, қарыншалардан МНП (BNP) бөлінеді.',
+'Гиперволемия мен жүрек қуыстарының созылуы.',
+'Na⁺ пен су шығарылуын арттырады, ренин мен альдостеронды тежейді, тамырларды кеңейтеді. Жүрек жеткіліксіздігінде бұл әсер жеткіліксіз.',
+'Қанда NT-proBNP жоғары — жүрек жеткіліксіздігінің диагностикалық белгісі.',
+'Сакубитрил неприлизинді тежеп, натрийуретикалық пептидтердің ыдырауын баяулатады.',
+'Натрийуретические пептиды (ANP, BNP)']},
+{id:'b4',c:3,r:5,dir:'hemo',type:'damage',t:'Гиперволемия, жүрекке жүктеме артады',term:'гиперволемия',s:[
+'Айналымдағы қан көлемі мен жүректің алдыңғы жүктемесі артады.',
+'Бүйректе ұсталған Na⁺ пен су тамыр арнасында қалады.',
+'Әлсіз миокард одан әрі созылып, жиырылуы нашарлайды — минуттық көлем тағы азаяды, тұйық шеңбер түзіледі. Көктамыр қысымы да көтеріледі.',
+'Ісінудің күшеюі, ентігу, жүрек жеткіліксіздігінің декомпенсациясы.',
+'Ілмектік диуретиктер — тұйық шеңберді үзудің негізгі жолы.',
+'Гиперволемия; hypervolaemia']},
+{id:'S',c:2,r:6,dir:'hemo',type:'main',t:'Сұйықтық тінаралық кеңістікке шығады',term:'транссудация',s:[
+'Қылтамырдан шыққан сұйықтық лимфамен әкетілетіннен көп болып, тінаралықта жиналады.',
+'Гидростатикалық қысым артады, онкотикалық қысым төмендейді, қылтамыр өткізгіштігі артады, лимфа ағуы баяулайды.',
+'Нәруызы аз транссудат жиналады.',
+'Жасушадан тыс сұйықтық 4–5 л-ге артқанда ісіну көзге көрінеді.',
+'Себептерге әсер ету: іркілісті және гиперволемияны азайту.',
+'Транссудат; transsudatum']},
+{id:'k1',c:0,r:7,dir:'organ',type:'clinic',t:'Ісіну аяқта, кешке, көкшіл, суық',term:'периферические отёки',s:[
+'Ісіну аяқ басы мен сирақтан басталады; жатқан науқаста бел мен сегізкөз аймағында болады.',
+'Гидростатикалық қысым ауырлық күшіне байланысты төмен жерлерде жоғары.',
+'Ауыр жағдайда асцит, гидроторакс (көбіне оң жақта), гидроперикард, анасарка.',
+'Тері көкшіл (акроцианоз), суық; ұзақ ісінуде тығыздалады, трофикалық жаралар болуы мүмкін. Бүйректік ісінуден айырмашылығы — төменнен жоғары таралады.',
+'Диуретиктер, тұз шектеу, күнделікті салмақ өлшеу.',
+'Периферические отёки, анасарка']},
+{id:'c1',c:2,r:7,dir:'organ',type:'main',t:'Жүректік ісіну',term:'сердечные отёки',s:[
+'Жүрек жеткіліксіздігінде тінаралықта сұйықтық жиналуы.',
+'Гемодинамикалық фактор басты; оған жүйкелік-эндокриндік, онкотикалық, лимфогендік, қантамырлық және тіндік факторлар қосылады.',
+'Ісіну төменнен жоғары таралады: аяқ → сан → бел → асцит, гидроторакс, анасарка.',
+'Кешке қарай күшейеді, таңертең азаяды; басқанда шұңқыр қалады.',
+'Тұз шектеу, диуретиктер, жүрек жеткіліксіздігінің базалық емі.',
+'Сердечные отёки; oedema cardiale']},
+{id:'k3',c:4,r:7,dir:'organ',type:'clinic',t:'Сол қарынша әлсірегенде — өкпе ісінуі',term:'кардиогенный отёк лёгких',s:[
+'Сол қарынша әлсірегенде қан кіші қанайналым шеңберінде іркіледі.',
+'Өкпе қылтамырларындағы қысым 25–28 мм сын. бағ.-нан асқанда сұйықтық алдымен өкпе интерстицийіне, кейін альвеолаларға шығады.',
+'Газ алмасу бұзылып, гипоксемия дамиды.',
+'Ентігу, ортопноэ, түнгі тұншығу ұстамасы (жүрек демікпесі), көпіршікті қызғылт қақырық, ылғалды сырылдар.',
+'Отырғызу, оттегі, вена ішіне фуросемид, нитраттар; қажет болса өкпенің инвазивті емес вентиляциясы.',
+'Кардиогенный отёк лёгких; oedema pulmonum']}
+],
+edges:[
+{f:'e1',to:'a2',k:'main',p:R=>BT(R.e1,R.a2,.25)},
+{f:'e1',to:'a1',k:'main',p:R=>BT(R.e1,R.a1,.75)},
+{f:'a2',to:'k2',k:'main',p:R=>Lf(R.a2,R.k2)},
+{f:'a2',to:'liv',k:'main',p:R=>BT(R.a2,R.liv,.15)},
+{f:'a2',to:'a3',k:'main',p:R=>D(R.a2,R.a3)},
+{f:'liv',to:'onc',k:'main',p:R=>D(R.liv,R.onc)},
+{f:'a3',to:'l1',k:'main',p:R=>D(R.a3,R.l1)},
+{f:'a3',to:'S',k:'main',p:R=>{const g=(R.a3.r+R.h1.l)/2,y=R.S.t-20;return [[R.a3.r,R.a3.cy],[g,R.a3.cy],[g,y],[R.S.l+30,y],[R.S.l+30,R.S.t]]}},
+{f:'l1',to:'S',k:'main',p:R=>BS(R.l1,R.S,'l')},
+{f:'onc',to:'S',k:'main',p:R=>BB(R.onc,R.S,R.onc.cx,R.S.b+24,R.S.l+30)},
+{f:'a1',to:'h1',k:'cross',p:R=>ST(R.a1,R.h1,'l')},
+{f:'h1',to:'S',k:'main',p:R=>D(R.h1,R.S)},
+{f:'a1',to:'b1',k:'loop',p:R=>D(R.a1,R.b1)},
+{f:'b1',to:'b2',k:'loop',p:R=>D(R.b1,R.b2)},
+{f:'b2',to:'b3',k:'loop',p:R=>D(R.b2,R.b3)},
+{f:'b3',to:'b4',k:'loop',p:R=>D(R.b3,R.b4)},
+{f:'b4',to:'a1',k:'loop',p:R=>{const x=R.b4.l+R.b4.w*.75,y=R.b4.b+24;return [[x,R.b4.b],[x,y],[LANE,y],[LANE,R.a1.cy],[R.a1.r,R.a1.cy]]}},
+{f:'b4',to:'p1',k:'main',p:R=>[[R.b4.r,R.b4.cy],[R.p1.cx,R.b4.cy],[R.p1.cx,R.p1.b]]},
+{f:'p1',to:'b3',k:'inh',lb:'тежейді',p:R=>Lf(R.p1,R.b3)},
+{f:'b4',to:'S',k:'main',p:R=>[[R.b4.l,R.b4.cy],[R.S.r-30,R.b4.cy],[R.S.r-30,R.S.t]]},
+{f:'S',to:'c1',k:'main',p:R=>D(R.S,R.c1)},
+{f:'c1',to:'k1',k:'main',p:R=>Lf(R.c1,R.k1)},
+{f:'c1',to:'k3',k:'main',p:R=>Rt(R.c1,R.k3)}
+],
+markers:[R=>[(R.b1.r+LANE)/2,(R.b1.cy+R.b2.cy)/2]],
+loops:[['a1','b1','b2','b3','b4']],
+overview:[
+['Не болады','Жүрек жеткіліксіздігінде сұйықтық тінаралықта жиналады. Ісіну төменнен басталады, кешке күшейеді, тері көкшіл әрі суық.'],
+['Гемодинамикалық жол','Оң қарынша әлсірегенде көктамырда қан іркіледі. Қылтамырдағы гидростатикалық қысым артады, лимфаның көктамырға ағуы қиындайды, бауырда нәруыз түзілуі азаяды.'],
+['Нейрогуморалдық жол','Минуттық көлем азайып, бүйрек қанмен нашар қамтамасыз етіледі. РААЖ мен АДГ Na⁺ пен суды ұстайды. Гиперволемия әлсіз жүрекке жүктеме түсіріп, минуттық көлемді тағы азайтады — тұйық шеңбер.'],
+['Ісіну факторлары','Гемодинамикалық (басты), жүйкелік-эндокриндік, онкотикалық, лимфогендік, қантамырлық және тіндік (гипоксия).']
+]
+};
+
+</script>
+<script>
+(function(){
+const DIRS={
+  hemo:{name:'Гемодинамикалық',g:'Гд'},
+  neuro:{name:'Нейрогуморалдық',g:'Нг'},
+  metab:{name:'Метаболизмдік',g:'Мб'},
+  immune:{name:'Иммундық-қабынулық',g:'Иқ'},
+  cell:{name:'Жасушалық-молекулалық',g:'Жм'},
+  organ:{name:'Мүшелік зақымданулар',g:'Мш'}
+};
+const TYPES={
+  etio:{short:'Этиология',full:'Этиология',v:'--t-etio'},
+  main:{short:'Басты буын',full:'Басты буын',v:'--t-main'},
+  damage:{short:'Зақымдаушы',full:'Зақымдаушы буын',v:'--t-damage'},
+  protect:{short:'Компенсаторлық',full:'Қорғаныш / компенсаторлық буын',v:'--t-protect'},
+  clinic:{short:'Клиника',full:'Клиникалық белгі',v:'--t-clinic'}
+};
+const SEC=['Не болады','Неліктен','Нәтижесі','Клиника','Емдік нүкте','Термин'];
+const S=SCHEME, N=S.nodes, E=S.edges;
+const byId={}; N.forEach(n=>byId[n.id]=n);
+const CW=S.lane?1204:1184, TOP=44, GAP=48;
+
+const canvas=document.getElementById('canvas');
+const svg=document.getElementById('edges');
+const panel=document.getElementById('panel');
+const scroller=document.getElementById('scroller');
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+document.getElementById('h1').textContent=S.title;
+document.getElementById('lead').textContent=S.lead+' Түйінді басыңыз — түсіндірме ашылады. Esc таңдауды алып тастайды.';
+canvas.style.width=CW+'px';
+
+(function(){
+  let h='';
+  for(const k in DIRS) h+=`<span class="lg"><span class="tag" style="--d:var(--d-${k})">${DIRS[k].g}</span>${DIRS[k].name}</span>`;
+  h+='<span class="lg-sep"></span>';
+  const tl={etio:'Этиология',main:'Басты буын',damage:'Зақымдаушы буын',protect:'Қорғаныш / компенсаторлық',clinic:'Клиникалық белгі'};
+  for(const k in tl) h+=`<span class="lg"><span class="dot" style="--t:var(${TYPES[k].v})"></span>${tl[k]}</span>`;
+  h+='<span class="lg-sep"></span>';
+  const ln=(c,dash)=>`<svg width="30" height="10" viewBox="0 0 30 10"><line x1="1" y1="5" x2="22" y2="5" style="stroke:var(${c});stroke-width:1.5${dash?';stroke-dasharray:4 3':''}"/><path d="M29 5 L21 1 L21 9 Z" style="fill:var(${c})"/></svg>`;
+  h+=`<span class="lg">${ln('--arrow')}Себеп-салдар</span>`;
+  h+=`<span class="lg">${ln('--t-loop')}Тұйық шеңбер</span>`;
+  h+=`<span class="lg">${ln('--t-cross',1)}Айқасқан байланыс</span>`;
+  h+=`<span class="lg"><svg width="30" height="12" viewBox="0 0 30 12"><line x1="1" y1="6" x2="27" y2="6" style="stroke:var(--t-protect);stroke-width:1.5"/><line x1="27" y1="1" x2="27" y2="11" style="stroke:var(--t-protect);stroke-width:2"/></svg>Тежеу</span>`;
+  document.getElementById('legend').innerHTML=h;
+})();
+
+const els={};
+N.forEach(n=>{
+  const b=document.createElement('button');
+  b.type='button';
+  b.className='node'+(n.type==='main'?' main':'');
+  b.style.left=(20+n.c*236)+'px';
+  b.style.setProperty('--d',`var(--d-${n.dir})`);
+  b.setAttribute('aria-pressed','false');
+  b.title=DIRS[n.dir].name+' · '+TYPES[n.type].full;
+  b.innerHTML=`<span class="meta"><span class="ty"><span class="dot" style="--t:var(${TYPES[n.type].v})"></span>${TYPES[n.type].short}</span><span class="tag">${DIRS[n.dir].g}</span></span><span class="ttl">${esc(n.t)}</span><span class="term">(${esc(n.term)})</span>`;
+  b.addEventListener('click',e=>{e.stopPropagation();select(sel===n.id?null:n.id)});
+  canvas.appendChild(b); els[n.id]=b;
+});
+
+function pathD(pts,rad){
+  let d=`M${pts[0][0]},${pts[0][1]}`;
+  for(let i=1;i<pts.length-1;i++){
+    const p0=pts[i-1],p=pts[i],p1=pts[i+1];
+    const li=Math.hypot(p[0]-p0[0],p[1]-p0[1]),lo=Math.hypot(p1[0]-p[0],p1[1]-p[1]);
+    if(!li||!lo){d+=` L${p[0]},${p[1]}`;continue}
+    const r=Math.min(rad,li/2,lo/2);
+    const di=[(p[0]-p0[0])/li,(p[1]-p0[1])/li],dout=[(p1[0]-p[0])/lo,(p1[1]-p[1])/lo];
+    d+=` L${p[0]-di[0]*r},${p[1]-di[1]*r} Q${p[0]},${p[1]} ${p[0]+dout[0]*r},${p[1]+dout[1]*r}`;
+  }
+  const L=pts[pts.length-1];return d+` L${L[0]},${L[1]}`;
+}
+function draw(){
+  const rows=Math.max(...N.map(n=>n.r))+1, rh=new Array(rows).fill(0);
+  N.forEach(n=>{rh[n.r]=Math.max(rh[n.r],els[n.id].offsetHeight)});
+  const top=[];let y=TOP;
+  for(let r=0;r<rows;r++){top[r]=y;y+=(rh[r]||44)+GAP}
+  N.forEach(n=>{els[n.id].style.top=top[n.r]+'px'});
+  const H=y-GAP+28; canvas.style.height=H+'px';
+  const R={};
+  N.forEach(n=>{const el=els[n.id];const l=el.offsetLeft,t=top[n.r],w=el.offsetWidth,h=el.offsetHeight;
+    R[n.id]={l,t,w,h,r:l+w,b:t+h,cx:l+w/2,cy:t+h/2}});
+  svg.setAttribute('width',CW); svg.setAttribute('height',H); svg.setAttribute('viewBox',`0 0 ${CW} ${H}`);
+  let out='';
+  E.forEach((e,i)=>{
+    const raw=e.p(R); let pts=raw.map(p=>p.slice());
+    const a=pts[pts.length-2],z=pts[pts.length-1];
+    const len=Math.hypot(z[0]-a[0],z[1]-a[1]);const dx=(z[0]-a[0])/len,dy=(z[1]-a[1])/len;
+    let extra='';
+    if(e.k==='inh'){
+      const bx=z[0]-dx*3,by=z[1]-dy*3; pts[pts.length-1]=[bx,by];
+      extra=`<line class="bar" x1="${bx-dy*6}" y1="${by+dx*6}" x2="${bx+dy*6}" y2="${by-dx*6}" stroke-width="2"/>`;
+    }else{
+      pts[pts.length-1]=[z[0]-dx*8,z[1]-dy*8];
+      const bx=z[0]-dx*9,by=z[1]-dy*9;
+      extra=`<path class="hd" d="M${z[0]},${z[1]} L${bx-dy*4.5},${by+dx*4.5} L${bx+dy*4.5},${by-dx*4.5} Z"/>`;
+    }
+    let lab='';
+    let best=0,bi=0;
+    for(let j=0;j<raw.length-1;j++){const l=Math.hypot(raw[j+1][0]-raw[j][0],raw[j+1][1]-raw[j][1]);if(l>best){best=l;bi=j}}
+    if(e.lb&&best>=e.lb.length*8+24){
+      const p=raw[bi],q=raw[bi+1];
+      lab=Math.abs(p[1]-q[1])<1
+        ?`<text class="elabel" x="${(p[0]+q[0])/2}" y="${p[1]-8}" text-anchor="middle">${esc(e.lb)}</text>`
+        :`<text class="elabel" x="${p[0]+8}" y="${(p[1]+q[1])/2+4}" text-anchor="start">${esc(e.lb)}</text>`;
+    }
+    out+=`<g class="edge e-${e.k}" data-i="${i}"><path class="ln" d="${pathD(pts,8)}"/>${extra}${lab}</g>`;
+  });
+  (S.markers||[]).forEach((m,i)=>{
+    const [cx,cy0]=m(R),cy=cy0-10,r=15;
+    const a0=-50*Math.PI/180,a1=a0+300*Math.PI/180;
+    const sx=cx+r*Math.cos(a0),sy=cy+r*Math.sin(a0),ex=cx+r*Math.cos(a1),ey=cy+r*Math.sin(a1);
+    const tx=-Math.sin(a1),ty=Math.cos(a1),hb=[ex-tx*8,ey-ty*8];
+    out+=`<g class="loopmark" data-l="${i}"><path class="loop-ic" d="M${sx},${sy} A${r},${r} 0 1 1 ${ex-tx*3},${ey-ty*3}"/>`+
+      `<path class="loop-hd" d="M${ex+tx*2},${ey+ty*2} L${hb[0]-ty*4.5},${hb[1]+tx*4.5} L${hb[0]+ty*4.5},${hb[1]-tx*4.5} Z"/>`+
+      `<text class="loop-lb" x="${cx}" y="${cy+r+20}" text-anchor="middle">тұйық шеңбер</text></g>`;
+  });
+  svg.innerHTML=out;
+  applyFade();
+}
+
+let sel=null;
+function applyFade(){
+  const s=sel?byId[sel]:null;
+  N.forEach(n=>{
+    const el=els[n.id];
+    el.setAttribute('aria-pressed',String(n.id===sel));
+    el.classList.toggle('faded',!!s&&n.dir!==s.dir&&n.id!==s.id);
+  });
+  svg.querySelectorAll('.edge').forEach(g=>{
+    const e=E[+g.dataset.i];
+    const keep=!s||e.f===sel||e.to===sel||(byId[e.f].dir===s.dir&&byId[e.to].dir===s.dir);
+    g.classList.toggle('faded',!keep);
+  });
+  svg.querySelectorAll('.loopmark').forEach(g=>{
+    const ids=(S.loops||[])[+g.dataset.l]||[];
+    g.classList.toggle('faded',!!s&&!ids.includes(sel));
+  });
+}
+const narrow=()=>window.matchMedia('(max-width:1099px)').matches;
+function chip(id,suffix){
+  const n=byId[id];
+  return `<button type="button" class="chip" data-go="${id}" style="--d:var(--d-${n.dir})">${esc(n.t)}${suffix?' ('+suffix+')':''}</button>`;
+}
+const kindNote=k=>k==='inh'?'тежейді':k==='cross'?'айқасқан':'';
+function renderPanel(){
+  const n=sel?byId[sel]:null;
+  if(!n){
+    panel.style.setProperty('--pd','var(--t-main)');
+    let h=`<div class="p-top"><h2>Жалпы шолу</h2><button type="button" class="panel-close" data-close>Жабу</button></div>`;
+    S.overview.forEach(([hd,p])=>{h+=`<div class="p-sec"><h3>${esc(hd)}</h3><p>${esc(p)}</p></div>`});
+    h+=`<div class="p-sec"><h3>Схеманы оқу</h3><p>Түйінді басыңыз: таңдалған бағыт қалады, қалғандары бозарады. Бос жерді басу немесе Esc таңдауды алып тастайды.</p></div>`;
+    panel.innerHTML=h; return;
+  }
+  panel.style.setProperty('--pd',`var(--d-${n.dir})`);
+  const inc=E.filter(e=>e.to===n.id).map(e=>chip(e.f,kindNote(e.k)));
+  const out=E.filter(e=>e.f===n.id).map(e=>chip(e.to,kindNote(e.k)));
+  let h=`<div class="p-top"><h2>${esc(n.t)}</h2><button type="button" class="panel-close" data-close>Жабу</button></div>
+    <div class="p-dir"><span class="tag" style="--d:var(--d-${n.dir})">${DIRS[n.dir].g}</span>${DIRS[n.dir].name}</div>
+    <div class="p-type"><span class="dot" style="--t:var(${TYPES[n.type].v})"></span>${TYPES[n.type].full}</div>`;
+  n.s.forEach((txt,i)=>{
+    h+=i===5?`<div class="p-sec"><h3>${SEC[i]}</h3><p class="term-txt">(${esc(txt)})</p></div>`
+            :`<div class="p-sec"><h3>${SEC[i]}</h3><p>${esc(txt)}</p></div>`;
+  });
+  if(inc.length||out.length){
+    h+=`<div class="p-sec"><h3>Байланыстар</h3>`;
+    if(inc.length) h+=`<div class="chip-lb">Алдыңғы буын</div><div class="chips">${inc.join('')}</div>`;
+    if(out.length) h+=`<div class="chip-lb">Келесі буын</div><div class="chips">${out.join('')}</div>`;
+    h+=`</div>`;
+  }
+  panel.innerHTML=h; panel.scrollTop=0;
+}
+function ensureVisible(id){
+  const el=els[id];
+  let nr=el.getBoundingClientRect(),cr=scroller.getBoundingClientRect();
+  if(nr.left<cr.left+16||nr.right>cr.right-16) scroller.scrollLeft+=(nr.left+nr.width/2)-(cr.left+cr.width/2);
+  if(narrow()){
+    nr=el.getBoundingClientRect();
+    const sheetTop=window.innerHeight-panel.offsetHeight;
+    if(nr.bottom>sheetTop-12||nr.top<12) window.scrollBy(0,nr.top-72);
+  }
+}
+function select(id){
+  sel=id; applyFade(); renderPanel();
+  panel.classList.toggle('open',!!id);
+  document.body.style.paddingBottom=(id&&narrow())?panel.offsetHeight+'px':'';
+  if(id) ensureVisible(id);
+}
+panel.addEventListener('click',e=>{
+  const g=e.target.closest('[data-go]'); if(g){select(g.dataset.go);els[g.dataset.go].focus({preventScroll:true});return}
+  if(e.target.closest('[data-close]')){const prev=sel;select(null);if(prev)els[prev].focus({preventScroll:true})}
+});
+canvas.addEventListener('click',()=>{if(sel)select(null)});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&sel)select(null)});
+window.addEventListener('resize',()=>{document.body.style.paddingBottom=(sel&&narrow())?panel.offsetHeight+'px':''});
+
+draw(); renderPanel();
+if(document.fonts&&document.fonts.ready) document.fonts.ready.then(draw);
+window.addEventListener('load',draw);
+})();
+</script>
+<script>
+/* viewer bridge: two-finger pinch is sent to the reader, zoom keeps the point under the fingers in place, theme follows the reader */
+(function(){
+  if (window.parent === window) return;
+  var z = 1, pinch = null, focal = null, lastW = innerWidth, lastH = innerHeight;
+  function send(m){ try { parent.postMessage(m, '*'); } catch (e) {} }
+  addEventListener('message', function(e){
+    var d = e.data;
+    if (!d || typeof d !== 'object') return;
+    if (d.__viewer === 'zoom' && typeof d.z === 'number') z = d.z;
+    if (d.__viewer === 'theme') {
+      if (d.theme) document.documentElement.setAttribute('data-theme', d.theme);
+      else document.documentElement.removeAttribute('data-theme');
+    }
+  });
+  function dist(t){ var dx = t[0].clientX - t[1].clientX, dy = t[0].clientY - t[1].clientY; return Math.sqrt(dx*dx + dy*dy); }
+  function mid(t){ return { x: (t[0].clientX + t[1].clientX) / 2, y: (t[0].clientY + t[1].clientY) / 2 }; }
+  document.addEventListener('touchstart', function(e){
+    if (e.touches.length === 2) { pinch = { d: dist(e.touches) * z, z: z }; focal = mid(e.touches); e.preventDefault(); }
+  }, { passive: false });
+  document.addEventListener('touchmove', function(e){
+    if (!pinch || e.touches.length !== 2) return;
+    e.preventDefault();
+    focal = mid(e.touches);
+    var d = dist(e.touches) * z;
+    if (pinch.d > 0) send({ __viewer: 'pinch', z: pinch.z * d / pinch.d });
+  }, { passive: false });
+  function end(e){
+    if (pinch && e.touches.length < 2) {
+      pinch = null; send({ __viewer: 'pinchend' });
+      setTimeout(function(){ if (!pinch) focal = null; }, 300);
+    }
+  }
+  document.addEventListener('touchend', end);
+  document.addEventListener('touchcancel', end);
+  ['gesturestart', 'gesturechange'].forEach(function(t){ document.addEventListener(t, function(e){ e.preventDefault(); }); });
+  /* trackpad pinch / ctrl + wheel on a computer */
+  var wt = 0;
+  addEventListener('wheel', function(e){
+    if (!e.ctrlKey) return;
+    e.preventDefault();
+    focal = { x: e.clientX, y: e.clientY };
+    send({ __viewer: 'pinch', z: z * Math.exp(-e.deltaY * 0.01) });
+    clearTimeout(wt);
+    wt = setTimeout(function(){ focal = null; send({ __viewer: 'pinchend' }); }, 400);
+  }, { passive: false });
+  addEventListener('resize', function(){
+    var w = innerWidth, h = innerHeight, r = lastW / w, rh = lastH / h;
+    var oldW = lastW, oldH = lastH;
+    lastW = w; lastH = h;
+    /* width and height change by the same factor only when the zoom changed (not on rotation) */
+    if (Math.abs(r - 1) < 0.01 || Math.abs(r - rh) > 0.04 * r) return;
+    var f = focal || { x: oldW / 2, y: oldH / 2 };
+    var dx = f.x - f.x / r, dy = f.y - f.y / r;
+    window.scrollBy(0, dy);
+    var el = document.elementFromPoint(f.x / r, f.y / r);
+    while (el && el !== document.body && el !== document.documentElement) {
+      if (el.scrollWidth > el.clientWidth + 1) {
+        var ox = getComputedStyle(el).overflowX;
+        if (ox === 'auto' || ox === 'scroll') { el.scrollLeft += dx; break; }
+      }
+      el = el.parentElement;
+    }
+    if (focal) focal = { x: f.x / r, y: f.y / r };
+  });
+  send({ __viewer: 'ready' });
+})();
+</script>

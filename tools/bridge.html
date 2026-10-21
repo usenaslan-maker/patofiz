@@ -1,0 +1,68 @@
+<script>
+/* viewer bridge: two-finger pinch is sent to the reader, zoom keeps the point under the fingers in place, theme follows the reader */
+(function(){
+  if (window.parent === window) return;
+  var z = 1, pinch = null, focal = null, lastW = innerWidth, lastH = innerHeight;
+  function send(m){ try { parent.postMessage(m, '*'); } catch (e) {} }
+  addEventListener('message', function(e){
+    var d = e.data;
+    if (!d || typeof d !== 'object') return;
+    if (d.__viewer === 'zoom' && typeof d.z === 'number') z = d.z;
+    if (d.__viewer === 'theme') {
+      if (d.theme) document.documentElement.setAttribute('data-theme', d.theme);
+      else document.documentElement.removeAttribute('data-theme');
+    }
+  });
+  function dist(t){ var dx = t[0].clientX - t[1].clientX, dy = t[0].clientY - t[1].clientY; return Math.sqrt(dx*dx + dy*dy); }
+  function mid(t){ return { x: (t[0].clientX + t[1].clientX) / 2, y: (t[0].clientY + t[1].clientY) / 2 }; }
+  document.addEventListener('touchstart', function(e){
+    if (e.touches.length === 2) { pinch = { d: dist(e.touches) * z, z: z }; focal = mid(e.touches); e.preventDefault(); }
+  }, { passive: false });
+  document.addEventListener('touchmove', function(e){
+    if (!pinch || e.touches.length !== 2) return;
+    e.preventDefault();
+    focal = mid(e.touches);
+    var d = dist(e.touches) * z;
+    if (pinch.d > 0) send({ __viewer: 'pinch', z: pinch.z * d / pinch.d });
+  }, { passive: false });
+  function end(e){
+    if (pinch && e.touches.length < 2) {
+      pinch = null; send({ __viewer: 'pinchend' });
+      setTimeout(function(){ if (!pinch) focal = null; }, 300);
+    }
+  }
+  document.addEventListener('touchend', end);
+  document.addEventListener('touchcancel', end);
+  ['gesturestart', 'gesturechange'].forEach(function(t){ document.addEventListener(t, function(e){ e.preventDefault(); }); });
+  /* trackpad pinch / ctrl + wheel on a computer */
+  var wt = 0;
+  addEventListener('wheel', function(e){
+    if (!e.ctrlKey) return;
+    e.preventDefault();
+    focal = { x: e.clientX, y: e.clientY };
+    send({ __viewer: 'pinch', z: z * Math.exp(-e.deltaY * 0.01) });
+    clearTimeout(wt);
+    wt = setTimeout(function(){ focal = null; send({ __viewer: 'pinchend' }); }, 400);
+  }, { passive: false });
+  addEventListener('resize', function(){
+    var w = innerWidth, h = innerHeight, r = lastW / w, rh = lastH / h;
+    var oldW = lastW, oldH = lastH;
+    lastW = w; lastH = h;
+    /* width and height change by the same factor only when the zoom changed (not on rotation) */
+    if (Math.abs(r - 1) < 0.01 || Math.abs(r - rh) > 0.04 * r) return;
+    var f = focal || { x: oldW / 2, y: oldH / 2 };
+    var dx = f.x - f.x / r, dy = f.y - f.y / r;
+    window.scrollBy(0, dy);
+    var el = document.elementFromPoint(f.x / r, f.y / r);
+    while (el && el !== document.body && el !== document.documentElement) {
+      if (el.scrollWidth > el.clientWidth + 1) {
+        var ox = getComputedStyle(el).overflowX;
+        if (ox === 'auto' || ox === 'scroll') { el.scrollLeft += dx; break; }
+      }
+      el = el.parentElement;
+    }
+    if (focal) focal = { x: f.x / r, y: f.y / r };
+  });
+  send({ __viewer: 'ready' });
+})();
+</script>

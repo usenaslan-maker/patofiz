@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="kk">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>body{margin:0}</style>
+<title>Қабынулық және уыттық ісіну патогенезі</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+/* Layout: title → one-line legend → pathogenesis map on a 5-column grid (rows sized to content) + explanation panel (docked ≥1100px, bottom sheet below) */
+:root{
+  --bg:#FAFAF7; --node:#FFFFFF; --fg:#2B2B2B; --fg2:#6B6B6B; --line:#D9D9D4; --arrow:#6B6B6B;
+  --t-etio:#8C8C8C; --t-main:#3B5BA9; --t-damage:#C8553D; --t-protect:#4E8F6A;
+  --t-loop:#C8553D; --t-cross:#9A9A9A; --t-clinic:#B07D2B;
+  --d-hemo:#3B7EA1; --d-neuro:#7A5BA6; --d-metab:#C08A2E; --d-immune:#B5536B; --d-cell:#4A8C8C; --d-organ:#6B7B3A;
+  --font:"Noto Sans","Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#1E1F1C; --node:#2A2B27; --fg:#ECECE8; --fg2:#A9A9A3; --line:#3D3E39; --arrow:#8F908A;
+    --t-etio:#989898; --t-main:#4F6BB2; --t-damage:#CE6650; --t-protect:#609A79;
+    --t-loop:#CE6650; --t-cross:#A5A5A5; --t-clinic:#B88A40;
+    --d-hemo:#4F8BAA; --d-neuro:#876BAF; --d-metab:#C69643; --d-immune:#BC647A; --d-cell:#5C9898; --d-organ:#7A884E;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1E1F1C; --node:#2A2B27; --fg:#ECECE8; --fg2:#A9A9A3; --line:#3D3E39; --arrow:#8F908A;
+  --t-etio:#989898; --t-main:#4F6BB2; --t-damage:#CE6650; --t-protect:#609A79;
+  --t-loop:#CE6650; --t-cross:#A5A5A5; --t-clinic:#B88A40;
+  --d-hemo:#4F8BAA; --d-neuro:#876BAF; --d-metab:#C69643; --d-immune:#BC647A; --d-cell:#5C9898; --d-organ:#7A884E;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--font);font-size:15px;line-height:1.5}
+.page{max-width:1600px;margin:0 auto;padding-inline:16px;padding-block:24px 40px}
+@media (min-width:700px){.page{padding-inline:24px}}
+h1{font-size:20px;font-weight:600;margin:0 0 6px;text-wrap:balance}
+.lead{font-size:15px;color:var(--fg2);max-width:76ch;margin:0 0 14px;line-height:1.6}
+
+.legend{display:flex;align-items:center;gap:16px;overflow-x:auto;white-space:nowrap;padding-block:10px;margin-bottom:16px;border-block:1px solid var(--line);font-size:13px;color:var(--fg2)}
+.lg{display:inline-flex;align-items:center;gap:6px;flex:none}
+.lg-sep{width:1px;height:18px;background:var(--line);flex:none}
+.tag{display:inline-block;font-size:13px;font-weight:600;line-height:18px;padding:0 5px;border-radius:6px;color:var(--fg);border:1px solid var(--d);background:color-mix(in srgb,var(--d) 8%,transparent);flex:none}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--t);flex:none}
+.lg svg{flex:none}
+
+.layout{display:block}
+@media (min-width:1100px){.layout{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:20px;align-items:start}}
+.scroller{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--bg);min-width:0}
+.canvas{position:relative;margin:0 auto}
+svg.edges{position:absolute;left:0;top:0;overflow:visible;pointer-events:none}
+
+.node{position:absolute;top:0;width:200px;background:var(--node);color:var(--fg);border:1.5px solid var(--d);border-radius:10px;padding:9px 12px 10px;text-align:left;font:inherit;cursor:pointer;display:flex;flex-direction:column;gap:4px}
+.node.main{border-width:2px}
+.node[aria-pressed="true"]{box-shadow:0 0 0 1.5px var(--d);background:color-mix(in srgb,var(--d) 8%,var(--node))}
+.node:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+.node .meta{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:13px;font-weight:500;color:var(--fg2);line-height:18px}
+.node .ty{display:inline-flex;align-items:center;gap:6px;min-width:0}
+.node .ttl{font-size:14px;font-weight:500;line-height:1.4}
+.node .term,.term-txt{font-size:13px;font-style:italic;color:var(--fg2);line-height:1.4}
+.faded{opacity:.3}
+
+.e-main path.ln{stroke:var(--arrow)} .e-main .hd{fill:var(--arrow)}
+.e-loop path.ln{stroke:var(--t-loop)} .e-loop .hd{fill:var(--t-loop)}
+.e-cross path.ln{stroke:var(--t-cross);stroke-dasharray:5 4} .e-cross .hd{fill:var(--t-cross)}
+.e-inh path.ln,.e-inh .bar{stroke:var(--t-protect)}
+path.ln{fill:none;stroke-width:1.5}
+.elabel{font-family:var(--font);font-size:13px;fill:var(--fg2);paint-order:stroke;stroke:var(--bg);stroke-width:5px;stroke-linejoin:round}
+.loop-ic{fill:none;stroke:var(--t-loop);stroke-width:1.5}
+.loop-hd{fill:var(--t-loop)}
+.loop-lb{font-family:var(--font);font-size:13px;font-weight:500;fill:var(--t-loop);paint-order:stroke;stroke:var(--bg);stroke-width:5px}
+
+.panel{--pd:var(--t-main);position:relative;background:var(--node);border:1px solid var(--line);border-radius:10px;padding:20px 22px 22px 26px;display:none}
+.panel::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--pd);border-radius:10px 0 0 10px}
+@media (min-width:1100px){
+  .panel{display:block;position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);max-height:calc(100vh - 32px);overflow-y:auto}
+  .panel-close{display:none!important}
+}
+@media (max-width:1099px){
+  .panel.open{display:block;position:fixed;left:0;right:0;bottom:0;max-height:60vh;overflow-y:auto;z-index:20;border-radius:10px 10px 0 0;border-bottom:0;padding-bottom:calc(22px + env(safe-area-inset-bottom,0px))}
+  .panel.open::before{border-radius:10px 0 0 0}
+}
+.p-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.panel h2{font-size:20px;font-weight:600;margin:0;line-height:1.35;text-wrap:balance}
+.panel-close{font:inherit;font-size:13px;font-weight:600;color:var(--fg);background:transparent;border:1px solid var(--line);border-radius:10px;padding:4px 10px;cursor:pointer;flex:none}
+.p-dir{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:15px;font-weight:600}
+.p-type{display:flex;align-items:center;gap:6px;margin-top:6px;font-size:13px;color:var(--fg2)}
+.p-sec{margin-top:16px}
+.p-sec h3{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--fg2);margin:0 0 4px}
+.p-sec p{font-size:15px;font-weight:400;line-height:1.6;margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.chip{font:inherit;font-size:13px;color:var(--fg);background:var(--node);border:1px solid var(--d);border-radius:10px;padding:3px 9px;cursor:pointer;text-align:left}
+.chip:focus-visible,.panel-close:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+.chip-lb{font-size:13px;color:var(--fg2);margin-top:8px}
+</style>
+
+<div class="page">
+  <h1 id="h1"></h1>
+  <p class="lead" id="lead"></p>
+  <div class="legend" id="legend" aria-label="Шартты белгілер"></div>
+  <div class="layout">
+    <div class="scroller" id="scroller">
+      <div class="canvas" id="canvas">
+        <svg class="edges" id="edges" aria-hidden="true"></svg>
+      </div>
+    </div>
+    <aside class="panel" id="panel" aria-live="polite"></aside>
+  </div>
+</div>
+
+<script>
+/* geometry helpers used by the scheme data */
+const LANE=1182;
+const hm=(a,b)=>(Math.max(a.t,b.t)+Math.min(a.b,b.b))/2;
+const vm=(a,b)=>(Math.max(a.l,b.l)+Math.min(a.r,b.r))/2;
+const D=(a,b)=>{const x=vm(a,b);return [[x,a.b],[x,b.t]]};
+const U=(a,b)=>{const x=vm(a,b);return [[x,a.t],[x,b.b]]};
+const Rt=(a,b)=>{const y=hm(a,b);return [[a.r,y],[b.l,y]]};
+const Lf=(a,b)=>{const y=hm(a,b);return [[a.l,y],[b.r,y]]};
+const BT=(s,t,fo)=>{const x=s.l+s.w*fo,y=t.t-24;return [[x,s.b],[x,y],[t.cx,y],[t.cx,t.t]]};
+const ST=(s,t,side,fo)=>{const x=side==='l'?s.l:s.r,y=fo==null?s.cy:s.t+s.h*fo;return [[x,y],[t.cx,y],[t.cx,t.t]]};
+const BS=(s,t,side)=>[[s.cx,s.b],[s.cx,t.cy],[side==='l'?t.l:t.r,t.cy]];
+const BTo=(s,t,tx)=>[[s.cx,s.b],[s.cx,t.t-20],[tx,t.t-20],[tx,t.t]];
+const BB=(s,t,x0,Y,tx)=>[[x0,s.b],[x0,Y],[tx,Y],[tx,t.b]];
+</script>
+<script>
+const SCHEME={
+title:'Қабынулық және уыттық ісіну патогенезі',
+lead:'Қабынулық және уыттық ісінудің басты факторы — қылтамыр қабырғасы өткізгіштігінің артуы, соның салдарынан нәруызға бай экссудат жиналады. Оған артериялық гиперемия, тіндік осмостық қысымның артуы және лимфа ағуының бұзылуы қосылады.',
+nodes:[
+{id:'e1',c:1,r:0,dir:'immune',type:'etio',t:'Қабыну: инфекция, жарақат, күйік',term:'воспаление',s:[
+'Тіннің зақымдануына жергілікті қорғаныс-бейімделу реакциясы.',
+'Микробтар, механикалық жарақат, күйік, үсу, сәуле, химиялық заттар, некроз.',
+'Альтерация, экссудация және пролиферация кезеңдері дамиды.',
+'Ісіну, қызару, қызу, ауырсыну, қызметтің бұзылуы.',
+'Себепті жою (антибиотиктер, хирургиялық санация), қабынуға қарсы ем.',
+'Воспаление; inflammatio']},
+{id:'e2',c:3,r:0,dir:'cell',type:'etio',t:'Уытты заттар: фосген, хлор, жылан уы',term:'токсические вещества',s:[
+'Қылтамыр қабырғасын тікелей зақымдайтын химиялық және биологиялық уыттар.',
+'Ауамен жұтылатын уыттар (фосген, хлор, азот оксидтері), жылан мен жәндік уы, бактерия токсиндері, кейбір дәрілер.',
+'Эндотелий мен базальды мембрана зақымданады; уыттың өзі қабынуды да тудырады.',
+'Уыттың түскен жеріне байланысты жергілікті ісіну немесе уытты өкпе ісінуі.',
+'Уытпен байланысты тоқтату, антидоттар (жылан уына — антивеном), оттегі.',
+'Токсические отёки; oedema toxicum']},
+{id:'alt',c:1,r:1,dir:'cell',type:'damage',t:'Тін альтерациясы: лизосома ферменттері шығады',term:'альтерация',s:[
+'Зақымданған жасушалардан лизосома ферменттері мен жасуша ішілік заттар шығады.',
+'Жасуша мембраналарының зақымдануы.',
+'Мес жасушалары, тромбоциттер, плазма жүйелері (кинин, комплемент) белсенеді; макромолекулалар ыдырайды.',
+'Ауырсыну, қызметтің бұзылуы.',
+'Мембрананы тұрақтандыратын заттар, глюкокортикоидтар.',
+'Альтерация; alteratio']},
+{id:'tox',c:3,r:1,dir:'cell',type:'damage',t:'Эндотелий мен базальды мембрана тікелей зақымданады',term:'прямое повреждение эндотелия',s:[
+'Уыт эндотелий жасушалары мен базальды мембрананы тікелей бұзады.',
+'Фосген мен хлор альвеола-қылтамыр мембранасын зақымдайды; жылан уының фосфолипазасы мен гиалуронидазасы мембраналарды ыдыратады.',
+'Қылтамыр өткізгіштігі медиаторларсыз-ақ күрт артады.',
+'Уыт түскен жерде тез дамитын ісіну.',
+'Антидоттар, антивеном, оттегі.',
+'Прямое токсическое повреждение эндотелия']},
+{id:'k2',c:4,r:1,dir:'organ',type:'clinic',t:'Уытты өкпе ісінуі',term:'токсический отёк лёгких',s:[
+'Тұншықтырғыш уыттармен уланғанда өкпе ісінеді.',
+'Альвеола-қылтамыр мембранасының уытпен зақымдануы.',
+'Газ алмасу бұзылып, гипоксемия дамиды.',
+'Жасырын кезеңнен кейін (2–24 сағ) ентігу, жөтел, көпіршікті қақырық, цианоз.',
+'Тыныштық, оттегі, дем шығару соңындағы оң қысыммен (PEEP) вентиляция.',
+'Токсический отёк лёгких; oedema pulmonum toxicum']},
+{id:'tos',c:0,r:2,dir:'cell',type:'damage',t:'Тіндік осмостық қысым артады',term:'гиперосмия ткани',s:[
+'Қабыну ошағында осмостық белсенді бөлшектер көбейеді.',
+'Ірі молекулалар ұсақ бөлшектерге ыдырайды; жасушалардан K⁺, H⁺ шығады (гипериония, ацидоз).',
+'Су тінаралыққа тартылады (тіндік фактор).',
+'Ошақтың қатты ісінуі.',
+'Ошақты тазарту, микроциркуляцияны жақсарту.',
+'Гиперосмия, гиперония, ацидоз в очаге воспаления']},
+{id:'med',c:1,r:2,dir:'immune',type:'main',t:'Қабыну медиаторлары бөлінеді',term:'медиаторы воспаления',s:[
+'Гистамин, серотонин, брадикинин, простагландиндер, лейкотриендер, тромбоциттерді белсендіретін фактор, цитокиндер (ИЛ-1, ФНО-α) бөлінеді.',
+'Мес жасушалары, базофилдер, тромбоциттер, эндотелий мен лейкоциттер белсенеді; плазма жүйелері қосылады.',
+'Артериолалар кеңейеді, эндотелий жиырылып, қылтамыр өткізгіштігі артады.',
+'Қызару, қызу, ауырсыну.',
+'ҚҚСД (простагландиндерді тежейді), антигистаминдер, глюкокортикоидтар.',
+'Медиаторы воспаления']},
+{id:'hyl',c:0,r:3,dir:'cell',type:'damage',t:'Тінаралық заттың гидрофильдігі артады',term:'гидрофильность межклеточного вещества',s:[
+'Тінаралық негізгі зат көбірек су байлайды.',
+'Гиалуронидаза мен коллагеназа гиалурон қышқылы мен коллагенді деполимеризациялайды; ацидоз коллоидтардың ісінуін күшейтеді.',
+'Тін сұйықтықты ұстап, ісіну көлемі артады.',
+'Тіннің тығыз, кернеулі ісінуі.',
+'Ерте кезеңде суық басу, глюкокортикоидтар.',
+'Деполимеризация гиалуроновой кислоты']},
+{id:'art',c:1,r:3,dir:'hemo',type:'damage',t:'Артериолалар кеңейеді, қылтамырда қысым артады',term:'артериальная гиперемия',s:[
+'Қабыну ошағына артериялық қан ағуы артады.',
+'Медиаторлардың вазодилатациялық әсері, аксон-рефлекс.',
+'Қылтамырдағы гидростатикалық қысым көтеріліп, сүзілу күшейеді (гемодинамикалық фактор).',
+'Қызару (rubor), қызу (calor).',
+'Ерте кезеңде суық басу.',
+'Артериальная гиперемия; hyperaemia arterialis']},
+{id:'perm',c:2,r:3,dir:'hemo',type:'main',t:'Қылтамыр өткізгіштігі артады',term:'сосудистый фактор',s:[
+'Қылтамыр мен венулалар қабырғасы нәруыз бен суды көбірек өткізеді.',
+'Эндотелий жасушалары жиырылып, олардың арасында саңылаулар ашылады; уыттар мен ферменттер базальды мембрананы бұзады.',
+'Қабынулық және уыттық ісінудің басты (қантамырлық) факторы.',
+'Ісіну тез дамиды.',
+'Антигистаминдер, глюкокортикоидтар; кальций препараттары тамыр қабырғасын тығыздайды.',
+'Повышение проницаемости сосудистой стенки']},
+{id:'ven',c:1,r:4,dir:'hemo',type:'damage',t:'Көктамырлық іркіліс, стаз',term:'венозная гиперемия, стаз',s:[
+'Ошақтағы қан ағуы баяулап, көктамырлық іркіліс, кейін стаз дамиды.',
+'Қан қоюланады, эритроциттер агрегацияланады, лейкоциттер тамыр қабырғасына жабысады, микротромбтар түзіледі; көктамырларды ісінген тін қысады.',
+'Қылтамырдағы гидростатикалық қысым одан әрі артады.',
+'Ошақтың көкшіл реңі.',
+'Антиагреганттар, микроциркуляцияны жақсарту.',
+'Венозная гиперемия, стаз; stasis']},
+{id:'exu',c:2,r:4,dir:'immune',type:'main',t:'Нәруызға бай экссудат шығады',term:'экссудация',s:[
+'Қылтамырдан тінаралыққа нәруызы көп сұйықтық (экссудат) және лейкоциттер шығады.',
+'Өткізгіштіктің артуы мен гидростатикалық қысымның жоғарылауы.',
+'Тінаралықта нәруыз жиналып, тіндік онкотикалық қысым артады — сұйықтық одан әрі тартылады.',
+'Экссудатта нәруыз >30 г/л, тығыздығы >1,018, жасушалар көп.',
+'Экссудатты әкету (дренаж), себепті емдеу.',
+'Экссудация; exsudatio']},
+{id:'hyp',c:3,r:4,dir:'cell',type:'damage',t:'Гипоксия мен ацидоз эндотелийді зақымдайды',term:'гипоксия',s:[
+'Ісінген тіндерде оттегі жетіспейді, ацидоз дамиды.',
+'Тамырлардың қысылуы мен стаз.',
+'Эндотелий одан әрі зақымданып, медиаторлар қайта бөлінеді — экссудация күшейеді.',
+'Ауырсынудың күшеюі, тін некрозы мүмкін.',
+'Ошақты декомпрессиялау (тілу, дренаж), микроциркуляцияны жақсарту.',
+'Гипоксия, ацидоз в очаге']},
+{id:'S',c:2,r:6,dir:'hemo',type:'main',t:'Сұйықтық тінаралыққа жиналады',term:'экссудативный отёк',s:[
+'Экссудат пен су тінаралық кеңістікте жиналады.',
+'Өткізгіштік, гидростатикалық қысым, тіндік осмостық және онкотикалық қысым артады, лимфа ағуы бұзылады.',
+'Ісінген тін қан мен лимфа тамырларын қысады.',
+'Ісіну жергілікті, кернеулі.',
+'Себепті жою, қабынуға қарсы ем.',
+'Воспалительный отёк']},
+{id:'comp',c:3,r:6,dir:'hemo',type:'damage',t:'Ісінген тін тамырларды қысады',term:'компрессия сосудов',s:[
+'Тінаралық қысым артып, ұсақ тамырлар қысылады.',
+'Шектеулі кеңістікте (фасция астында) сұйықтық жиналады.',
+'Микроциркуляция бұзылып, гипоксия күшейеді; лимфа тамырлары да қысылады — тұйық шеңбер.',
+'Қатты ауырсыну; ауыр жағдайда компартмент-синдром.',
+'Фасциотомия (компартмент-синдромда), аяқ-қолды көтеріп қою.',
+'Компрессия микрососудов, компартмент-синдром']},
+{id:'lymB',c:4,r:6,dir:'hemo',type:'damage',t:'Лимфа тамырлары қысылып, тромбозданады',term:'лимфогенный фактор',s:[
+'Лимфа ағыны алдымен артады, кейін лимфа тамырлары қысылып, фибринмен бітеледі.',
+'Ісінген тіннің қысымы, лимфа тамырларының тромбозы.',
+'Сұйықтық пен нәруыз ошақтан әкетілмейді (лимфогендік фактор).',
+'Ісінудің ұзақ сақталуы, лимфангит.',
+'Аяқ-қолды көтеру, қабынуды басу.',
+'Лимфостаз, тромбоз лимфатических сосудов']},
+{id:'k1',c:0,r:7,dir:'organ',type:'clinic',t:'Жергілікті белгілер, экссудат',term:'местные признаки воспаления',s:[
+'Ісіну (tumor), қызару (rubor), қызу (calor), ауырсыну (dolor), қызметтің бұзылуы (functio laesa).',
+'Медиаторлардың әсері және экссудация.',
+'Экссудат сероздық, фибриндік, іріңді, геморрагиялық болуы мүмкін.',
+'Экссудаттың транссудаттан айырмашылығы: нәруыз >30 г/л, тығыздығы >1,018, Ривальта сынамасы оң.',
+'Себепті емдеу; ірің болса дренаж.',
+'Tumor, rubor, calor, dolor, functio laesa']},
+{id:'c1',c:2,r:7,dir:'organ',type:'main',t:'Қабынулық / уыттық ісіну',term:'воспалительный и токсический отёк',s:[
+'Қабынудың немесе уыттың әсерінен тінаралықта экссудат жиналуы.',
+'Басты — қантамырлық фактор (өткізгіштік); оған гемодинамикалық, тіндік және лимфогендік факторлар қосылады.',
+'Ісіну жергілікті, тез дамиды; уытты өкпе ісінуі — өмірге қауіпті жағдай.',
+'Ісінген жер ыстық, қызарған, ауырсынады.',
+'Себепті жою, ерте кезеңде суық, ҚҚСД, антигистаминдер, глюкокортикоидтар.',
+'Воспалительный и токсический отёк']},
+{id:'lbar',c:4,r:7,dir:'immune',type:'protect',t:'Лимфалық тосқауыл ошақты шектейді',term:'лимфатический барьер',s:[
+'Лимфа тамырларының бітелуі қабыну ошағын қоршап, шектейді.',
+'Фибриннің тұнуы мен лимфа тамырларының тромбозы.',
+'Микробтар мен уыттардың жалпы қанайналымға таралуы тежеледі — бұл қорғаныш маңызы.',
+'Жергілікті ісіну сақталады, бірақ инфекция жайылмайды.',
+'Ірің болса, ошақты ашып дренаждау.',
+'Лимфатический барьер, отграничение очага']}
+],
+edges:[
+{f:'e1',to:'e2',k:'cross',lb:'уыт қабыну тудырады',p:R=>Rt(R.e1,R.e2)},
+{f:'e1',to:'alt',k:'main',p:R=>D(R.e1,R.alt)},
+{f:'e2',to:'tox',k:'main',p:R=>D(R.e2,R.tox)},
+{f:'tox',to:'k2',k:'main',p:R=>Rt(R.tox,R.k2)},
+{f:'alt',to:'tos',k:'main',p:R=>ST(R.alt,R.tos,'l')},
+{f:'alt',to:'med',k:'main',p:R=>D(R.alt,R.med)},
+{f:'tos',to:'hyl',k:'main',p:R=>D(R.tos,R.hyl)},
+{f:'hyl',to:'S',k:'main',p:R=>BS(R.hyl,R.S,'l')},
+{f:'med',to:'art',k:'main',p:R=>D(R.med,R.art)},
+{f:'art',to:'ven',k:'main',p:R=>D(R.art,R.ven)},
+{f:'ven',to:'S',k:'main',p:R=>BTo(R.ven,R.S,R.S.l+30)},
+{f:'med',to:'perm',k:'main',p:R=>ST(R.med,R.perm,'r')},
+{f:'tox',to:'perm',k:'main',p:R=>BS(R.tox,R.perm,'r')},
+{f:'perm',to:'exu',k:'main',p:R=>D(R.perm,R.exu)},
+{f:'exu',to:'S',k:'loop',p:R=>D(R.exu,R.S)},
+{f:'S',to:'comp',k:'loop',p:R=>Rt(R.S,R.comp)},
+{f:'comp',to:'hyp',k:'loop',p:R=>U(R.comp,R.hyp)},
+{f:'hyp',to:'exu',k:'loop',p:R=>Lf(R.hyp,R.exu)},
+{f:'comp',to:'lymB',k:'main',p:R=>Rt(R.comp,R.lymB)},
+{f:'lymB',to:'S',k:'main',p:R=>BB(R.lymB,R.S,R.lymB.l+30,Math.max(R.S.b,R.comp.b,R.lymB.b)+24,R.S.r-30)},
+{f:'lymB',to:'lbar',k:'main',p:R=>D(R.lymB,R.lbar)},
+{f:'S',to:'c1',k:'main',p:R=>D(R.S,R.c1)},
+{f:'c1',to:'k1',k:'main',p:R=>Lf(R.c1,R.k1)}
+],
+markers:[R=>[(R.exu.cx+R.hyp.cx)/2,(Math.max(R.exu.b,R.hyp.b)+Math.min(R.S.t,R.comp.t))/2]],
+loops:[['exu','S','comp','hyp']],
+overview:[
+['Не болады','Қабыну ошағында немесе уыт әсер еткен жерде нәруызға бай экссудат тінаралықта жиналады. Ісіну жергілікті, тез дамиды.'],
+['Қабынулық жол','Зақымданған тіннен медиаторлар бөлінеді. Олар артериолаларды кеңейтіп, эндотелийді жиырады; қылтамыр өткізгіштігі артады, экссудат шығады. Ыдырау өнімдері тіндік осмостық қысымды арттырады.'],
+['Уыттық жол','Уыт эндотелий мен базальды мембрананы тікелей зақымдайды. Тұншықтырғыш уыттар уытты өкпе ісінуін тудырады.'],
+['Тұйық шеңбер','Ісінген тін тамырларды қысып, гипоксия мен ацидоз тудырады; эндотелий одан әрі зақымданып, экссудация күшейеді.'],
+['Ісіну факторлары','Қантамырлық (басты), гемодинамикалық (гиперемия), тіндік (осмостық және онкотикалық қысымның артуы) және лимфогендік.']
+]
+};
+
+</script>
+<script>
+(function(){
+const DIRS={
+  hemo:{name:'Гемодинамикалық',g:'Гд'},
+  neuro:{name:'Нейрогуморалдық',g:'Нг'},
+  metab:{name:'Метаболизмдік',g:'Мб'},
+  immune:{name:'Иммундық-қабынулық',g:'Иқ'},
+  cell:{name:'Жасушалық-молекулалық',g:'Жм'},
+  organ:{name:'Мүшелік зақымданулар',g:'Мш'}
+};
+const TYPES={
+  etio:{short:'Этиология',full:'Этиология',v:'--t-etio'},
+  main:{short:'Басты буын',full:'Басты буын',v:'--t-main'},
+  damage:{short:'Зақымдаушы',full:'Зақымдаушы буын',v:'--t-damage'},
+  protect:{short:'Компенсаторлық',full:'Қорғаныш / компенсаторлық буын',v:'--t-protect'},
+  clinic:{short:'Клиника',full:'Клиникалық белгі',v:'--t-clinic'}
+};
+const SEC=['Не болады','Неліктен','Нәтижесі','Клиника','Емдік нүкте','Термин'];
+const S=SCHEME, N=S.nodes, E=S.edges;
+const byId={}; N.forEach(n=>byId[n.id]=n);
+const CW=S.lane?1204:1184, TOP=44, GAP=48;
+
+const canvas=document.getElementById('canvas');
+const svg=document.getElementById('edges');
+const panel=document.getElementById('panel');
+const scroller=document.getElementById('scroller');
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+document.getElementById('h1').textContent=S.title;
+document.getElementById('lead').textContent=S.lead+' Түйінді басыңыз — түсіндірме ашылады. Esc таңдауды алып тастайды.';
+canvas.style.width=CW+'px';
+
+(function(){
+  let h='';
+  for(const k in DIRS) h+=`<span class="lg"><span class="tag" style="--d:var(--d-${k})">${DIRS[k].g}</span>${DIRS[k].name}</span>`;
+  h+='<span class="lg-sep"></span>';
+  const tl={etio:'Этиология',main:'Басты буын',damage:'Зақымдаушы буын',protect:'Қорғаныш / компенсаторлық',clinic:'Клиникалық белгі'};
+  for(const k in tl) h+=`<span class="lg"><span class="dot" style="--t:var(${TYPES[k].v})"></span>${tl[k]}</span>`;
+  h+='<span class="lg-sep"></span>';
+  const ln=(c,dash)=>`<svg width="30" height="10" viewBox="0 0 30 10"><line x1="1" y1="5" x2="22" y2="5" style="stroke:var(${c});stroke-width:1.5${dash?';stroke-dasharray:4 3':''}"/><path d="M29 5 L21 1 L21 9 Z" style="fill:var(${c})"/></svg>`;
+  h+=`<span class="lg">${ln('--arrow')}Себеп-салдар</span>`;
+  h+=`<span class="lg">${ln('--t-loop')}Тұйық шеңбер</span>`;
+  h+=`<span class="lg">${ln('--t-cross',1)}Айқасқан байланыс</span>`;
+  h+=`<span class="lg"><svg width="30" height="12" viewBox="0 0 30 12"><line x1="1" y1="6" x2="27" y2="6" style="stroke:var(--t-protect);stroke-width:1.5"/><line x1="27" y1="1" x2="27" y2="11" style="stroke:var(--t-protect);stroke-width:2"/></svg>Тежеу</span>`;
+  document.getElementById('legend').innerHTML=h;
+})();
+
+const els={};
+N.forEach(n=>{
+  const b=document.createElement('button');
+  b.type='button';
+  b.className='node'+(n.type==='main'?' main':'');
+  b.style.left=(20+n.c*236)+'px';
+  b.style.setProperty('--d',`var(--d-${n.dir})`);
+  b.setAttribute('aria-pressed','false');
+  b.title=DIRS[n.dir].name+' · '+TYPES[n.type].full;
+  b.innerHTML=`<span class="meta"><span class="ty"><span class="dot" style="--t:var(${TYPES[n.type].v})"></span>${TYPES[n.type].short}</span><span class="tag">${DIRS[n.dir].g}</span></span><span class="ttl">${esc(n.t)}</span><span class="term">(${esc(n.term)})</span>`;
+  b.addEventListener('click',e=>{e.stopPropagation();select(sel===n.id?null:n.id)});
+  canvas.appendChild(b); els[n.id]=b;
+});
+
+function pathD(pts,rad){
+  let d=`M${pts[0][0]},${pts[0][1]}`;
+  for(let i=1;i<pts.length-1;i++){
+    const p0=pts[i-1],p=pts[i],p1=pts[i+1];
+    const li=Math.hypot(p[0]-p0[0],p[1]-p0[1]),lo=Math.hypot(p1[0]-p[0],p1[1]-p[1]);
+    if(!li||!lo){d+=` L${p[0]},${p[1]}`;continue}
+    const r=Math.min(rad,li/2,lo/2);
+    const di=[(p[0]-p0[0])/li,(p[1]-p0[1])/li],dout=[(p1[0]-p[0])/lo,(p1[1]-p[1])/lo];
+    d+=` L${p[0]-di[0]*r},${p[1]-di[1]*r} Q${p[0]},${p[1]} ${p[0]+dout[0]*r},${p[1]+dout[1]*r}`;
+  }
+  const L=pts[pts.length-1];return d+` L${L[0]},${L[1]}`;
+}
+function draw(){
+  const rows=Math.max(...N.map(n=>n.r))+1, rh=new Array(rows).fill(0);
+  N.forEach(n=>{rh[n.r]=Math.max(rh[n.r],els[n.id].offsetHeight)});
+  const top=[];let y=TOP;
+  for(let r=0;r<rows;r++){top[r]=y;y+=(rh[r]||44)+GAP}
+  N.forEach(n=>{els[n.id].style.top=top[n.r]+'px'});
+  const H=y-GAP+28; canvas.style.height=H+'px';
+  const R={};
+  N.forEach(n=>{const el=els[n.id];const l=el.offsetLeft,t=top[n.r],w=el.offsetWidth,h=el.offsetHeight;
+    R[n.id]={l,t,w,h,r:l+w,b:t+h,cx:l+w/2,cy:t+h/2}});
+  svg.setAttribute('width',CW); svg.setAttribute('height',H); svg.setAttribute('viewBox',`0 0 ${CW} ${H}`);
+  let out='';
+  E.forEach((e,i)=>{
+    const raw=e.p(R); let pts=raw.map(p=>p.slice());
+    const a=pts[pts.length-2],z=pts[pts.length-1];
+    const len=Math.hypot(z[0]-a[0],z[1]-a[1]);const dx=(z[0]-a[0])/len,dy=(z[1]-a[1])/len;
+    let extra='';
+    if(e.k==='inh'){
+      const bx=z[0]-dx*3,by=z[1]-dy*3; pts[pts.length-1]=[bx,by];
+      extra=`<line class="bar" x1="${bx-dy*6}" y1="${by+dx*6}" x2="${bx+dy*6}" y2="${by-dx*6}" stroke-width="2"/>`;
+    }else{
+      pts[pts.length-1]=[z[0]-dx*8,z[1]-dy*8];
+      const bx=z[0]-dx*9,by=z[1]-dy*9;
+      extra=`<path class="hd" d="M${z[0]},${z[1]} L${bx-dy*4.5},${by+dx*4.5} L${bx+dy*4.5},${by-dx*4.5} Z"/>`;
+    }
+    let lab='';
+    let best=0,bi=0;
+    for(let j=0;j<raw.length-1;j++){const l=Math.hypot(raw[j+1][0]-raw[j][0],raw[j+1][1]-raw[j][1]);if(l>best){best=l;bi=j}}
+    if(e.lb&&best>=e.lb.length*8+24){
+      const p=raw[bi],q=raw[bi+1];
+      lab=Math.abs(p[1]-q[1])<1
+        ?`<text class="elabel" x="${(p[0]+q[0])/2}" y="${p[1]-8}" text-anchor="middle">${esc(e.lb)}</text>`
+        :`<text class="elabel" x="${p[0]+8}" y="${(p[1]+q[1])/2+4}" text-anchor="start">${esc(e.lb)}</text>`;
+    }
+    out+=`<g class="edge e-${e.k}" data-i="${i}"><path class="ln" d="${pathD(pts,8)}"/>${extra}${lab}</g>`;
+  });
+  (S.markers||[]).forEach((m,i)=>{
+    const [cx,cy0]=m(R),cy=cy0-10,r=15;
+    const a0=-50*Math.PI/180,a1=a0+300*Math.PI/180;
+    const sx=cx+r*Math.cos(a0),sy=cy+r*Math.sin(a0),ex=cx+r*Math.cos(a1),ey=cy+r*Math.sin(a1);
+    const tx=-Math.sin(a1),ty=Math.cos(a1),hb=[ex-tx*8,ey-ty*8];
+    out+=`<g class="loopmark" data-l="${i}"><path class="loop-ic" d="M${sx},${sy} A${r},${r} 0 1 1 ${ex-tx*3},${ey-ty*3}"/>`+
+      `<path class="loop-hd" d="M${ex+tx*2},${ey+ty*2} L${hb[0]-ty*4.5},${hb[1]+tx*4.5} L${hb[0]+ty*4.5},${hb[1]-tx*4.5} Z"/>`+
+      `<text class="loop-lb" x="${cx}" y="${cy+r+20}" text-anchor="middle">тұйық шеңбер</text></g>`;
+  });
+  svg.innerHTML=out;
+  applyFade();
+}
+
+let sel=null;
+function applyFade(){
+  const s=sel?byId[sel]:null;
+  N.forEach(n=>{
+    const el=els[n.id];
+    el.setAttribute('aria-pressed',String(n.id===sel));
+    el.classList.toggle('faded',!!s&&n.dir!==s.dir&&n.id!==s.id);
+  });
+  svg.querySelectorAll('.edge').forEach(g=>{
+    const e=E[+g.dataset.i];
+    const keep=!s||e.f===sel||e.to===sel||(byId[e.f].dir===s.dir&&byId[e.to].dir===s.dir);
+    g.classList.toggle('faded',!keep);
+  });
+  svg.querySelectorAll('.loopmark').forEach(g=>{
+    const ids=(S.loops||[])[+g.dataset.l]||[];
+    g.classList.toggle('faded',!!s&&!ids.includes(sel));
+  });
+}
+const narrow=()=>window.matchMedia('(max-width:1099px)').matches;
+function chip(id,suffix){
+  const n=byId[id];
+  return `<button type="button" class="chip" data-go="${id}" style="--d:var(--d-${n.dir})">${esc(n.t)}${suffix?' ('+suffix+')':''}</button>`;
+}
+const kindNote=k=>k==='inh'?'тежейді':k==='cross'?'айқасқан':'';
+function renderPanel(){
+  const n=sel?byId[sel]:null;
+  if(!n){
+    panel.style.setProperty('--pd','var(--t-main)');
+    let h=`<div class="p-top"><h2>Жалпы шолу</h2><button type="button" class="panel-close" data-close>Жабу</button></div>`;
+    S.overview.forEach(([hd,p])=>{h+=`<div class="p-sec"><h3>${esc(hd)}</h3><p>${esc(p)}</p></div>`});
+    h+=`<div class="p-sec"><h3>Схеманы оқу</h3><p>Түйінді басыңыз: таңдалған бағыт қалады, қалғандары бозарады. Бос жерді басу немесе Esc таңдауды алып тастайды.</p></div>`;
+    panel.innerHTML=h; return;
+  }
+  panel.style.setProperty('--pd',`var(--d-${n.dir})`);
+  const inc=E.filter(e=>e.to===n.id).map(e=>chip(e.f,kindNote(e.k)));
+  const out=E.filter(e=>e.f===n.id).map(e=>chip(e.to,kindNote(e.k)));
+  let h=`<div class="p-top"><h2>${esc(n.t)}</h2><button type="button" class="panel-close" data-close>Жабу</button></div>
+    <div class="p-dir"><span class="tag" style="--d:var(--d-${n.dir})">${DIRS[n.dir].g}</span>${DIRS[n.dir].name}</div>
+    <div class="p-type"><span class="dot" style="--t:var(${TYPES[n.type].v})"></span>${TYPES[n.type].full}</div>`;
+  n.s.forEach((txt,i)=>{
+    h+=i===5?`<div class="p-sec"><h3>${SEC[i]}</h3><p class="term-txt">(${esc(txt)})</p></div>`
+            :`<div class="p-sec"><h3>${SEC[i]}</h3><p>${esc(txt)}</p></div>`;
+  });
+  if(inc.length||out.length){
+    h+=`<div class="p-sec"><h3>Байланыстар</h3>`;
+    if(inc.length) h+=`<div class="chip-lb">Алдыңғы буын</div><div class="chips">${inc.join('')}</div>`;
+    if(out.length) h+=`<div class="chip-lb">Келесі буын</div><div class="chips">${out.join('')}</div>`;
+    h+=`</div>`;
+  }
+  panel.innerHTML=h; panel.scrollTop=0;
+}
+function ensureVisible(id){
+  const el=els[id];
+  let nr=el.getBoundingClientRect(),cr=scroller.getBoundingClientRect();
+  if(nr.left<cr.left+16||nr.right>cr.right-16) scroller.scrollLeft+=(nr.left+nr.width/2)-(cr.left+cr.width/2);
+  if(narrow()){
+    nr=el.getBoundingClientRect();
+    const sheetTop=window.innerHeight-panel.offsetHeight;
+    if(nr.bottom>sheetTop-12||nr.top<12) window.scrollBy(0,nr.top-72);
+  }
+}
+function select(id){
+  sel=id; applyFade(); renderPanel();
+  panel.classList.toggle('open',!!id);
+  document.body.style.paddingBottom=(id&&narrow())?panel.offsetHeight+'px':'';
+  if(id) ensureVisible(id);
+}
+panel.addEventListener('click',e=>{
+  const g=e.target.closest('[data-go]'); if(g){select(g.dataset.go);els[g.dataset.go].focus({preventScroll:true});return}
+  if(e.target.closest('[data-close]')){const prev=sel;select(null);if(prev)els[prev].focus({preventScroll:true})}
+});
+canvas.addEventListener('click',()=>{if(sel)select(null)});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&sel)select(null)});
+window.addEventListener('resize',()=>{document.body.style.paddingBottom=(sel&&narrow())?panel.offsetHeight+'px':''});
+
+draw(); renderPanel();
+if(document.fonts&&document.fonts.ready) document.fonts.ready.then(draw);
+window.addEventListener('load',draw);
+})();
+</script>
+<script>
+/* viewer bridge: two-finger pinch is sent to the reader, zoom keeps the point under the fingers in place, theme follows the reader */
+(function(){
+  if (window.parent === window) return;
+  var z = 1, pinch = null, focal = null, lastW = innerWidth, lastH = innerHeight;
+  function send(m){ try { parent.postMessage(m, '*'); } catch (e) {} }
+  addEventListener('message', function(e){
+    var d = e.data;
+    if (!d || typeof d !== 'object') return;
+    if (d.__viewer === 'zoom' && typeof d.z === 'number') z = d.z;
+    if (d.__viewer === 'theme') {
+      if (d.theme) document.documentElement.setAttribute('data-theme', d.theme);
+      else document.documentElement.removeAttribute('data-theme');
+    }
+  });
+  function dist(t){ var dx = t[0].clientX - t[1].clientX, dy = t[0].clientY - t[1].clientY; return Math.sqrt(dx*dx + dy*dy); }
+  function mid(t){ return { x: (t[0].clientX + t[1].clientX) / 2, y: (t[0].clientY + t[1].clientY) / 2 }; }
+  document.addEventListener('touchstart', function(e){
+    if (e.touches.length === 2) { pinch = { d: dist(e.touches) * z, z: z }; focal = mid(e.touches); e.preventDefault(); }
+  }, { passive: false });
+  document.addEventListener('touchmove', function(e){
+    if (!pinch || e.touches.length !== 2) return;
+    e.preventDefault();
+    focal = mid(e.touches);
+    var d = dist(e.touches) * z;
+    if (pinch.d > 0) send({ __viewer: 'pinch', z: pinch.z * d / pinch.d });
+  }, { passive: false });
+  function end(e){
+    if (pinch && e.touches.length < 2) {
+      pinch = null; send({ __viewer: 'pinchend' });
+      setTimeout(function(){ if (!pinch) focal = null; }, 300);
+    }
+  }
+  document.addEventListener('touchend', end);
+  document.addEventListener('touchcancel', end);
+  ['gesturestart', 'gesturechange'].forEach(function(t){ document.addEventListener(t, function(e){ e.preventDefault(); }); });
+  /* trackpad pinch / ctrl + wheel on a computer */
+  var wt = 0;
+  addEventListener('wheel', function(e){
+    if (!e.ctrlKey) return;
+    e.preventDefault();
+    focal = { x: e.clientX, y: e.clientY };
+    send({ __viewer: 'pinch', z: z * Math.exp(-e.deltaY * 0.01) });
+    clearTimeout(wt);
+    wt = setTimeout(function(){ focal = null; send({ __viewer: 'pinchend' }); }, 400);
+  }, { passive: false });
+  addEventListener('resize', function(){
+    var w = innerWidth, h = innerHeight, r = lastW / w, rh = lastH / h;
+    var oldW = lastW, oldH = lastH;
+    lastW = w; lastH = h;
+    /* width and height change by the same factor only when the zoom changed (not on rotation) */
+    if (Math.abs(r - 1) < 0.01 || Math.abs(r - rh) > 0.04 * r) return;
+    var f = focal || { x: oldW / 2, y: oldH / 2 };
+    var dx = f.x - f.x / r, dy = f.y - f.y / r;
+    window.scrollBy(0, dy);
+    var el = document.elementFromPoint(f.x / r, f.y / r);
+    while (el && el !== document.body && el !== document.documentElement) {
+      if (el.scrollWidth > el.clientWidth + 1) {
+        var ox = getComputedStyle(el).overflowX;
+        if (ox === 'auto' || ox === 'scroll') { el.scrollLeft += dx; break; }
+      }
+      el = el.parentElement;
+    }
+    if (focal) focal = { x: f.x / r, y: f.y / r };
+  });
+  send({ __viewer: 'ready' });
+})();
+</script>

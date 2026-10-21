@@ -1,0 +1,709 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Нарушения ионного обмена</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+/* Layout: title → type tabs → one-line legend → pathogenesis map on a 5-column grid + explanation panel (docked ≥1100px, bottom sheet below) → comparison table */
+:root{
+  --bg:#FAFAF7; --node:#FFFFFF; --fg:#2B2B2B; --fg2:#6B6B6B; --line:#D9D9D4; --arrow:#6B6B6B;
+  --t-etio:#8C8C8C; --t-main:#3B5BA9; --t-damage:#C8553D; --t-protect:#4E8F6A;
+  --t-loop:#C8553D; --t-cross:#9A9A9A; --t-clinic:#B07D2B;
+  --d-hemo:#3B7EA1; --d-neuro:#7A5BA6; --d-metab:#C08A2E; --d-immune:#B5536B; --d-cell:#4A8C8C; --d-organ:#6B7B3A;
+  --font:"Noto Sans","Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#1E1F1C; --node:#2A2B27; --fg:#ECECE8; --fg2:#A9A9A3; --line:#3D3E39; --arrow:#8F908A;
+    --t-etio:#989898; --t-main:#4F6BB2; --t-damage:#CE6650; --t-protect:#609A79;
+    --t-loop:#CE6650; --t-cross:#A5A5A5; --t-clinic:#B88A40;
+    --d-hemo:#4F8BAA; --d-neuro:#876BAF; --d-metab:#C69643; --d-immune:#BC647A; --d-cell:#5C9898; --d-organ:#7A884E;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1E1F1C; --node:#2A2B27; --fg:#ECECE8; --fg2:#A9A9A3; --line:#3D3E39; --arrow:#8F908A;
+  --t-etio:#989898; --t-main:#4F6BB2; --t-damage:#CE6650; --t-protect:#609A79;
+  --t-loop:#CE6650; --t-cross:#A5A5A5; --t-clinic:#B88A40;
+  --d-hemo:#4F8BAA; --d-neuro:#876BAF; --d-metab:#C69643; --d-immune:#BC647A; --d-cell:#5C9898; --d-organ:#7A884E;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--font);font-size:15px;line-height:1.5}
+.page{max-width:1600px;margin:0 auto;padding-inline:16px;padding-block:24px 40px}
+@media (min-width:700px){.page{padding-inline:24px}}
+h1{font-size:20px;font-weight:600;margin:0 0 12px;text-wrap:balance}
+.lead{font-size:15px;color:var(--fg2);max-width:76ch;margin:0 0 14px;line-height:1.6}
+
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+.tab{font:inherit;text-align:left;cursor:pointer;background:var(--node);color:var(--fg);border:1px solid var(--line);border-radius:10px;padding:8px 14px;display:flex;flex-direction:column;gap:1px;min-width:0}
+.tab .tn{font-size:15px;font-weight:500;line-height:1.35}
+.tab .tv{font-size:13px;color:var(--fg2);font-variant-numeric:tabular-nums}
+.tab[aria-selected="true"]{border:1.5px solid var(--t-main);background:color-mix(in srgb,var(--t-main) 8%,var(--node))}
+.tab[aria-selected="true"] .tn{font-weight:600}
+.tab:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+
+.legend{display:flex;align-items:center;gap:16px;overflow-x:auto;white-space:nowrap;padding-block:10px;margin-bottom:16px;border-block:1px solid var(--line);font-size:13px;color:var(--fg2)}
+.lg{display:inline-flex;align-items:center;gap:6px;flex:none}
+.lg-sep{width:1px;height:18px;background:var(--line);flex:none}
+.tag{display:inline-block;font-size:13px;font-weight:600;line-height:18px;padding:0 5px;border-radius:6px;color:var(--fg);border:1px solid var(--d);background:color-mix(in srgb,var(--d) 8%,transparent);flex:none}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--t);flex:none}
+.lg svg{flex:none}
+
+.layout{display:block}
+@media (min-width:1100px){.layout{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:20px;align-items:start}}
+.scroller{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--bg);min-width:0}
+.canvas{position:relative;margin:0 auto}
+svg.edges{position:absolute;left:0;top:0;overflow:visible;pointer-events:none}
+
+.node{position:absolute;top:0;width:200px;background:var(--node);color:var(--fg);border:1.5px solid var(--d);border-radius:10px;padding:9px 12px 10px;text-align:left;font:inherit;cursor:pointer;display:flex;flex-direction:column;gap:4px}
+.node.main{border-width:2px}
+.node[aria-pressed="true"]{box-shadow:0 0 0 1.5px var(--d);background:color-mix(in srgb,var(--d) 8%,var(--node))}
+.node:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+.node .meta{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:13px;font-weight:500;color:var(--fg2);line-height:18px}
+.node .ty{display:inline-flex;align-items:center;gap:6px;min-width:0}
+.node .ttl{font-size:14px;font-weight:500;line-height:1.4}
+.node .term,.term-txt{font-size:13px;font-style:italic;color:var(--fg2);line-height:1.4}
+.faded{opacity:.3}
+
+.e-main path.ln{stroke:var(--arrow)} .e-main .hd{fill:var(--arrow)}
+.e-loop path.ln{stroke:var(--t-loop)} .e-loop .hd{fill:var(--t-loop)}
+.e-cross path.ln{stroke:var(--t-cross);stroke-dasharray:5 4} .e-cross .hd{fill:var(--t-cross)}
+.e-inh path.ln,.e-inh .bar{stroke:var(--t-protect)}
+path.ln{fill:none;stroke-width:1.5}
+.elabel{font-family:var(--font);font-size:13px;fill:var(--fg2);paint-order:stroke;stroke:var(--bg);stroke-width:5px;stroke-linejoin:round}
+.loop-ic{fill:none;stroke:var(--t-loop);stroke-width:1.5}
+.loop-hd{fill:var(--t-loop)}
+.loop-lb{font-family:var(--font);font-size:13px;font-weight:500;fill:var(--t-loop);paint-order:stroke;stroke:var(--bg);stroke-width:5px}
+
+.panel{--pd:var(--t-main);position:relative;background:var(--node);border:1px solid var(--line);border-radius:10px;padding:20px 22px 22px 26px;display:none}
+.panel::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--pd);border-radius:10px 0 0 10px}
+@media (min-width:1100px){
+  .panel{display:block;position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);max-height:calc(100vh - 32px);overflow-y:auto}
+  .panel-close{display:none!important}
+}
+@media (max-width:1099px){
+  .panel.open{display:block;position:fixed;left:0;right:0;bottom:0;max-height:60vh;overflow-y:auto;z-index:20;border-radius:10px 10px 0 0;border-bottom:0;padding-bottom:calc(22px + env(safe-area-inset-bottom,0px))}
+  .panel.open::before{border-radius:10px 0 0 0}
+}
+.p-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.panel h2{font-size:20px;font-weight:600;margin:0;line-height:1.35;text-wrap:balance}
+.panel-close{font:inherit;font-size:13px;font-weight:600;color:var(--fg);background:transparent;border:1px solid var(--line);border-radius:10px;padding:4px 10px;cursor:pointer;flex:none}
+.p-dir{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:15px;font-weight:600}
+.p-type{display:flex;align-items:center;gap:6px;margin-top:6px;font-size:13px;color:var(--fg2)}
+.p-sec{margin-top:16px}
+.p-sec h3{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--fg2);margin:0 0 4px}
+.p-sec p{font-size:15px;font-weight:400;line-height:1.6;margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.chip{font:inherit;font-size:13px;color:var(--fg);background:var(--node);border:1px solid var(--d);border-radius:10px;padding:3px 9px;cursor:pointer;text-align:left}
+.chip:focus-visible,.panel-close:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+.chip-lb{font-size:13px;color:var(--fg2);margin-top:8px}
+
+.cmp{margin-top:28px}
+.cmp h2{font-size:15px;font-weight:600;margin:0 0 10px}
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--node)}
+table{border-collapse:collapse;width:100%;min-width:680px;font-size:14px;font-variant-numeric:tabular-nums}
+th,td{padding:10px 14px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line);line-height:1.5}
+thead th{font-size:13px;font-weight:600;color:var(--fg2);text-transform:uppercase;letter-spacing:.05em}
+tbody th{font-weight:600;width:20%}
+td{font-weight:400}
+.cur{background:color-mix(in srgb,var(--t-main) 8%,transparent)}
+thead th.cur{color:var(--fg)}
+tbody tr:last-child>*{border-bottom:0}
+.groups{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 10px}
+.gtab{font:inherit;font-size:15px;font-weight:500;cursor:pointer;background:transparent;color:var(--fg2);border:1px solid var(--line);border-radius:10px;padding:6px 14px}
+.gtab[aria-selected="true"]{color:var(--fg);font-weight:600;border-color:var(--fg);background:var(--node)}
+.gtab:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+</style>
+
+<div class="page" lang="ru">
+  <h1>Нарушения ионного обмена</h1>
+  <div class="groups" id="groups" role="tablist" aria-label="Электролит"></div>
+  <div class="tabs" id="tabs" role="tablist" aria-label="Нарушение"></div>
+  <p class="lead" id="lead"></p>
+  <div class="legend" id="legend" aria-label="Условные обозначения"></div>
+  <div class="layout">
+    <div class="scroller" id="scroller">
+      <div class="canvas" id="canvas">
+        <svg class="edges" id="edges" aria-hidden="true"></svg>
+      </div>
+    </div>
+    <aside class="panel" id="panel" aria-live="polite"></aside>
+  </div>
+  <section class="cmp" aria-labelledby="cmp-h">
+    <h2 id="cmp-h"></h2>
+    <div class="tbl-wrap"><table id="cmp"></table></div>
+  </section>
+</div>
+
+<script>
+/* geometry helpers used by the scheme data */
+const hm=(a,b)=>(Math.max(a.t,b.t)+Math.min(a.b,b.b))/2;
+const vm=(a,b)=>(Math.max(a.l,b.l)+Math.min(a.r,b.r))/2;
+const D=(a,b)=>{const x=vm(a,b);return [[x,a.b],[x,b.t]]};
+const Rt=(a,b)=>{const y=hm(a,b);return [[a.r,y],[b.l,y]]};
+const Lf=(a,b)=>{const y=hm(a,b);return [[a.l,y],[b.r,y]]};
+const BT=(s,t,fo)=>{const x=s.l+s.w*fo,y=t.t-24;return [[x,s.b],[x,y],[t.cx,y],[t.cx,t.t]]};
+const ST=(s,t,side,fo)=>{const x=side==='l'?s.l:s.r,y=fo==null?s.cy:s.t+s.h*fo;return [[x,y],[t.cx,y],[t.cx,t.t]]};
+const BS=(s,t,side)=>[[s.cx,s.b],[s.cx,t.cy],[side==='l'?t.l:t.r,t.cy]];
+const BTo=(s,t,tx)=>[[s.cx,s.b],[s.cx,t.t-20],[tx,t.t-20],[tx,t.t]];
+const GX=c=>20+c*236+218; /* vertical corridor between column c and c+1 */
+const UPL=(s,t)=>[[s.cx,s.t],[s.cx,t.cy],[t.l,t.cy]];               /* up from s, then right into t's left side */
+const RUP=(s,t)=>{const x=GX(3),y=t.t+t.h*.3;return [[s.r,s.cy],[x,s.cy],[x,y],[t.r,y]]}; /* right corridor back up to t */
+const LR=(s,t,fo)=>{const y=t.t+t.h*(fo==null?.5:fo);return [[s.cx,s.t],[s.cx,y],[t.l,y]]}; /* up from s, right into t */
+const SC=(s,t,c,fo)=>{const y=s.t+s.h*fo,x=GX(c);return [[s.r,y],[x,y],[x,t.cy],[t.l,t.cy]]}; /* from s right side, down corridor c, into t left */
+const LUP=(s,t,c,fo)=>{const x=GX(c),y=t.t+t.h*(fo==null?.5:fo);return [[s.l,s.cy],[x,s.cy],[x,y],[t.r,y]]}; /* from s left side, up corridor c, into t right */
+</script>
+<script>
+const SCHEMES={
+naHyper:{name:"Гипернатриемия",full:"Гипернатриемия",vals:"Na⁺ > 145 ммоль/л · осмолярность ↑",lead:"Na⁺ выше 145 ммоль/л. Чаще всего натрия не больше, а воды меньше. Внеклеточная жидкость становится гиперосмолярной, вода выходит из клеток; наиболее чувствительны клетки мозга.",
+nodes:[{"id":"e1","c":0,"r":0,"dir":"metab","type":"etio","t":"Дефицит свободной воды: нарушение жажды, нет доступа к воде","term":"water deprivation","s":["Организм теряет воду или недостаточно пьёт, а количество натрия не меняется.","Жажда — главная защита от гипернатриемии. Пожилые, младенцы и больные без сознания не ощущают жажду или не могут попросить воды.","Растут концентрация Na⁺ и осмолярность плазмы.","Потеря массы тела, сухость слизистых; при сохранённом сознании сильная жажда.","Давать воду; контролировать питьевой режим пожилых и младенцев.","deficit of free water; water deprivation"]},{"id":"e2","c":1,"r":0,"dir":"neuro","type":"etio","t":"Несахарный диабет: центральный и нефрогенный","term":"diabetes insipidus","s":["Почки не реабсорбируют воду и выделяют много разведённой мочи.","При центральной форме не выделяется АДГ. При нефрогенной не отвечают V2-рецепторы (литий, гиперкальциемия, гипокалиемия), поэтому аквапорин-2 не встраивается в собирательную трубку.","Потеря воды превышает потерю солей; при недостаточной жажде развивается гипернатриемия.","Полиурия (более 3 л в сутки), полидипсия, плотность мочи ниже 1005.","Центральная форма: десмопрессин; нефрогенная: тиазиды, ограничение соли и белка.","diabetes insipidus centralis et nephrogenes"]},{"id":"e3","c":3,"r":0,"dir":"hemo","type":"etio","t":"Потеря гипотонической жидкости: пот, осмотический диурез, диарея","term":"hypotonic fluid loss","s":["Воды теряется больше, чем натрия.","Концентрация Na⁺ в поте, кишечном содержимом и моче при осмотическом диурезе (глюкозурия, маннитол) ниже, чем в плазме.","Одновременно развиваются гиповолемия и гипернатриемия.","Потливость, учащённое дыхание, полиурия или диарея; тахикардия.","Устранить причину; сначала восполнить объём, затем дефицит воды.","hypotonic fluid loss"]},{"id":"e4","c":4,"r":0,"dir":"metab","type":"etio","t":"Избыток Na⁺: гипертонический NaCl, NaHCO₃","term":"sodium excess","s":["Натрий поступает без воды или почки задерживают его в избытке.","Введение гипертонического NaCl и NaHCO₃, питьё морской воды; первичный гиперальдостеронизм.","Na⁺ остаётся во внеклеточном пространстве и вытягивает воду из клеток; гипернатриемия сочетается с гиперволемией.","Отёки, артериальная гипертензия, отёк лёгких.","Петлевой диуретик и 5% глюкоза.","hypervolaemic hypernatraemia"]},{"id":"main","c":2,"r":1,"dir":"metab","type":"main","t":"Внеклеточная гиперосмолярность: Na⁺ > 145","term":"hyperosmolality","s":["Осмолярность внеклеточной жидкости превышает 295 мОсм/кг.","Na⁺ — эффективный осмоль, который не проходит свободно через мембрану клеток, поэтому он притягивает воду к себе.","Вода по осмотическому градиенту выходит из клеток: клеточная дегидратация.","Na⁺ > 145 ммоль/л, осмолярность > 295 мОсм/кг.","Дефицит воды = масса × 0,6 × (Na⁺/140 − 1). Na⁺ снижают не быстрее 10–12 ммоль/л в сутки.","hypernatraemia"]},{"id":"osm","c":0,"r":2,"dir":"cell","type":"protect","t":"Клетки мозга накапливают идиогенные осмоли","term":"idiogenic osmoles","s":["За 1–3 суток клетки мозга накапливают осмолиты: миоинозитол, таурин, глутамин.","Чтобы повысить внутриклеточную осмолярность и вернуть воду в клетку.","При хронической гипернатриемии объём мозга восстанавливается, неврологические симптомы смягчаются.","При медленном развитии гипернатриемии сознание может сохраняться даже при высоком Na⁺.","Осмоли удаляются медленно, поэтому Na⁺ снижают медленно.","idiogenic osmoles; organic osmolytes"]},{"id":"bed","c":0,"r":3,"dir":"organ","type":"damage","t":"Отёк мозга при быстрой коррекции","term":"cerebral oedema","s":["Во время лечения развивается отёк мозга.","Если внешняя осмолярность быстро падает, а осмоли остаются в клетках, вода стремительно входит в клетки.","Судороги, нарушение сознания; возможна смерть.","Внезапные судороги у больного, которому до этого становилось лучше.","Снижать Na⁺ не быстрее 0,5 ммоль/л в час и 10–12 ммоль/л в сутки.","oedema cerebri"]},{"id":"shr","c":2,"r":2,"dir":"cell","type":"main","t":"Вода выходит из клеток, клетки сморщиваются","term":"cellular dehydration","s":["Объём клеток уменьшается, цитоплазма сгущается.","Осмолярность наружной среды высокая, вода выходит из клеток.","Нарушается работа ферментов и цитоскелета; наиболее чувствительны нейроны.","Язык и слизистые очень сухие.","Постепенно восполнять дефицит воды.","dehydratio intracellularis"]},{"id":"brn","c":2,"r":3,"dir":"organ","type":"damage","t":"Мозг уменьшается, сознание угнетается","term":"hyperosmolar encephalopathy","s":["Объём мозга уменьшается, нарушается функция нейронов.","Клетки мозга теряют воду; мозг отходит от костей черепа, мостовые вены натягиваются.","Угнетение сознания. При разрыве вен — субдуральные, субарахноидальные и внутримозговые кровоизлияния.","Возбуждение, сонливость, гиперрефлексия, судороги, кома.","Неврологический контроль, медленная коррекция Na⁺.","encephalopathia hyperosmolaris"]},{"id":"nth","c":1,"r":3,"dir":"neuro","type":"damage","t":"Жажда не ощущается, вода не выпивается","term":"hypodipsia","s":["Больной не испытывает жажды или не может попросить воды.","При угнетении сознания ослабевают центр жажды и питьевое поведение.","Дефицит воды углубляется, гипернатриемия нарастает сама собой: порочный круг.","Часто у пожилых в стационаре: жалоб на жажду нет, Na⁺ продолжает расти.","Активное введение воды (внутрь или в/в) разрывает круг.","hypodipsia"]},{"id":"osr","c":3,"r":2,"dir":"neuro","type":"protect","t":"Осморецепторы: жажда, АДГ ↑","term":"osmotic thirst","s":["Осморецепторы гипоталамуса вызывают жажду и усиливают выделение АДГ.","При росте осмолярности на 1–2% клетки-рецепторы сморщиваются и подают сигнал.","Человек пьёт воду, почки её задерживают: главная компенсация.","При сохранённом сознании сильная жажда.","Обеспечить возможность пить.","osmoreceptors; vasopressin"]},{"id":"ret","c":3,"r":3,"dir":"neuro","type":"protect","t":"Почки задерживают воду: моча концентрированная","term":"antidiuresis","s":["Почки выделяют мало концентрированной мочи.","АДГ → V2-рецептор → цАМФ → аквапорин-2 встраивается в мембрану собирательной трубки.","Дефицит воды замедляется. При несахарном диабете это звено не работает.","Осмолярность мочи выше 600 мОсм/кг (при несахарном диабете ниже 300).","Осмолярность мочи и ответ на десмопрессин различают причины.","antidiuresis; aquaporin-2"]},{"id":"hv","c":4,"r":2,"dir":"hemo","type":"damage","t":"Гиповолемия","term":"hypovolaemia","s":["Объём циркулирующей крови уменьшается.","При гипотонических потерях жидкость уходит и из внеклеточного пространства.","Снижаются сердечный выброс и АД; барорецепторы активируют симпатическую систему.","Тахикардия, ортостатическая гипотензия.","Сначала стабилизировать гемодинамику 0,9% NaCl, затем гипотонические растворы.","hypovolaemia"]},{"id":"ren","c":4,"r":3,"dir":"organ","type":"damage","t":"Перфузия почек ↓, преренальная азотемия","term":"prerenal azotaemia","s":["Клубочковая фильтрация снижается.","Падает почечный кровоток.","Мочевина и креатинин накапливаются в крови.","Олигурия, высокое соотношение мочевина/креатинин.","Восполнить объём, контролировать диурез.","azotaemia praerenalis"]},{"id":"k1","c":2,"r":4,"dir":"organ","type":"clinic","t":"Сонливость, возбуждение, судороги, кома","term":"neurological signs","s":["Неврологические признаки гипернатриемии.","Дегидратация клеток мозга и кровоизлияния.","Тяжесть зависит от уровня Na⁺ и скорости его роста.","При Na⁺ выше 160 ммоль/л тяжёлые симптомы часты; гиперрефлексия, лихорадка.","Медленная коррекция Na⁺, неврологический контроль.","coma hyperosmolare"]},{"id":"k2","c":3,"r":4,"dir":"neuro","type":"clinic","t":"Сильная жажда; мочи мало, она концентрированная","term":"thirst, oliguria","s":["Признаки компенсации.","Осморецепторы и АДГ активны.","При несахарном диабете наоборот: полиурия и разведённая моча.","Сухие слизистые, плотность мочи выше 1025.","Контроль диуреза и плотности мочи.","sitis; oliguria"]},{"id":"k3","c":4,"r":4,"dir":"hemo","type":"clinic","t":"Тахикардия, гипотензия, олигурия","term":"signs of hypovolaemia","s":["Признаки уменьшения объёма.","Гиповолемия и снижение перфузии почек.","Вода, вышедшая из клеток, частично восполняет объём, поэтому признаки появляются поздно.","Ортостатический коллапс, диурез меньше 0,5 мл/кг в час.","Контроль гемодинамики, инфузия.","signs of hypovolaemia"]}],
+edges:[{f:'e1',to:'main',k:'main',p:R=>BTo(R.e1,R.main,R.main.cx-60)},
+{f:'e2',to:'main',k:'main',p:R=>BTo(R.e2,R.main,R.main.cx-20)},
+{f:'e3',to:'main',k:'main',p:R=>BTo(R.e3,R.main,R.main.cx+20)},
+{f:'e4',to:'main',k:'main',p:R=>BTo(R.e4,R.main,R.main.cx+60)},
+{f:'main',to:'osm',k:'main',p:R=>ST(R.main,R.osm,'l',.25)},
+{f:'osm',to:'bed',k:'cross',p:R=>D(R.osm,R.bed)},
+{f:'main',to:'shr',k:'loop',p:R=>D(R.main,R.shr)},
+{f:'shr',to:'brn',k:'loop',p:R=>D(R.shr,R.brn)},
+{f:'brn',to:'nth',k:'loop',p:R=>Lf(R.brn,R.nth)},
+{f:'nth',to:'main',k:'loop',p:R=>LR(R.nth,R.main)},
+{f:'main',to:'osr',k:'main',p:R=>ST(R.main,R.osr,'r',.75)},
+{f:'osr',to:'ret',k:'main',p:R=>D(R.osr,R.ret)},
+{f:'main',to:'hv',k:'main',p:R=>ST(R.main,R.hv,'r',.3)},
+{f:'hv',to:'ren',k:'main',p:R=>D(R.hv,R.ren)},
+{f:'brn',to:'k1',k:'main',p:R=>D(R.brn,R.k1)},
+{f:'ret',to:'k2',k:'main',p:R=>D(R.ret,R.k2)},
+{f:'ren',to:'k3',k:'main',p:R=>D(R.ren,R.k3)}],
+markers:[R=>[(R.nth.cx+R.shr.l)/2,R.shr.cy]],
+loops:[["main","shr","brn","nth"]],
+overview:[["Что происходит","Вода теряется больше, чем натрий, или натрий поступает в избытке. Внеклеточная жидкость гиперосмолярна, вода выходит из клеток."],["Главное звено","Внеклеточная гиперосмолярность и клеточная дегидратация; наиболее чувствителен мозг."],["Компенсация","Жажда и АДГ восполняют воду; клетки мозга за 1–3 суток накапливают идиогенные осмоли."],["Порочный круг","Дегидратация мозга угнетает сознание, жажда не ощущается, вода не выпивается, гипернатриемия нарастает."],["Точка лечения","Вода, 5% глюкоза, 0,45% NaCl. Na⁺ снижают не быстрее 10–12 ммоль/л в сутки, иначе развивается отёк мозга."]]},
+naHypo:{name:"Гипонатриемия",full:"Гипонатриемия",vals:"Na⁺ < 135 ммоль/л · осмолярность ↓",lead:"Na⁺ ниже 135 ммоль/л. Чаще всего это не дефицит натрия, а избыток свободной воды. Вода входит в клетки; самое опасное последствие — отёк мозга.",
+nodes:[{"id":"e1","c":0,"r":0,"dir":"hemo","type":"etio","t":"Гиповолемическая: рвота, диарея, тиазиды, болезнь Аддисона","term":"hypovolaemic hyponatraemia","s":["Na⁺ и вода теряются вместе, а восполняются гипотонической жидкостью (вода, чай).","Гиповолемия стимулирует АДГ независимо от осмолярности; при болезни Аддисона не хватает альдостерона.","Свободная вода задерживается, Na⁺ разводится.","Тахикардия, гипотензия, снижение тургора кожи.","0,9% NaCl восполняет объём и снимает стимул к выделению АДГ.","hyponatraemia hypovolaemica"]},{"id":"e2","c":1,"r":0,"dir":"neuro","type":"etio","t":"Эуволемическая: СНСАДГ, гипотиреоз, полидипсия","term":"SIADH","s":["Общий Na⁺ нормален, но свободной воды избыток.","АДГ выделяется независимо от осмолярности (рак лёгкого, болезни ЦНС, карбамазепин, антидепрессанты) или выпитая вода превышает выделительную способность почек.","Моча концентрированная (> 100 мОсм/кг), Na⁺ мочи > 30 ммоль/л.","Гипонатриемия без отёков.","Ограничение воды, толваптан, мочевина.","syndrome of inappropriate antidiuretic hormone secretion"]},{"id":"e3","c":3,"r":0,"dir":"hemo","type":"etio","t":"Гиперволемическая: сердечная недостаточность, цирроз, нефроз","term":"hypervolaemic hyponatraemia","s":["Избыток и Na⁺, и воды, но воды больше.","Снижается сердечный выброс или жидкость уходит из сосудов, уменьшается эффективный артериальный объём.","Активируются АДГ и РААС, задерживаются вода и натрий.","Отёки, асцит, одышка.","Ограничение воды и соли, петлевой диуретик, лечение основного заболевания.","hyponatraemia hypervolaemica"]},{"id":"e4","c":4,"r":0,"dir":"metab","type":"etio","t":"Ложная и транслокационная: гиперлипидемия, гипергликемия","term":"pseudohyponatraemia","s":["Измеренный Na⁺ низкий, но гипоосмолярности нет.","Липиды и белок вытесняют водную фазу плазмы; глюкоза и маннитол вытягивают воду из клеток.","Клеточной гипергидратации нет, поэтому лечение иное.","Признаков отёка мозга нет.","Измерить осмолярность. При гипергликемии на каждые 5,6 ммоль/л глюкозы прибавлять к Na⁺ 1,6–2,4 ммоль/л.","pseudohyponatraemia; translocational hyponatraemia"]},{"id":"main","c":2,"r":1,"dir":"metab","type":"main","t":"Гипоосмолярность плазмы: Na⁺ < 135","term":"hypo-osmolality","s":["Внеклеточная жидкость становится гипотонической.","Свободной воды задерживается больше, чем натрия, или натрия теряется больше.","Вода входит в клетки: клеточная гипергидратация.","Na⁺ < 135 ммоль/л, осмолярность < 275 мОсм/кг.","По причине: восполнение объёма, ограничение воды или гипертонический NaCl. Na⁺ повышают не быстрее 8–10 ммоль/л в сутки.","hyponatraemia"]},{"id":"osl","c":0,"r":2,"dir":"cell","type":"protect","t":"Клетки мозга выводят осмолиты","term":"regulatory volume decrease","s":["Клетки мозга сначала выводят K⁺ и Cl⁻, затем за 24–48 часов органические осмолиты.","Чтобы снизить внутриклеточную осмолярность и вывести воду из клетки.","При хронической гипонатриемии отёк мозга невелик.","При медленном развитии симптомы могут быть лёгкими.","Осмолиты восстанавливаются медленно, поэтому Na⁺ повышают медленно.","regulatory volume decrease"]},{"id":"ods","c":0,"r":3,"dir":"organ","type":"damage","t":"Осмотическая демиелинизация при быстрой коррекции","term":"osmotic demyelination syndrome","s":["Во время лечения повреждается миелин ствола мозга.","Клетки, бедные осмолитами, при быстром росте Na⁺ стремительно теряют воду.","Гибнут олигодендроциты, развивается центральный понтинный миелинолиз; часто необратимо.","Через 2–6 дней после лечения дизартрия, дисфагия, тетрапарез.","Повышать Na⁺ не быстрее 8–10 ммоль/л в сутки; при слишком быстром росте — десмопрессин и 5% глюкоза.","myelinolysis pontina centralis"]},{"id":"swl","c":2,"r":2,"dir":"cell","type":"main","t":"Вода входит в клетки, клетки набухают","term":"cellular overhydration","s":["Клетки наполняются водой, объём их увеличивается.","Осмотический градиент направляет воду в клетку.","Мембраны и органеллы растягиваются, их функция нарушается.","Мышечные судороги, слабость.","Постепенно восстанавливать внеклеточный Na⁺.","hyperhydratio intracellularis"]},{"id":"bed","c":2,"r":3,"dir":"organ","type":"damage","t":"Отёк мозга, внутричерепное давление ↑","term":"cerebral oedema","s":["Повышается внутричерепное давление.","Гипергидратация клеток мозга происходит в ограниченном пространстве.","Миндалины мозжечка могут вклиниться в большое затылочное отверстие и сдавить дыхательный центр.","Головная боль, тошнота, рвота, судороги, кома.","При тяжёлых симптомах 3% NaCl 100–150 мл болюсом за 20 минут, при необходимости повторить.","oedema cerebri; herniatio"]},{"id":"vom","c":1,"r":3,"dir":"organ","type":"damage","t":"Рвота: Na⁺ теряется, выпивается пресная вода","term":"cerebral vomiting","s":["Возникает рвота центрального генеза.","Внутричерепное давление раздражает рвотный центр.","С рвотой теряется соль; если больной пьёт пресную воду, гипонатриемия углубляется: порочный круг.","Рвота без облегчения на фоне головной боли.","Противорвотные, солевые растворы; не давать пресную воду.","vomitus cerebralis"]},{"id":"eav","c":3,"r":2,"dir":"hemo","type":"damage","t":"Эффективный артериальный объём ↓","term":"effective arterial blood volume","s":["Объём крови, заполняющей артериальное русло, уменьшается.","Падает сердечный выброс или жидкость уходит в интерстиций.","Барорецепторы и почки воспринимают объём как недостаточный.","Склонность к гипотензии на фоне отёков.","Лечение основного заболевания.","effective arterial blood volume"]},{"id":"adh","c":3,"r":3,"dir":"neuro","type":"damage","t":"Неосмотический АДГ, активация РААС","term":"non-osmotic ADH release","s":["АДГ выделяется несмотря на гипоосмолярность; активируется РААС.","Сигнал барорецепторов сильнее осмотического: для организма важнее сохранить объём.","Свободная вода задерживается, Na⁺ разводится; ангиотензин II усиливает жажду.","Олигурия, моча концентрированная.","Антагонисты V2-рецепторов (толваптан), ограничение воды.","non-osmotic vasopressin release; RAAS activation"]},{"id":"edm","c":4,"r":3,"dir":"hemo","type":"damage","t":"Задержка Na⁺ и воды: отёки, асцит","term":"oedema","s":["Внеклеточной жидкости становится больше.","Альдостерон задерживает Na⁺, АДГ — воду.","Отёки, асцит; нагрузка на сердце растёт.","Отёки ног, асцит, одышка.","Ограничение соли и воды, петлевой диуретик, спиронолактон.","oedema; ascites"]},{"id":"k0","c":0,"r":4,"dir":"organ","type":"clinic","t":"Дизартрия, дисфагия, тетрапарез","term":"clinical ODS","s":["Признаки синдрома осмотической демиелинизации.","Повреждение проводящих путей ствола мозга.","Часто необратимо или обратимо частично.","В тяжёлых случаях синдром «запертого человека».","Профилактика: медленная коррекция Na⁺.","locked-in syndrome"]},{"id":"k1","c":2,"r":4,"dir":"organ","type":"clinic","t":"Головная боль, рвота, судороги, кома","term":"hyponatraemic encephalopathy","s":["Неврологические признаки отёка мозга.","Нейроны набухают, их функция нарушается.","Тяжесть зависит от уровня Na⁺ и скорости его снижения.","При Na⁺ ниже 120 ммоль/л или падении быстрее чем за 48 часов судороги и кома часты.","При тяжёлых симптомах болюс 3% NaCl.","encephalopathia hyponatraemica"]},{"id":"k2","c":3,"r":4,"dir":"neuro","type":"clinic","t":"Олигурия, моча концентрированная","term":"oliguria","s":["Признаки действия АДГ.","Почки задерживают свободную воду.","Осмолярность мочи выше 100 мОсм/кг: почки не выводят воду.","Na⁺ мочи при гиповолемии < 30, при СНСАДГ > 30 ммоль/л.","Осмолярность и Na⁺ мочи различают причины.","oliguria"]},{"id":"k3","c":4,"r":4,"dir":"hemo","type":"clinic","t":"Отёки, асцит или гипотензия, тахикардия","term":"volume disturbances","s":["Признаки изменения объёма.","Na⁺ определяет объём внеклеточной жидкости.","При гиперволемической форме отёки, при гиповолемической гипотензия.","Клиническая оценка объёма различает формы.","Лечение по объёму: NaCl или диуретик.","hyper- et hypovolaemia"]}],
+edges:[{f:'e1',to:'main',k:'main',p:R=>BTo(R.e1,R.main,R.main.cx-60)},
+{f:'e2',to:'main',k:'main',p:R=>BTo(R.e2,R.main,R.main.cx-20)},
+{f:'e3',to:'main',k:'main',p:R=>BTo(R.e3,R.main,R.main.cx+20)},
+{f:'e3',to:'eav',k:'main',p:R=>D(R.e3,R.eav)},
+{f:'e4',to:'main',k:'cross',p:R=>BTo(R.e4,R.main,R.main.cx+60)},
+{f:'main',to:'osl',k:'main',p:R=>ST(R.main,R.osl,'l',.25)},
+{f:'osl',to:'ods',k:'cross',p:R=>D(R.osl,R.ods)},
+{f:'main',to:'swl',k:'loop',p:R=>D(R.main,R.swl)},
+{f:'swl',to:'bed',k:'loop',p:R=>D(R.swl,R.bed)},
+{f:'bed',to:'vom',k:'loop',p:R=>Lf(R.bed,R.vom)},
+{f:'vom',to:'main',k:'loop',p:R=>LR(R.vom,R.main)},
+{f:'eav',to:'adh',k:'main',p:R=>D(R.eav,R.adh)},
+{f:'adh',to:'main',k:'main',p:R=>LUP(R.adh,R.main,2)},
+{f:'adh',to:'edm',k:'main',p:R=>Rt(R.adh,R.edm)},
+{f:'ods',to:'k0',k:'main',p:R=>D(R.ods,R.k0)},
+{f:'bed',to:'k1',k:'main',p:R=>D(R.bed,R.k1)},
+{f:'adh',to:'k2',k:'main',p:R=>D(R.adh,R.k2)},
+{f:'edm',to:'k3',k:'main',p:R=>D(R.edm,R.k3)}],
+markers:[R=>[(R.vom.cx+R.swl.l)/2,R.swl.cy]],
+loops:[["main","swl","bed","vom"]],
+overview:[["Что происходит","Свободной воды задерживается больше, чем натрия, или натрия теряется больше. Плазма становится гипоосмолярной, вода входит в клетки."],["Главное звено","Гипоосмолярность плазмы и клеточная гипергидратация; самое опасное — отёк мозга."],["Компенсация","Клетки мозга за 24–48 часов выводят осмолиты и уменьшают отёк. Но эта адаптация при быстрой коррекции ведёт к демиелинизации."],["Порочный круг","Отёк мозга вызывает рвоту, теряется соль, больной пьёт пресную воду, гипонатриемия углубляется. При гиперволемической форме неосмотический АДГ продолжает задерживать воду."],["Точка лечения","При гиповолемии 0,9% NaCl; при СНСАДГ ограничение воды; при тяжёлых симптомах 3% NaCl. Na⁺ повышают не быстрее 8–10 ммоль/л в сутки."]]},
+kHyper:{name:"Гиперкалиемия",full:"Гиперкалиемия",vals:"K⁺ > 5,0–5,5 ммоль/л · деполяризация",lead:"K⁺ плазмы выше 5,0–5,5 ммоль/л. Мембраны клеток деполяризуются: возбудимость сначала растёт, затем исчезает. Самое опасное электролитное нарушение для сердца: асистолия может развиться внезапно.",
+nodes:[{"id":"e1","c":0,"r":0,"dir":"organ","type":"etio","t":"Экскреция почками ↓: ОПП, ХБП, гипоальдостеронизм","term":"reduced renal excretion","s":["Почки не могут вывести достаточно калия.","Выведение K⁺ зависит от альдостерона в собирательной трубке и от потока Na⁺ и жидкости в дистальный отдел. При СКФ ниже 15–20 мл/мин или дефиците альдостерона этот путь слабеет.","Ежедневно поступающий K⁺ накапливается.","Олигурия, азотемия; при ПКА IV типа гиперхлоремический ацидоз.","Связывающие K⁺ препараты, петлевой диуретик, диализ.","reduced renal potassium excretion"]},{"id":"e2","c":1,"r":0,"dir":"neuro","type":"etio","t":"Лекарства: иАПФ, БРА, спиронолактон, НПВС","term":"drug-induced hyperkalaemia","s":["Препараты тормозят РААС или каналы ENaC собирательной трубки.","Когда действие альдостерона и реабсорбция Na⁺ снижаются, отрицательный заряд просвета слабеет и секреция K⁺ падает. Триметоприм и амилорид блокируют ENaC напрямую.","Гиперкалиемия, особенно при ХБП и сахарном диабете.","Часто бессимптомно; выявляется по анализу.","Отменить препарат или снизить дозу, контролировать K⁺.","drug-induced hyperkalaemia"]},{"id":"e3","c":3,"r":0,"dir":"cell","type":"etio","t":"Выход из клеток: ацидоз, дефицит инсулина, распад клеток","term":"transcellular shift","s":["Внутриклеточный K⁺ (98% всего запаса) переходит наружу.","Тормозится Na⁺/K⁺-АТФаза (дефицит инсулина, β-блокаторы, дигоксин), идёт обмен H⁺/K⁺, разрушаются клетки (рабдомиолиз, лизис опухоли, гемолиз).","Даже при малом общем запасе K⁺ в плазме может быть высоким (диабетический кетоацидоз).","Признаки основного заболевания.","Лечить причину: инсулин, коррекция ацидоза, профилактика лизиса опухоли.","transcellular potassium shift"]},{"id":"e4","c":4,"r":0,"dir":"metab","type":"etio","t":"Ложная гиперкалиемия: гемолиз, тромбоцитоз","term":"pseudohyperkalaemia","s":["K⁺ выходит из клеток в пробирке.","Сжатие кулака при заборе крови, гемолиз, большое число тромбоцитов и лейкоцитов.","В организме гиперкалиемии нет.","ЭКГ не изменена.","Повторить анализ; оценить ЭКГ.","pseudohyperkalaemia"]},{"id":"main","c":2,"r":1,"dir":"cell","type":"main","t":"Деполяризация мембран: K⁺ > 5,5","term":"membrane depolarisation","s":["Мембранный потенциал покоя приближается к нулю (например, с −90 до −80 мВ).","По уравнению Нернста потенциал покоя определяется в основном градиентом K⁺; при росте наружного K⁺ градиент уменьшается.","Возбудимость сначала растёт, затем Na⁺-каналы инактивируются и она исчезает.","K⁺ > 5,5 ммоль/л; выше 6,5 — угроза жизни.","Глюконат кальция повышает пороговый потенциал и стабилизирует мембрану (уровень K⁺ не меняет).","hyperkalaemia"]},{"id":"nai","c":0,"r":2,"dir":"cell","type":"damage","t":"Инактивация Na⁺-каналов","term":"Na⁺ channel inactivation","s":["При длительной деполяризации инактивационные ворота Na⁺-каналов остаются закрытыми.","Каналы не возвращаются в состояние покоя.","Потенциал действия слабый и медленный: деполяризационный блок.","Мышечная слабость, замедление проведения.","Глюконат кальция временно восстанавливает работу Na⁺-каналов.","depolarisation block"]},{"id":"wk","c":0,"r":3,"dir":"organ","type":"damage","t":"Нервно-мышечная слабость, паралич","term":"flaccid paralysis","s":["Восходящая слабость, начинающаяся с ног, вялый паралич.","Деполяризационный блок скелетных мышц и периферических нервов.","В тяжёлых случаях слабеют дыхательные мышцы.","Парестезии, снижение рефлексов.","Срочно снизить K⁺.","paralysis flaccida ascendens"]},{"id":"amm","c":2,"r":2,"dir":"metab","type":"damage","t":"В почках тормозится аммониогенез","term":"suppressed ammoniagenesis","s":["В проксимальном канальце уменьшается образование NH₄⁺ из глутамина.","Гиперкалиемия тормозит ферменты аммониогенеза.","Почки выводят меньше кислоты.","В моче мало NH₄⁺.","При снижении K⁺ аммониогенез восстанавливается.","suppressed renal ammoniagenesis"]},{"id":"acd","c":2,"r":3,"dir":"metab","type":"damage","t":"Метаболический ацидоз","term":"metabolic acidosis","s":["HCO₃⁻ крови уменьшается, pH падает.","Почки не выводят H⁺ в виде NH₄⁺.","Ацидоз выводит K⁺ из клеток: порочный круг.","Ацидоз с нормальной анионной разницей, дыхание Куссмауля.","При тяжёлом ацидозе NaHCO₃.","acidosis metabolica; renal tubular acidosis type IV"]},{"id":"hk","c":1,"r":3,"dir":"cell","type":"damage","t":"H⁺ входит в клетки, K⁺ выходит","term":"H⁺/K⁺ exchange","s":["При ацидозе ионы водорода входят в клетки, взамен выходит K⁺.","Сохраняется электронейтральность; при минеральном ацидозе этот обмен выражен.","K⁺ плазмы растёт ещё больше: гиперкалиемия усиливается.","При снижении pH на 0,1 K⁺ может вырасти примерно на 0,6 ммоль/л.","Коррекция ацидоза разрывает круг.","transmineralisation in acidosis"]},{"id":"rep","c":3,"r":2,"dir":"cell","type":"damage","t":"Реполяризация ускоряется, проведение замедляется","term":"accelerated repolarisation","s":["В кардиомиоцитах усиливаются калиевые токи (IKr).","При высоком наружном K⁺ проводимость K⁺-каналов растёт; инактивация Na⁺-каналов замедляет деполяризацию.","Потенциал действия укорачивается, импульс проводится медленно.","На ЭКГ высокий заострённый зубец T.","Глюконат кальция 10% 10 мл в/в.","accelerated repolarisation"]},{"id":"hrt","c":3,"r":3,"dir":"organ","type":"damage","t":"Сердце: острый T, расширение QRS, асистолия","term":"conduction disturbances","s":["Стадии ЭКГ: острый T → удлинение PR, исчезновение P → расширение QRS → синусоида → фибрилляция желудочков или асистолия.","Деполяризация кардиомиоцитов и инактивация Na⁺-каналов.","Возможна внезапная остановка сердца.","Брадикардия, AV-блокада.","При изменениях ЭКГ немедленно глюконат кальция, затем перемещение K⁺ в клетки.","sine wave pattern; asystolia"]},{"id":"ald","c":4,"r":2,"dir":"neuro","type":"protect","t":"Выделение альдостерона и инсулина ↑","term":"aldosterone, insulin","s":["K⁺ стимулирует клубочковую зону надпочечников и β-клетки поджелудочной железы.","Клетки клубочковой зоны деполяризуются, входит Ca²⁺, синтез альдостерона растёт.","Почки выводят больше K⁺, инсулин перемещает K⁺ в клетки.","При гипоальдостеронизме и диабете это звено слабое.","Инсулин 10 ЕД + глюкоза в/в; ингаляция сальбутамола.","aldosterone and insulin release"]},{"id":"shf","c":4,"r":3,"dir":"neuro","type":"protect","t":"K⁺ выводится с мочой и уходит в клетки","term":"potassium elimination","s":["В собирательной трубке активируются ENaC и ROMK; Na⁺/K⁺-АТФаза закачивает K⁺ в клетки.","Действие альдостерона и инсулина.","K⁺ плазмы снижается.","K⁺ мочи растёт.","Петлевой диуретик, циклосиликат циркония натрия, гемодиализ.","kaliuresis; intracellular potassium shift"]},{"id":"k1","c":0,"r":4,"dir":"organ","type":"clinic","t":"Слабость, парестезии, вялый паралич","term":"neuromuscular signs","s":["Нервно-мышечные признаки.","Деполяризационный блок.","Обычно при K⁺ выше 7 ммоль/л.","Восходящая слабость, снижение рефлексов.","Снизить K⁺.","neuromuscular disturbances"]},{"id":"k2","c":2,"r":4,"dir":"metab","type":"clinic","t":"Ацидоз: дыхание Куссмауля","term":"Kussmaul breathing","s":["Признаки ацидоза.","Дыхательный центр реагирует на рост H⁺.","Глубокое шумное дыхание.","pH < 7,35, HCO₃⁻ снижен.","Коррекция ацидоза.","Kussmaul respiration"]},{"id":"k3","c":3,"r":4,"dir":"organ","type":"clinic","t":"Брадикардия, AV-блокада, остановка сердца","term":"cardiac signs","s":["Сердечные признаки.","Нарушение проведения.","Асистолия или фибрилляция желудочков.","Изменения ЭКГ не всегда соответствуют уровню K⁺.","Порядок: 1) глюконат кальция; 2) инсулин + глюкоза, сальбутамол; 3) диуретик, связывающий K⁺ препарат, диализ.","cardiac arrest"]}],
+edges:[{f:'e1',to:'main',k:'main',p:R=>BTo(R.e1,R.main,R.main.cx-60)},
+{f:'e2',to:'main',k:'main',p:R=>BTo(R.e2,R.main,R.main.cx-20)},
+{f:'e3',to:'main',k:'main',p:R=>BTo(R.e3,R.main,R.main.cx+20)},
+{f:'e4',to:'main',k:'cross',p:R=>BTo(R.e4,R.main,R.main.cx+60)},
+{f:'main',to:'nai',k:'main',p:R=>ST(R.main,R.nai,'l',.25)},
+{f:'nai',to:'wk',k:'main',p:R=>D(R.nai,R.wk)},
+{f:'main',to:'amm',k:'loop',p:R=>D(R.main,R.amm)},
+{f:'amm',to:'acd',k:'loop',p:R=>D(R.amm,R.acd)},
+{f:'acd',to:'hk',k:'loop',p:R=>Lf(R.acd,R.hk)},
+{f:'hk',to:'main',k:'loop',p:R=>LR(R.hk,R.main)},
+{f:'main',to:'rep',k:'main',p:R=>ST(R.main,R.rep,'r',.75)},
+{f:'rep',to:'hrt',k:'main',p:R=>D(R.rep,R.hrt)},
+{f:'main',to:'ald',k:'main',p:R=>ST(R.main,R.ald,'r',.3)},
+{f:'ald',to:'shf',k:'main',p:R=>D(R.ald,R.shf)},
+{f:'shf',to:'main',k:'inh',p:R=>LUP(R.shf,R.main,3,.55)},
+{f:'wk',to:'k1',k:'main',p:R=>D(R.wk,R.k1)},
+{f:'acd',to:'k2',k:'main',p:R=>D(R.acd,R.k2)},
+{f:'hrt',to:'k3',k:'main',p:R=>D(R.hrt,R.k3)}],
+markers:[R=>[(R.hk.cx+R.amm.l)/2,R.amm.cy]],
+loops:[["main","amm","acd","hk"]],
+overview:[["Что происходит","Внеклеточный K⁺ растёт, мембраны деполяризуются. Нарушается возбудимость нервов, мышц и миокарда."],["Главное звено","Деполяризация мембран и инактивация Na⁺-каналов."],["Компенсация","K⁺ стимулирует выделение альдостерона и инсулина: почки выводят K⁺, клетки его поглощают."],["Порочный круг","Гиперкалиемия тормозит аммониогенез и вызывает ацидоз; ацидоз выводит K⁺ из клеток."],["Точка лечения","1) Глюконат кальция — защита мембран; 2) инсулин + глюкоза, сальбутамол — перемещение в клетки; 3) диуретик, связывающие K⁺ препараты, диализ — выведение."]]},
+kHypo:{name:"Гипокалиемия",full:"Гипокалиемия",vals:"K⁺ < 3,5 ммоль/л · гиперполяризация",lead:"K⁺ плазмы ниже 3,5 ммоль/л. Мембраны мышц гиперполяризуются, возбудимость падает, а в сердце удлиняется реполяризация и растёт риск аритмий. Самые частые причины — диуретики и потери через ЖКТ.",
+nodes:[{"id":"e1","c":0,"r":0,"dir":"organ","type":"etio","t":"Потери почками: диуретики, гипомагниемия","term":"renal potassium loss","s":["С мочой выводится более 20 ммоль K⁺ в сутки.","При диуретиках в дистальный отдел поступает много Na⁺ и воды: Na⁺ входит через ENaC, K⁺ выходит через ROMK. При дефиците Mg²⁺ снимается Mg²⁺-блок ROMK. Так же действуют синдромы Барттера и Гительмана.","Общий запас K⁺ уменьшается.","Полиурия, мышечная слабость.","Калийсберегающие диуретики, коррекция дефицита Mg²⁺.","renal potassium wasting"]},{"id":"e2","c":1,"r":0,"dir":"neuro","type":"etio","t":"Избыток минералокортикоидов: синдромы Конна, Кушинга","term":"hyperaldosteronism","s":["Альдостерон или сходное действие усиливают выведение K⁺ в собирательной трубке.","При синдроме Конна аденома бесконтрольно выделяет альдостерон; глицирризин солодки тормозит 11β-ГСД2 и позволяет кортизолу активировать минералокортикоидный рецептор.","Гипокалиемия, артериальная гипертензия и метаболический алкалоз.","Гипертензия, слабость, полиурия.","Спиронолактон, эплеренон; удаление аденомы.","hyperaldosteronismus primarius (Conn syndrome)"]},{"id":"e3","c":3,"r":0,"dir":"organ","type":"etio","t":"Потери через ЖКТ: рвота, диарея","term":"gastrointestinal loss","s":["При диарее K⁺ теряется прямо с калом.","В желудочном соке K⁺ мало; при рвоте основная потеря идёт через почки, потому что алкалоз и гиповолемия повышают альдостерон.","При диарее гипокалиемия сочетается с ацидозом, при рвоте — с алкалозом.","Рвота, диарея, дегидратация.","Восполнение жидкости и KCl.","gastrointestinal potassium loss"]},{"id":"e4","c":4,"r":0,"dir":"cell","type":"etio","t":"Переход в клетки: алкалоз, инсулин, β2-агонисты","term":"transcellular shift","s":["K⁺ переходит из внеклеточного пространства в клетки.","Активируется Na⁺/K⁺-АТФаза: инсулин (лечение ДКА), β2-агонисты, тиреотоксикоз; при алкалозе H⁺ выходит из клеток, K⁺ входит.","Общий запас нормален, но K⁺ плазмы низкий.","Приступы периодического паралича.","Устранить причину; при лечении ДКА контролировать K⁺.","transcellular potassium shift"]},{"id":"main","c":2,"r":1,"dir":"cell","type":"main","t":"Гиперполяризация мембран: K⁺ < 3,5","term":"membrane hyperpolarisation","s":["Потенциал покоя клеток скелетных и гладких мышц становится более отрицательным.","По уравнению Нернста градиент K⁺ увеличивается.","Достичь порога труднее, возбудимость мышц падает. В сердце проводимость K⁺ снижается и реполяризация удлиняется.","K⁺ < 3,5 ммоль/л; ниже 2,5 — тяжёлая форма.","KCl внутрь или в/в; одновременно корригировать дефицит Mg²⁺.","hypokalaemia"]},{"id":"exc","c":0,"r":2,"dir":"cell","type":"damage","t":"Возбудимость мышц ↓","term":"reduced excitability","s":["Клетки скелетных и гладких мышц плохо возбуждаются.","Гиперполяризация: разница между потенциалом покоя и порогом растёт.","Сокращение мышц ослабевает.","Гипорефлексия.","Восполнение K⁺.","hyperpolarisation block"]},{"id":"msc","c":0,"r":3,"dir":"organ","type":"damage","t":"Мышечная слабость, парез кишечника","term":"myopathy, paralytic ileus","s":["Слабость скелетных мышц, угнетение моторики кишечника.","Гиперполяризация и снижение кровотока в мышцах (K⁺ — местный вазодилататор).","При K⁺ < 2,5 ммоль/л рабдомиолиз, слабость дыхательных мышц.","Слабость, миалгии, запор, вздутие живота.","Восполнение K⁺; в тяжёлых случаях мониторинг.","myopathia hypokalaemica; ileus paralyticus"]},{"id":"hs","c":2,"r":2,"dir":"metab","type":"damage","t":"Секреция H⁺ и реабсорбция HCO₃⁻ в канальцах ↑","term":"increased H⁺ secretion","s":["Почки выводят H⁺ вместо K⁺.","Гипокалиемия активирует H⁺/K⁺-АТФазу собирательной трубки и усиливает аммониогенез в проксимальном канальце.","На каждый выведенный H⁺ в кровь возвращается один HCO₃⁻.","Кислая моча, несмотря на алкалоз.","Восполнение K⁺.","increased renal acidification"]},{"id":"alk","c":2,"r":3,"dir":"metab","type":"damage","t":"Метаболический алкалоз","term":"metabolic alkalosis","s":["HCO₃⁻ крови растёт, pH повышается.","Почки задерживают HCO₃⁻ и теряют H⁺.","Алкалоз перемещает K⁺ в клетки: порочный круг.","pH > 7,45, HCO₃⁻ > 26 ммоль/л.","KCl одновременно восполняет дефицит K⁺ и Cl⁻.","alkalosis metabolica"]},{"id":"kin","c":1,"r":3,"dir":"cell","type":"damage","t":"K⁺ входит в клетки, почки теряют K⁺","term":"potassium redistribution","s":["При алкалозе H⁺ выходит из клеток, K⁺ входит; почки выводят больше K⁺.","Электронейтральность; алкалоз усиливает секрецию K⁺ в дистальном канальце.","K⁺ плазмы снижается ещё больше.","Если алкалоз сохраняется, K⁺ быстро падает даже после восполнения.","Корригировать алкалоз и дефицит K⁺ вместе.","transmineralisation in alkalosis"]},{"id":"rep","c":3,"r":2,"dir":"cell","type":"damage","t":"В кардиомиоцитах реполяризация замедляется","term":"delayed repolarisation","s":["Проводимость K⁺-каналов кардиомиоцитов снижается.","Каналы IKr плохо работают при низком наружном K⁺.","Потенциал действия удлиняется; ранние и поздние следовые деполяризации вызывают эктопический ритм.","Интервал QT(U) удлиняется.","Мониторинг; избегать препаратов, удлиняющих QT.","delayed repolarisation; triggered activity"]},{"id":"arr","c":3,"r":3,"dir":"organ","type":"damage","t":"Аритмии: зубец U, удлинение QT(U)","term":"arrhythmias","s":["ЭКГ: T уплощается, появляется зубец U, ST снижается, QT(U) удлиняется.","Удлинение реполяризации и эктопическая активность.","Экстрасистолы, тахикардия типа «пируэт», фибрилляция желудочков.","Перебои в работе сердца, головокружение.","У принимающих дигоксин держать K⁺ > 4,0 ммоль/л: гипокалиемия усиливает токсичность гликозидов.","U wave; torsades de pointes"]},{"id":"sav","c":4,"r":2,"dir":"neuro","type":"protect","t":"Почки сберегают K⁺: альдостерон ↓","term":"renal potassium conservation","s":["Альдостерон снижается, в собирательной трубке активируется H⁺/K⁺-АТФаза.","Гипокалиемия тормозит клубочковую зону.","При внепочечной причине K⁺ мочи меньше 20 ммоль в сутки.","K⁺ в моче низкий.","K⁺ мочи — первый тест для поиска причины.","renal potassium conservation"]},{"id":"nep","c":4,"r":3,"dir":"organ","type":"damage","t":"Калиопеническая нефропатия","term":"kaliopenic nephropathy","s":["Почки не могут концентрировать мочу.","Снижаются экспрессия аквапорина-2 и чувствительность к АДГ.","Нефрогенный несахарный диабет; при длительной гипокалиемии интерстициальный фиброз, кисты.","Полиурия, полидипсия, никтурия.","Восполнение K⁺; функция восстанавливается постепенно.","nephropathia kaliopenica"]},{"id":"k1","c":0,"r":4,"dir":"organ","type":"clinic","t":"Слабость, судороги, запор","term":"muscular signs","s":["Мышечные признаки.","Гиперполяризация и ишемия мышц.","В тяжёлой форме паралич и рабдомиолиз.","Слабость мышц ног, миалгии, вздутие живота.","Восполнение K⁺.","muscle weakness; constipation"]},{"id":"k2","c":2,"r":4,"dir":"metab","type":"clinic","t":"Алкалоз: HCO₃⁻ ↑, pH > 7,45","term":"alkalosis","s":["Изменение кислотно-основного состояния.","Почки задерживают HCO₃⁻.","В порядке компенсации дыхание замедляется.","pH > 7,45, HCO₃⁻ высокий, PaCO₂ слегка повышен.","KCl.","alkalosis metabolica"]},{"id":"k3","c":3,"r":4,"dir":"organ","type":"clinic","t":"Экстрасистолия, тахикардия «пируэт»","term":"rhythm disturbances","s":["Нарушения ритма сердца.","Реполяризация удлиняется, появляются эктопические очаги.","Риск внезапной смерти.","ЭКГ: зубец U, удлинение QT(U).","KCl в/в в периферическую вену не быстрее 10–20 ммоль/ч; сульфат магния.","arrhythmia"]},{"id":"k4","c":4,"r":4,"dir":"organ","type":"clinic","t":"Полиурия, полидипсия","term":"polyuria","s":["Обильное мочеиспускание, жажда.","Снижение концентрационной способности почек.","Риск дегидратации.","Низкая плотность мочи.","Восполнение K⁺.","polyuria; polydipsia"]}],
+edges:[{f:'e1',to:'main',k:'main',p:R=>BTo(R.e1,R.main,R.main.cx-60)},
+{f:'e2',to:'main',k:'main',p:R=>BTo(R.e2,R.main,R.main.cx-20)},
+{f:'e3',to:'main',k:'main',p:R=>BTo(R.e3,R.main,R.main.cx+20)},
+{f:'e4',to:'main',k:'main',p:R=>BTo(R.e4,R.main,R.main.cx+60)},
+{f:'main',to:'exc',k:'main',p:R=>ST(R.main,R.exc,'l',.25)},
+{f:'exc',to:'msc',k:'main',p:R=>D(R.exc,R.msc)},
+{f:'main',to:'hs',k:'loop',p:R=>D(R.main,R.hs)},
+{f:'hs',to:'alk',k:'loop',p:R=>D(R.hs,R.alk)},
+{f:'alk',to:'kin',k:'loop',p:R=>Lf(R.alk,R.kin)},
+{f:'kin',to:'main',k:'loop',p:R=>LR(R.kin,R.main)},
+{f:'main',to:'rep',k:'main',p:R=>ST(R.main,R.rep,'r',.75)},
+{f:'rep',to:'arr',k:'main',p:R=>D(R.rep,R.arr)},
+{f:'main',to:'sav',k:'main',p:R=>ST(R.main,R.sav,'r',.3)},
+{f:'main',to:'nep',k:'main',p:R=>SC(R.main,R.nep,3,.3)},
+{f:'msc',to:'k1',k:'main',p:R=>D(R.msc,R.k1)},
+{f:'alk',to:'k2',k:'main',p:R=>D(R.alk,R.k2)},
+{f:'arr',to:'k3',k:'main',p:R=>D(R.arr,R.k3)},
+{f:'nep',to:'k4',k:'main',p:R=>D(R.nep,R.k4)}],
+markers:[R=>[(R.kin.cx+R.hs.l)/2,R.hs.cy]],
+loops:[["main","hs","alk","kin"]],
+overview:[["Что происходит","Внеклеточный K⁺ снижается, мембраны мышц гиперполяризуются; в сердце удлиняется реполяризация."],["Главное звено","Гиперполяризация мембран и увеличение градиента K⁺."],["Компенсация","Альдостерон снижается, почки сберегают K⁺ через H⁺/K⁺-АТФазу."],["Порочный круг","Гипокалиемия усиливает выведение H⁺ почками и вызывает алкалоз; алкалоз перемещает K⁺ в клетки и усиливает его потерю почками."],["Точка лечения","KCl внутрь или в/в (в периферическую вену ≤ 10–20 ммоль/ч), коррекция дефицита Mg²⁺, калийсберегающие диуретики."]]},
+clHyper:{name:"Гиперхлоремия",full:"Гиперхлоремия",vals:"Cl⁻ > 107 ммоль/л · ацидоз",lead:"Cl⁻ плазмы выше 107 ммоль/л. По закону электронейтральности при росте хлора снижается HCO₃⁻, поэтому гиперхлоремия — признак метаболического ацидоза с нормальной анионной разницей.",
+nodes:[{"id":"e1","c":0,"r":0,"dir":"hemo","type":"etio","t":"Массивная инфузия 0,9% NaCl","term":"saline infusion","s":["При введении больших объёмов физраствора в плазму поступает избыток Cl⁻.","В растворе 154 ммоль/л Cl⁻, примерно в 1,5 раза больше, чем в плазме; его разница сильных ионов (SID) равна нулю.","SID плазмы уменьшается, развивается дилюционный гиперхлоремический ацидоз.","Часто у больных в реанимации и хирургии.","Сбалансированные кристаллоиды (Рингер-лактат, Плазма-Лит).","dilutional hyperchloraemic acidosis"]},{"id":"e2","c":1,"r":0,"dir":"metab","type":"etio","t":"Потеря HCO₃⁻: диарея, свищи, ПКА II типа","term":"bicarbonate loss","s":["Организм теряет бикарбонат.","При диарее, кишечных и панкреатических свищах HCO₃⁻ уходит с кишечным содержимым, при проксимальном ПКА и ацетазоламиде — с мочой.","Для сохранения электронейтральности почки задерживают Cl⁻ вместо HCO₃⁻.","Диарея, дегидратация.","Лечение причины; бикарбонат или цитрат.","bicarbonate loss; proximal RTA"]},{"id":"e3","c":3,"r":0,"dir":"organ","type":"etio","t":"Почки не выводят кислоту: ПКА I и IV типа","term":"renal tubular acidosis","s":["Почки недостаточно выводят H⁺ и NH₄⁺.","При I типе нарушена H⁺-АТФаза собирательной трубки; при IV типе не хватает альдостерона или он не действует; в ранней стадии ХБП снижается аммониогенез.","Ацидоз с нормальной анионной разницей; анионная разница мочи положительная.","Нефрокальциноз (I тип), гиперкалиемия (IV тип).","Цитрат, бикарбонат; при IV типе флудрокортизон, ограничение K⁺.","renal tubular acidosis"]},{"id":"e4","c":4,"r":0,"dir":"metab","type":"etio","t":"Дегидратация; компенсация респираторного алкалоза","term":"haemoconcentration","s":["Вода теряется и Cl⁻ концентрируется, или почки выводят HCO₃⁻ и задерживают Cl⁻.","При дефиците свободной воды концентрируются все ионы; при хронической гипервентиляции почки выводят HCO₃⁻, чтобы нормализовать pH.","Cl⁻ растёт вместе с Na⁺ или замещает HCO₃⁻.","Признаки гипернатриемии или гипервентиляция.","Восполнить воду; устранить причину гипервентиляции.","haemoconcentration; compensated respiratory alkalosis"]},{"id":"main","c":2,"r":1,"dir":"metab","type":"main","t":"Cl⁻ > 107: HCO₃⁻ вытесняется, ацидоз","term":"hyperchloraemic acidosis","s":["При росте Cl⁻ в плазме снижается HCO₃⁻.","Закон электронейтральности: сумма катионов равна сумме анионов. По концепции Стюарта при уменьшении SID (Na⁺ + K⁺ − Cl⁻) растёт H⁺.","pH снижается; анионная разница (Na⁺ − Cl⁻ − HCO₃⁻) нормальная, 8–12 ммоль/л.","Cl⁻ > 107 ммоль/л, HCO₃⁻ < 22 ммоль/л.","Лечение причины; ограничить растворы, богатые хлором.","hyperchloraemic normal anion gap acidosis"]},{"id":"buf","c":0,"r":2,"dir":"metab","type":"damage","t":"Расходуются буферы, pH ↓","term":"buffer depletion","s":["Бикарбонатный, белковый и фосфатный буферы связывают H⁺.","Ёмкость буферов ограничена.","При pH < 7,2 нарушается работа клеточных ферментов и рецепторов.","BE отрицательный.","При pH < 7,1 или HCO₃⁻ < 10–12 ммоль/л — NaHCO₃.","buffer depletion"]},{"id":"kout","c":0,"r":3,"dir":"hemo","type":"damage","t":"K⁺ выходит из клеток, миокард угнетается","term":"hyperkalaemia, myocardial depression","s":["При минеральном ацидозе H⁺ входит в клетки, K⁺ выходит; сократимость миокарда снижается.","Cl⁻ плохо проникает в клетки, поэтому H⁺ обменивается на K⁺. H⁺ конкурирует с Ca²⁺ за связывание с тропонином.","Гиперкалиемия, снижение сердечного выброса и ответа на катехоламины.","Гипотензия, аритмии.","Коррекция ацидоза, контроль K⁺.","hyperkalaemia in acidosis; myocardial depression"]},{"id":"tgf","c":2,"r":2,"dir":"cell","type":"damage","t":"Плотное пятно: сужение афферентной артериолы","term":"tubuloglomerular feedback","s":["Клетки плотного пятна (macula densa) воспринимают рост Cl⁻.","Cl⁻ входит через NKCC2, выделяется аденозин, афферентная артериола сужается.","Почечный кровоток и СКФ снижаются.","Диурез уменьшается.","Ограничить растворы, богатые хлором.","tubuloglomerular feedback"]},{"id":"olg","c":2,"r":3,"dir":"hemo","type":"damage","t":"Перфузия почек ↓, олигурия, гипотензия","term":"oliguria","s":["Перфузия коры почек падает, мочи выделяется мало.","Почечная вазоконстрикция и действие ацидоза на сосуды.","Растёт риск ОПП.","Олигурия, рост креатинина, гипотензия.","Сбалансированный раствор, контроль гемодинамики.","renal vasoconstriction; oliguria"]},{"id":"mor","c":1,"r":3,"dir":"hemo","type":"damage","t":"Олигурию считают нехваткой жидкости и снова вводят NaCl","term":"iatrogenic vicious circle","s":["Врач принимает олигурию и гипотензию за гиповолемию и вводит ещё физраствор.","Олигурия от действия хлора похожа на дефицит объёма.","Cl⁻ растёт дальше, ацидоз углубляется: ятрогенный порочный круг.","Несмотря на инфузию, диурез не растёт.","Перейти на сбалансированные растворы, контролировать КОС.","iatrogenic vicious circle"]},{"id":"chm","c":3,"r":2,"dir":"neuro","type":"protect","t":"Хеморецепторы: гипервентиляция","term":"respiratory compensation","s":["Периферические и центральные хеморецепторы воспринимают рост H⁺ и углубляют дыхание.","Дыхательный центр реагирует на снижение pH.","CO₂ выводится больше.","Глубокое шумное дыхание Куссмауля.","Для оценки компенсации измерять PaCO₂.","respiratory compensation"]},{"id":"pco","c":3,"r":3,"dir":"neuro","type":"protect","t":"PaCO₂ ↓: pH частично выравнивается","term":"hypocapnia","s":["PaCO₂ крови снижается.","Гипервентиляция.","pH приближается к норме, но полностью не выравнивается.","Ожидаемый PaCO₂ = 1,5 × HCO₃⁻ + 8 ± 2 (формула Винтерса).","Если PaCO₂ отличается от ожидаемого, искать смешанное нарушение.","Winters formula"]},{"id":"amm","c":4,"r":2,"dir":"cell","type":"protect","t":"Аммониогенез в почках ↑: выводится NH₄Cl","term":"ammoniagenesis","s":["В проксимальном канальце из глутамина образуются NH₄⁺ и новый HCO₃⁻.","Ацидоз усиливает транспорт глутамина и активность глутаминазы.","NH₄Cl выводится с мочой, Cl⁻ снижается.","При внепочечной причине (диарея) анионная разница мочи отрицательная.","Анионная разница мочи различает причины.","ammoniagenesis; urine anion gap"]},{"id":"inf","c":4,"r":3,"dir":"immune","type":"damage","t":"Медиаторы воспаления: IL-6, NO","term":"pro-inflammatory mediators","s":["В экспериментах гиперхлоремический ацидоз повышает IL-6 и NO.","Ацидоз активирует макрофаги.","Сосуды расширяются, воспаление усиливается.","При сепсисе усугубляются гипотензия и органная недостаточность.","При сепсисе выбирать сбалансированные растворы.","pro-inflammatory mediators"]},{"id":"k1","c":0,"r":4,"dir":"hemo","type":"clinic","t":"Гипотензия, аритмии","term":"haemodynamic disturbances","s":["Нарушение гемодинамики.","Снижение сократимости миокарда и гиперкалиемия.","При тяжёлом ацидозе шок.","Низкое АД, на ЭКГ признаки гиперкалиемии.","Коррекция ацидоза и K⁺.","hypotensio; arrhythmia"]},{"id":"k2","c":2,"r":4,"dir":"organ","type":"clinic","t":"Олигурия, риск ОПП","term":"oliguria","s":["Снижение функции почек.","Почечная вазоконстрикция.","Креатинин растёт.","Диурез меньше 0,5 мл/кг в час.","Контроль диуреза и креатинина.","acute kidney injury"]},{"id":"k3","c":3,"r":4,"dir":"neuro","type":"clinic","t":"Дыхание Куссмауля","term":"Kussmaul breathing","s":["Глубокое шумное дыхание.","Дыхательная компенсация ацидоза.","Больной ощущает одышку и усталость.","Дыхание частое и глубокое.","Коррекция ацидоза.","Kussmaul respiration"]},{"id":"k4","c":4,"r":4,"dir":"immune","type":"clinic","t":"При сепсисе гипотензия тяжелее","term":"severe sepsis","s":["Утяжеление течения сепсиса.","Медиаторы воспаления и расширение сосудов.","Растёт потребность в вазопрессорах.","Лактат и Cl⁻ растут одновременно.","Сбалансированные растворы.","sepsis gravis"]}],
+edges:[{f:'e1',to:'main',k:'main',p:R=>BTo(R.e1,R.main,R.main.cx-60)},
+{f:'e2',to:'main',k:'main',p:R=>BTo(R.e2,R.main,R.main.cx-20)},
+{f:'e3',to:'main',k:'main',p:R=>BTo(R.e3,R.main,R.main.cx+20)},
+{f:'e4',to:'main',k:'main',p:R=>BTo(R.e4,R.main,R.main.cx+60)},
+{f:'main',to:'buf',k:'main',p:R=>ST(R.main,R.buf,'l',.25)},
+{f:'buf',to:'kout',k:'main',p:R=>D(R.buf,R.kout)},
+{f:'main',to:'tgf',k:'loop',p:R=>D(R.main,R.tgf)},
+{f:'tgf',to:'olg',k:'loop',p:R=>D(R.tgf,R.olg)},
+{f:'olg',to:'mor',k:'loop',p:R=>Lf(R.olg,R.mor)},
+{f:'mor',to:'main',k:'loop',p:R=>LR(R.mor,R.main)},
+{f:'main',to:'chm',k:'main',p:R=>ST(R.main,R.chm,'r',.75)},
+{f:'chm',to:'pco',k:'main',p:R=>D(R.chm,R.pco)},
+{f:'main',to:'amm',k:'main',p:R=>ST(R.main,R.amm,'r',.3)},
+{f:'main',to:'inf',k:'main',p:R=>SC(R.main,R.inf,3,.3)},
+{f:'kout',to:'k1',k:'main',p:R=>D(R.kout,R.k1)},
+{f:'olg',to:'k2',k:'main',p:R=>D(R.olg,R.k2)},
+{f:'pco',to:'k3',k:'main',p:R=>D(R.pco,R.k3)},
+{f:'inf',to:'k4',k:'main',p:R=>D(R.inf,R.k4)}],
+markers:[R=>[(R.mor.cx+R.tgf.l)/2,R.tgf.cy]],
+loops:[["main","tgf","olg","mor"]],
+overview:[["Что происходит","Cl⁻ плазмы растёт и вытесняет HCO₃⁻. Развивается метаболический ацидоз с нормальной анионной разницей."],["Главное звено","Уменьшение разницы сильных ионов (SID) и снижение HCO₃⁻."],["Компенсация","Гипервентиляция снижает PaCO₂; почки усиливают аммониогенез и выводят NH₄Cl."],["Порочный круг","Хлор сужает сосуды почек и вызывает олигурию; олигурию принимают за гиповолемию и снова вводят NaCl."],["Точка лечения","Сбалансированные кристаллоиды, лечение причины; при тяжёлом ацидозе NaHCO₃, при ПКА цитрат."]]},
+clHypo:{name:"Гипохлоремия",full:"Гипохлоремия",vals:"Cl⁻ < 98 ммоль/л · алкалоз",lead:"Cl⁻ плазмы ниже 98 ммоль/л. При потере хлора растёт HCO₃⁻ и развивается гипохлоремический метаболический алкалоз; он не исчезает, пока хлор не восполнен.",
+nodes:[{"id":"e1","c":0,"r":0,"dir":"organ","type":"etio","t":"Потеря желудочного сока: рвота, зонд","term":"gastric fluid loss","s":["Теряется HCl.","Париетальные клетки желудка на каждый выделенный H⁺ отдают в кровь один HCO₃⁻ («щелочная волна»). При рвоте H⁺ и Cl⁻ уходят наружу, HCO₃⁻ остаётся в крови.","Гипохлоремия, метаболический алкалоз и гиповолемия.","Повторная рвота, пилоростеноз, желудочный зонд.","0,9% NaCl и KCl.","loss of gastric juice; alkaline tide"]},{"id":"e2","c":1,"r":0,"dir":"neuro","type":"etio","t":"Диуретики: петлевые, тиазидные","term":"diuretics","s":["С мочой выводится много Cl⁻ в виде NaCl.","Петлевые диуретики блокируют NKCC2, тиазиды — NCC; синдромы Барттера и Гительмана сходны.","Потеря хлорида, контракционный алкалоз, гипокалиемия.","Полиурия, слабость.","Снизить дозу, KCl, калийсберегающий диуретик.","contraction alkalosis"]},{"id":"e3","c":3,"r":0,"dir":"metab","type":"etio","t":"Редкие: хлоридная диарея, муковисцидоз","term":"chloride diarrhoea","s":["Cl⁻ теряется через кишечник или с потом.","Дефект кишечного обменника Cl⁻/HCO₃⁻ (SLC26A3) или канала CFTR.","Врождённый гипохлоремический алкалоз.","Хроническая диарея у младенца, потеря соли с потом.","Замещение NaCl и KCl.","congenital chloride diarrhoea; cystic fibrosis"]},{"id":"e4","c":4,"r":0,"dir":"hemo","type":"etio","t":"Разведение: СНСАДГ, СН; компенсация респираторного ацидоза","term":"dilutional hypochloraemia","s":["Cl⁻ разводится избытком воды или почки задерживают HCO₃⁻ и выводят Cl⁻.","Задерживается свободная вода; при хронической гиперкапнии почки накапливают HCO₃⁻ для коррекции pH.","Гипонатриемия и гипохлоремия идут вместе.","Признаки гипонатриемии или хронической болезни лёгких.","Лечение основной причины.","dilutional hypochloraemia"]},{"id":"main","c":2,"r":1,"dir":"metab","type":"main","t":"Cl⁻ < 98: хлорзависимый метаболический алкалоз","term":"chloride-responsive alkalosis","s":["HCO₃⁻ плазмы повышается, pH > 7,45.","Электронейтральность: место Cl⁻ занимает HCO₃⁻. Пендрин (обменник Cl⁻/HCO₃⁻) собирательной трубки может выводить HCO₃⁻ только при наличии Cl⁻ в просвете.","При дефиците Cl⁻ алкалоз сохраняется.","Cl⁻ < 98 ммоль/л, HCO₃⁻ > 26 ммоль/л.","Если Cl⁻ мочи < 20 ммоль/л, алкалоз хлорчувствительный и лечится NaCl.","chloride-responsive metabolic alkalosis; pendrin"]},{"id":"bohr","c":0,"r":2,"dir":"metab","type":"damage","t":"Сродство Hb к O₂ ↑","term":"Bohr effect","s":["Кривая диссоциации оксигемоглобина смещается влево.","Эффект Бора: при росте pH гемоглобин прочнее удерживает кислород.","Отдача O₂ тканям снижается.","Тканевая гипоксия при нормальной сатурации.","Коррекция алкалоза.","left shift of oxyhaemoglobin dissociation curve"]},{"id":"cer","c":0,"r":3,"dir":"organ","type":"damage","t":"Тканевая гипоксия, сужение сосудов мозга","term":"tissue hypoxia","s":["Мозг и миокард получают меньше кислорода.","Снижение отдачи O₂ и сужение сосудов мозга при алкалозе.","Нарушается работа мозга и сердца.","Головокружение, спутанность, судороги.","Коррекция алкалоза, кислород.","hypoxia textuum"]},{"id":"raa","c":2,"r":2,"dir":"neuro","type":"damage","t":"Дефицит объёма и Cl⁻: РААС, альдостерон ↑","term":"secondary hyperaldosteronism","s":["Много выделяется ренина, ангиотензина II и альдостерона.","Гиповолемия стимулирует барорецепторы; плотное пятно воспринимает снижение Cl⁻ и повышает ренин.","Сначала сохраняет объём, но на фоне алкалоза вредит.","Тахикардия, гипотензия, жажда.","0,9% NaCl восполняет объём и подавляет РААС.","hyperaldosteronismus secundarius"]},{"id":"hk","c":2,"r":3,"dir":"metab","type":"damage","t":"H⁺ и K⁺ теряются с мочой: гипокалиемия","term":"paradoxical aciduria","s":["Альдостерон усиливает задержку Na⁺ и выведение K⁺ и H⁺.","Реабсорбция Na⁺ создаёт отрицательный заряд просвета и усиливает секрецию K⁺ и H⁺.","Кислая моча, несмотря на алкалоз (парадоксальная ацидурия), гипокалиемия.","Слабость, аритмии.","KCl.","paradoxical aciduria; hypokalaemia"]},{"id":"hco","c":1,"r":3,"dir":"cell","type":"damage","t":"Реабсорбция HCO₃⁻ ↑, пендрин не выводит HCO₃⁻","term":"bicarbonate retention","s":["Почки не могут вывести избыток HCO₃⁻.","Гипокалиемия и гиповолемия усиливают реабсорбцию HCO₃⁻ в проксимальном канальце; из-за малого Cl⁻ в просвете пендрин не работает.","HCO₃⁻ накапливается в крови, алкалоз сохраняется: порочный круг.","Cl⁻ мочи < 20 ммоль/л.","Совместное введение NaCl и KCl разрывает круг.","maintenance of metabolic alkalosis"]},{"id":"ica","c":3,"r":2,"dir":"metab","type":"damage","t":"Ионизированный Ca²⁺ ↓","term":"reduced ionised calcium","s":["Альбумин сильнее связывает Ca²⁺.","При алкалозе с альбумина уходят H⁺ и освобождаются отрицательно заряженные участки.","При нормальном общем Ca ионизированный Ca²⁺ снижается.","Парестезии.","Коррекция алкалоза; измерить ионизированный Ca²⁺.","reduced ionised calcium"]},{"id":"exc","c":3,"r":3,"dir":"cell","type":"damage","t":"Нервно-мышечная возбудимость ↑","term":"increased excitability","s":["Нервы и мышцы легко возбуждаются.","При снижении ионизированного Ca²⁺ падает порог Na⁺-каналов.","Тетания, судороги.","Симптомы Хвостека и Труссо.","Коррекция алкалоза и гипокалиемии.","tetania in alkalosis"]},{"id":"hyv","c":4,"r":2,"dir":"neuro","type":"protect","t":"Хеморецепторы: гиповентиляция","term":"compensatory hypoventilation","s":["Хеморецепторы воспринимают рост pH и ослабляют дыхание.","Ответ дыхательного центра на H⁺ снижается.","CO₂ задерживается.","Поверхностное редкое дыхание.","При гипоксемии кислород.","compensatory hypoventilation"]},{"id":"pco","c":4,"r":3,"dir":"neuro","type":"protect","t":"PaCO₂ ↑: pH частично выравнивается","term":"hypercapnia","s":["PaCO₂ растёт, pH приближается к норме.","Гиповентиляция.","На каждый 1 ммоль/л прироста HCO₃⁻ PaCO₂ растёт примерно на 0,7 мм рт. ст.; гипоксемия ограничивает эту компенсацию.","PaCO₂ редко превышает 55 мм рт. ст.","Оценка компенсации.","respiratory compensation"]},{"id":"k1","c":0,"r":4,"dir":"organ","type":"clinic","t":"Спутанность, судороги","term":"neurological signs","s":["Неврологические признаки.","Гипоксия мозга и сужение его сосудов.","При тяжёлом алкалозе (pH > 7,6) нарушение сознания.","Головокружение, апатия, судороги.","Коррекция алкалоза.","neurological signs of alkalosis"]},{"id":"k2","c":2,"r":4,"dir":"organ","type":"clinic","t":"Слабость, аритмии","term":"hypokalaemia","s":["Признаки гипокалиемии.","K⁺ теряется с мочой.","Растёт риск аритмий.","Зубец U, мышечная слабость.","KCl.","hypokalaemia"]},{"id":"k3","c":3,"r":4,"dir":"organ","type":"clinic","t":"Тетания, парестезии","term":"tetany","s":["Мышечные судороги.","Снижение ионизированного Ca²⁺.","Карпопедальный спазм.","Симптомы Хвостека и Труссо.","Коррекция алкалоза.","tetania"]},{"id":"k4","c":4,"r":4,"dir":"neuro","type":"clinic","t":"Поверхностное редкое дыхание","term":"hypoventilation","s":["Дыхание ослабевает.","Компенсаторная гиповентиляция.","Возможна гипоксемия.","Частота дыхания снижена.","Кислород, коррекция алкалоза.","hypoventilatio"]}],
+edges:[{f:'e1',to:'main',k:'main',p:R=>BTo(R.e1,R.main,R.main.cx-60)},
+{f:'e2',to:'main',k:'main',p:R=>BTo(R.e2,R.main,R.main.cx-20)},
+{f:'e3',to:'main',k:'main',p:R=>BTo(R.e3,R.main,R.main.cx+20)},
+{f:'e4',to:'main',k:'main',p:R=>BTo(R.e4,R.main,R.main.cx+60)},
+{f:'main',to:'bohr',k:'main',p:R=>ST(R.main,R.bohr,'l',.25)},
+{f:'bohr',to:'cer',k:'main',p:R=>D(R.bohr,R.cer)},
+{f:'main',to:'raa',k:'loop',p:R=>D(R.main,R.raa)},
+{f:'raa',to:'hk',k:'loop',p:R=>D(R.raa,R.hk)},
+{f:'hk',to:'hco',k:'loop',p:R=>Lf(R.hk,R.hco)},
+{f:'hco',to:'main',k:'loop',p:R=>LR(R.hco,R.main)},
+{f:'main',to:'ica',k:'main',p:R=>ST(R.main,R.ica,'r',.75)},
+{f:'ica',to:'exc',k:'main',p:R=>D(R.ica,R.exc)},
+{f:'main',to:'hyv',k:'main',p:R=>ST(R.main,R.hyv,'r',.3)},
+{f:'hyv',to:'pco',k:'main',p:R=>D(R.hyv,R.pco)},
+{f:'cer',to:'k1',k:'main',p:R=>D(R.cer,R.k1)},
+{f:'hk',to:'k2',k:'main',p:R=>D(R.hk,R.k2)},
+{f:'exc',to:'k3',k:'main',p:R=>D(R.exc,R.k3)},
+{f:'pco',to:'k4',k:'main',p:R=>D(R.pco,R.k4)}],
+markers:[R=>[(R.hco.cx+R.raa.l)/2,R.raa.cy]],
+loops:[["main","raa","hk","hco"]],
+overview:[["Что происходит","Хлор теряется, HCO₃⁻ растёт. Развивается хлорзависимый метаболический алкалоз."],["Главное звено","Дефицит Cl⁻: почки не могут вывести избыток HCO₃⁻."],["Компенсация","Гиповентиляция повышает PaCO₂; но гипоксемия её ограничивает."],["Порочный круг","Дефицит объёма и Cl⁻ повышает альдостерон, теряются H⁺ и K⁺; гипокалиемия усиливает реабсорбцию HCO₃⁻ и поддерживает алкалоз."],["Точка лечения","0,9% NaCl и KCl; при гиперволемии ацетазоламид; при pH > 7,6 разведённая HCl."]]},
+caHypo:{name:"Гипокальциемия",full:"Гипокальциемия",vals:"Ca < 2,15 · Ca²⁺ < 1,1 ммоль/л",lead:"Общий Ca ниже 2,15 ммоль/л или ионизированный Ca²⁺ ниже 1,1 ммоль/л. Нужна поправка на альбумин: скорректированный Ca = Ca + 0,02 × (40 − альбумин, г/л). Главное следствие — повышение нервно-мышечной возбудимости.",
+nodes:[{"id":"e1","c":0,"r":0,"dir":"neuro","type":"etio","t":"Дефицит ПТГ: тиреоидэктомия, гипомагниемия","term":"hypoparathyroidism","s":["Паращитовидные железы выделяют недостаточно паратгормона.","Железы повреждаются или удаляются при операции, поражаются аутоиммунно (синдром Ди Джорджи); дефицит Mg²⁺ тормозит секрецию и действие ПТГ.","Гипокальциемия и гиперфосфатемия.","Тетания через 1–2 дня после операции.","Коррекция дефицита Mg²⁺; активный витамин D, рекомбинантный ПТГ.","hypoparathyreosis"]},{"id":"e2","c":1,"r":0,"dir":"metab","type":"etio","t":"Дефицит витамина D, ХБП","term":"vitamin D deficiency","s":["Всасывание Ca²⁺ в кишечнике снижается.","Мало солнца, мальабсорбция, болезни печени; при ХБП в почках снижается 1α-гидроксилаза. Кальцитриол стимулирует синтез кальбиндина и TRPV6 в энтероцитах.","Вторичный гиперпаратиреоз, остеомаляция или рахит.","Боли в костях, мышечная слабость.","Холекальциферол; при ХБП кальцитриол или альфакальцидол.","vitamin D deficiency"]},{"id":"e3","c":3,"r":0,"dir":"metab","type":"etio","t":"Связывание Ca²⁺: гиперфосфатемия, панкреатит, цитрат","term":"calcium sequestration","s":["Ионизированный Ca²⁺ уходит из крови.","Образует осадок с фосфатом; мыла со свободными жирными кислотами вокруг поджелудочной железы; хелаты с цитратом (при переливании крови); переходит в кость при синдроме «голодной кости».","Острая гипокальциемия.","Признаки основного заболевания.","Лечение причины; глюконат кальция.","calcium sequestration; saponification"]},{"id":"e4","c":4,"r":0,"dir":"cell","type":"etio","t":"Алкалоз; резистентность к ПТГ","term":"alkalosis; pseudohypoparathyroidism","s":["При алкалозе снижается ионизированный Ca²⁺; при псевдогипопаратиреозе ткани не отвечают на ПТГ.","Альбумин сильнее связывает Ca²⁺; при дефекте белка Gsα нарушается сигнал цАМФ после рецептора ПТГ.","Признаки гипокальциемии.","Парестезии при гипервентиляции; остеодистрофия Олбрайта.","Коррекция алкалоза; активный витамин D.","alkalosis; pseudohypoparathyreosis"]},{"id":"main","c":2,"r":1,"dir":"cell","type":"main","t":"Ca²⁺ < 1,1: нервно-мышечная возбудимость ↑","term":"increased neuromuscular excitability","s":["Нервные волокна и мышцы отвечают даже на слабый стимул и дают спонтанные разряды.","Наружный Ca²⁺ экранирует отрицательные заряды на внешней поверхности мембраны и стабилизирует Na⁺-каналы. При снижении Ca²⁺ каналы открываются близко к потенциалу покоя.","Тетания, парестезии, судороги.","Ионизированный Ca²⁺ < 1,1 ммоль/л.","При острых симптомах 10% глюконат кальция в/в медленно (10–20 мин), затем инфузия.","hypocalcaemia"]},{"id":"thr","c":0,"r":2,"dir":"cell","type":"damage","t":"Порог снижается: спонтанные разряды","term":"spontaneous discharges","s":["В периферических нервах возникают спонтанные импульсы.","Порог приближается к потенциалу покоя.","Тоническое сокращение мышц.","Онемение вокруг рта и в пальцах.","Глюконат кальция.","spontaneous nerve activity"]},{"id":"lar","c":0,"r":3,"dir":"organ","type":"damage","t":"Тетания, ларингоспазм, судороги","term":"tetany, laryngospasm","s":["Спазм скелетных мышц, мышц гортани и бронхов; возбуждение нейронов ЦНС.","Повышение нервно-мышечной возбудимости.","Ларингоспазм может привести к удушью.","Стридор, карпопедальный спазм, судороги.","Глюконат кальция в/в; обеспечение проходимости дыхательных путей.","tetania; laryngospasmus"]},{"id":"par","c":2,"r":2,"dir":"organ","type":"damage","t":"Парестезии, стеснение в груди, тревога","term":"paraesthesia, anxiety","s":["Больной ощущает онемение и сведение мышц, тревожится.","Разряды сенсорных нервов и спазм мышц.","Тревога учащает дыхание.","Онемение пальцев и вокруг рта, стеснение в груди.","Успокоить больного.","paraesthesiae; anxietas"]},{"id":"hvn","c":2,"r":3,"dir":"neuro","type":"damage","t":"Гипервентиляция","term":"hyperventilation","s":["Дыхание учащается и углубляется.","Тревога и возбуждение дыхательного центра.","CO₂ выводится в избытке.","Частое глубокое дыхание.","Замедлить дыхание.","hyperventilatio"]},{"id":"ral","c":1,"r":3,"dir":"metab","type":"damage","t":"Респираторный алкалоз: Ca²⁺ связывается с альбумином","term":"respiratory alkalosis","s":["pH растёт, ионизированный Ca²⁺ снижается.","При алкалозе с альбумина уходят H⁺, и он связывает больше Ca²⁺.","Тетания усиливается: порочный круг.","Приступ тетании при нормальном общем Ca.","Замедлить дыхание, дыхание в пакет (с осторожностью).","alkalosis respiratoria"]},{"id":"pl","c":3,"r":2,"dir":"cell","type":"damage","t":"Фаза плато удлиняется, сокращение ослабевает","term":"prolonged plateau","s":["Фаза плато потенциала действия кардиомиоцита удлиняется.","Плато зависит от входа Ca²⁺; при малом Ca²⁺ оно заканчивается медленно. Электромеханическое сопряжение ослабевает.","QT удлиняется, сократимость миокарда снижается.","ЭКГ: сегмент ST удлинён.","Глюконат кальция.","prolonged QT interval"]},{"id":"hrt","c":3,"r":3,"dir":"hemo","type":"damage","t":"Удлинение QT, сердечная недостаточность, гипотензия","term":"hypocalcaemic cardiomyopathy","s":["Снижается сердечный выброс и тонус сосудов.","Сокращение миокарда и гладких мышц сосудов зависит от Ca²⁺; ответ на катехоламины ослабевает.","Гипотензия, обратимая кардиомиопатия.","Одышка, отёки, гипотензия.","Восполнение Ca²⁺.","cardiomyopathia hypocalcaemica"]},{"id":"pth","c":4,"r":2,"dir":"neuro","type":"protect","t":"CaSR → ПТГ ↑","term":"parathyroid hormone","s":["Кальций-чувствительный рецептор (CaSR) воспринимает снижение Ca²⁺ и усиливает выделение ПТГ.","Активность CaSR падает, торможение секреции ПТГ снимается.","Растут резорбция кости и реабсорбция Ca²⁺ в почках, фосфатурия, активируется 1α-гидроксилаза.","ПТГ повышен (кроме гипопаратиреоза).","Измерение ПТГ различает причины.","calcium-sensing receptor; parathormone"]},{"id":"cal","c":4,"r":3,"dir":"neuro","type":"protect","t":"Кальцитриол ↑, Ca²⁺ выходит из кости","term":"calcitriol","s":["В почках растёт образование 1,25(OH)₂D; из кости высвобождается Ca²⁺.","ПТГ стимулирует 1α-гидроксилазу и активирует остеокласты.","Всасывание Ca²⁺ в кишечнике растёт, Ca²⁺ восстанавливается. При дефиците D или ХБП это звено не работает.","При длительном течении минерализация кости снижается.","Кальцитриол, альфакальцидол.","calcitriolum; 1α-hydroxylase"]},{"id":"k1","c":0,"r":4,"dir":"organ","type":"clinic","t":"Симптомы Хвостека, Труссо, карпопедальный спазм","term":"Chvostek and Trousseau signs","s":["Признаки скрытой тетании.","Нервы легко отвечают на механическое раздражение и ишемию.","Хвостек: сокращение мышц рта при постукивании по лицевому нерву. Труссо: «рука акушера» при сдавлении манжетой 3 минуты.","Карпопедальный спазм, ларингоспазм.","Глюконат кальция.","Chvostek sign; Trousseau sign"]},{"id":"k2","c":2,"r":4,"dir":"neuro","type":"clinic","t":"Гипервентиляционный приступ тетании","term":"hyperventilation tetany","s":["Приступ тетании.","Алкалоз снижает ионизированный Ca²⁺.","Приступ проходит при замедлении дыхания.","Тревога, одышка, сведение пальцев.","Замедлить дыхание.","tetania hyperventilationis"]},{"id":"k3","c":3,"r":4,"dir":"hemo","type":"clinic","t":"Удлинение QT, гипотензия","term":"cardiac signs","s":["Сердечные признаки.","Удлинение фазы плато и снижение сократимости.","Тахикардия «пируэт» редка.","На ЭКГ удлинён QT, АД снижено.","При хронической форме Ca внутрь и витамин D.","prolonged QT; hypotensio"]}],
+edges:[{f:'e1',to:'main',k:'main',p:R=>BTo(R.e1,R.main,R.main.cx-60)},
+{f:'e2',to:'main',k:'main',p:R=>BTo(R.e2,R.main,R.main.cx-20)},
+{f:'e3',to:'main',k:'main',p:R=>BTo(R.e3,R.main,R.main.cx+20)},
+{f:'e4',to:'main',k:'main',p:R=>BTo(R.e4,R.main,R.main.cx+60)},
+{f:'main',to:'thr',k:'main',p:R=>ST(R.main,R.thr,'l',.25)},
+{f:'thr',to:'lar',k:'main',p:R=>D(R.thr,R.lar)},
+{f:'main',to:'par',k:'loop',p:R=>D(R.main,R.par)},
+{f:'par',to:'hvn',k:'loop',p:R=>D(R.par,R.hvn)},
+{f:'hvn',to:'ral',k:'loop',p:R=>Lf(R.hvn,R.ral)},
+{f:'ral',to:'main',k:'loop',p:R=>LR(R.ral,R.main)},
+{f:'main',to:'pl',k:'main',p:R=>ST(R.main,R.pl,'r',.75)},
+{f:'pl',to:'hrt',k:'main',p:R=>D(R.pl,R.hrt)},
+{f:'main',to:'pth',k:'main',p:R=>ST(R.main,R.pth,'r',.3)},
+{f:'pth',to:'cal',k:'main',p:R=>D(R.pth,R.cal)},
+{f:'cal',to:'main',k:'inh',p:R=>LUP(R.cal,R.main,3,.55)},
+{f:'lar',to:'k1',k:'main',p:R=>D(R.lar,R.k1)},
+{f:'hvn',to:'k2',k:'main',p:R=>D(R.hvn,R.k2)},
+{f:'hrt',to:'k3',k:'main',p:R=>D(R.hrt,R.k3)}],
+markers:[R=>[(R.ral.cx+R.par.l)/2,R.par.cy]],
+loops:[["main","par","hvn","ral"]],
+overview:[["Что происходит","Ионизированный Ca²⁺ снижается, мембраны нервов и мышц становятся нестабильными: возбудимость растёт."],["Главное звено","Порог открытия Na⁺-каналов снижается; развиваются тетания и судороги."],["Компенсация","Через CaSR растёт ПТГ; кальцитриол усиливает всасывание Ca²⁺ в кишечнике, Ca²⁺ выходит из кости."],["Порочный круг","Парестезии вызывают тревогу и гипервентиляцию; респираторный алкалоз ещё больше снижает ионизированный Ca²⁺."],["Точка лечения","Остро: 10% глюконат кальция в/в. Хронически: Ca внутрь и витамин D; коррекция дефицита Mg²⁺."]]},
+caHyper:{name:"Гиперкальциемия",full:"Гиперкальциемия",vals:"Ca > 2,6 · Ca²⁺ > 1,3 ммоль/л",lead:"Общий Ca выше 2,6 ммоль/л или ионизированный Ca²⁺ выше 1,3 ммоль/л. Около 90% случаев — первичный гиперпаратиреоз и злокачественные опухоли. Мембраны стабилизируются, возбудимость падает, почки не удерживают воду.",
+nodes:[{"id":"e1","c":0,"r":0,"dir":"neuro","type":"etio","t":"Избыток ПТГ: первичный гиперпаратиреоз","term":"primary hyperparathyroidism","s":["Паратгормон выделяется бесконтрольно.","В аденоме (около 85%) снижена чувствительность CaSR; при ХБП длительно стимулированные железы становятся автономными (третичный). Литий тоже повышает ПТГ.","Растут резорбция кости, реабсорбция Ca²⁺ в почках и кальцитриол.","Камни почек, остеопороз, фиброзно-кистозный остеит.","Паратиреоидэктомия; цинакалцет.","hyperparathyreosis primaria"]},{"id":"e2","c":1,"r":0,"dir":"cell","type":"etio","t":"Злокачественные опухоли: ПТГрП, метастазы, миелома","term":"hypercalcaemia of malignancy","s":["Опухоль разрушает кость или повторяет действие ПТГ.","ПТГ-родственный пептид (плоскоклеточный рак) активирует рецепторы ПТГ; метастазы и миелома активируют остеокласты через RANKL; при лимфоме избыточно образуется кальцитриол.","Часто тяжёлая, быстро нарастающая гиперкальциемия.","Боли в костях, патологические переломы.","Бисфосфонаты, деносумаб, лечение опухоли.","PTHrP; osteolytic metastases"]},{"id":"e3","c":3,"r":0,"dir":"metab","type":"etio","t":"Избыток кальцитриола: саркоидоз, интоксикация D","term":"calcitriol excess","s":["Всасывание Ca²⁺ в кишечнике растёт.","1α-гидроксилаза макрофагов гранулём работает независимо от ПТГ; избыточный приём витамина D.","Гиперкальциемия с подавленным ПТГ.","Признаки основного заболевания.","Глюкокортикоиды тормозят 1α-гидроксилазу макрофагов; отмена витамина D.","granulomatous disease; vitamin D intoxication"]},{"id":"e4","c":4,"r":0,"dir":"metab","type":"etio","t":"Иммобилизация, тиазиды, тиреотоксикоз","term":"other causes","s":["Резорбция кости растёт или выведение Ca²⁺ снижается.","Иммобилизация и тиреотоксикоз активируют остеокласты; тиазиды усиливают реабсорбцию Ca²⁺ в дистальном канальце; молочно-щелочной синдром.","Лёгкая или умеренная гиперкальциемия.","Признаки основного состояния.","Устранить причину, отменить тиазид.","immobilisation hypercalcaemia; milk-alkali syndrome"]},{"id":"main","c":2,"r":1,"dir":"cell","type":"main","t":"Ca²⁺ > 1,3: мембраны стабилизируются","term":"membrane stabilisation","s":["Ионизированный Ca²⁺ растёт, нервно-мышечная возбудимость падает.","При избытке наружного Ca²⁺ поверхность мембраны экранируется сильнее; для деполяризации нужен более сильный стимул. Активируются и почечные CaSR.","Слабость, угнетение ЦНС, повреждение почек; при высоком Ca × P кальцификация тканей.","При Ca > 3,5 ммоль/л гиперкальциемический криз.","Изотонический NaCl 200–300 мл/ч: первый и главный шаг.","hypercalcaemia"]},{"id":"exc","c":0,"r":2,"dir":"cell","type":"damage","t":"Возбудимость нейронов и мышц ↓","term":"reduced excitability","s":["Клетки нервов, скелетных и гладких мышц плохо возбуждаются.","Порог Na⁺-каналов повышается.","Тонус мышц и рефлексы снижаются.","Гипорефлексия, слабость.","Снизить Ca²⁺.","reduced neuromuscular excitability"]},{"id":"cns","c":0,"r":3,"dir":"organ","type":"damage","t":"Угнетение ЦНС, атония кишечника, панкреатит","term":"CNS depression, bowel atony","s":["Нарушается работа мозга и ЖКТ.","Возбудимость нейронов падает; тонус гладких мышц кишечника снижается; Ca²⁺ стимулирует выделение гастрина и активацию ферментов поджелудочной железы.","Спутанность, кома; запор, язва, панкреатит.","Утомляемость, депрессия, тошнота.","Снизить Ca²⁺.","CNS depression; constipation; pancreatitis"]},{"id":"ndi","c":2,"r":2,"dir":"organ","type":"damage","t":"Нефрогенный несахарный диабет: полиурия","term":"nephrogenic diabetes insipidus","s":["Почки не могут концентрировать мочу.","CaSR толстого восходящего колена петли Генле тормозит NKCC2 (снижается гипертоничность мозгового слоя); в собирательной трубке уменьшается аквапорин-2.","Полиурия, потеря воды.","Жажда, полиурия, никтурия.","Восполнение жидкости.","diabetes insipidus nephrogenes"]},{"id":"dhy","c":2,"r":3,"dir":"hemo","type":"damage","t":"Дегидратация, СКФ ↓","term":"dehydration","s":["Внеклеточный объём уменьшается, клубочковая фильтрация падает.","Полиурия и рвота; Ca²⁺ сужает сосуды почек.","Почки фильтруют меньше Ca²⁺.","Тахикардия, сухие слизистые, рост креатинина.","Изотонический NaCl.","dehydratio; reduced GFR"]},{"id":"rea","c":1,"r":3,"dir":"organ","type":"damage","t":"Реабсорбция Ca²⁺ ↑, выведение ↓","term":"reduced calcium excretion","s":["Почки выводят меньше Ca²⁺.","При уменьшении объёма растёт реабсорбция Na⁺ в проксимальном канальце, и Ca²⁺ всасывается вместе с ним.","Гиперкальциемия усиливается: порочный круг (гиперкальциемический криз).","Ca > 3,5 ммоль/л; кома, ОПП.","Восполнение объёма разрывает круг; затем петлевой диуретик (только при эуволемии).","hypercalcaemic crisis"]},{"id":"hcu","c":3,"r":2,"dir":"metab","type":"damage","t":"Гиперкальциурия, Ca × P ↑","term":"hypercalciuria","s":["В моче много Ca²⁺.","Растёт фильтруемое количество Ca²⁺.","В моче выпадают соли кальция.","Ca мочи более 7,5 ммоль в сутки.","Обильное питьё.","hypercalciuria"]},{"id":"nph","c":3,"r":3,"dir":"organ","type":"damage","t":"Нефрокальциноз, нефролитиаз","term":"nephrocalcinosis","s":["В паренхиме почек и мочевых путях откладываются соли кальция.","Гиперкальциурия и рост произведения Ca × P.","Функция почек постепенно снижается.","Почечная колика, гематурия.","Лечение причины, гидратация.","nephrocalcinosis; nephrolithiasis"]},{"id":"ptl","c":4,"r":2,"dir":"neuro","type":"protect","t":"CaSR → ПТГ ↓, кальцитонин ↑","term":"PTH suppression","s":["CaSR паращитовидных желёз активируется, выделение ПТГ снижается; кальцитонин немного растёт.","Ca²⁺ через CaSR тормозит секрецию ПТГ.","Выведение Ca²⁺ почками растёт, кальцитриол снижается. При первичном гиперпаратиреозе это звено не работает.","ПТГ низкий (при ПТГ-независимых причинах).","Измерение ПТГ — первый шаг диагностики.","PTH suppression; calcitonin"]},{"id":"hrt","c":4,"r":3,"dir":"hemo","type":"damage","t":"Сердце: укорочение QT, брадикардия","term":"shortened QT","s":["Меняются ритм и проводимость сердца.","Фаза плато заканчивается быстрее; Ca²⁺ повышает тонус гладких мышц сосудов.","Брадикардия, AV-блокада; растёт чувствительность к дигоксину.","На ЭКГ QT укорочен, АД повышено.","Снизить Ca²⁺; дигоксин с осторожностью.","shortened QT interval"]},{"id":"k1","c":0,"r":4,"dir":"organ","type":"clinic","t":"Спутанность, депрессия, запор","term":"«psychic moans, abdominal groans»","s":["Признаки со стороны ЦНС и кишечника.","Возбудимость нейронов и гладких мышц падает.","В тяжёлых случаях кома.","Английская мнемоника: psychic moans, abdominal groans.","Снизить Ca²⁺.","psychic moans; abdominal groans"]},{"id":"k2","c":2,"r":4,"dir":"organ","type":"clinic","t":"Полиурия, жажда, гиперкальциемический криз","term":"hypercalcaemic crisis","s":["Признаки потери воды и криза.","Нефрогенный несахарный диабет и порочный круг.","Кома, ОПП, аритмии.","Ca > 3,5 ммоль/л.","NaCl в/в, золедроновая кислота, кальцитонин; при необходимости диализ.","hypercalcaemic crisis"]},{"id":"k3","c":3,"r":4,"dir":"organ","type":"clinic","t":"Почечная колика, гематурия","term":"«stones»","s":["Признаки камней почек.","Нефролитиаз.","Обструкция мочевых путей.","Мнемоника: stones.","Гидратация, лечение причины.","colica renalis"]},{"id":"k4","c":4,"r":4,"dir":"hemo","type":"clinic","t":"Укорочение QT, AV-блокада","term":"cardiac signs","s":["Сердечные признаки.","Укорочение фазы плато.","Риск аритмий.","Изменения ЭКГ.","Снизить Ca²⁺.","cardiac signs of hypercalcaemia"]}],
+edges:[{f:'e1',to:'main',k:'main',p:R=>BTo(R.e1,R.main,R.main.cx-60)},
+{f:'e2',to:'main',k:'main',p:R=>BTo(R.e2,R.main,R.main.cx-20)},
+{f:'e3',to:'main',k:'main',p:R=>BTo(R.e3,R.main,R.main.cx+20)},
+{f:'e4',to:'main',k:'main',p:R=>BTo(R.e4,R.main,R.main.cx+60)},
+{f:'main',to:'exc',k:'main',p:R=>ST(R.main,R.exc,'l',.25)},
+{f:'exc',to:'cns',k:'main',p:R=>D(R.exc,R.cns)},
+{f:'main',to:'ndi',k:'loop',p:R=>D(R.main,R.ndi)},
+{f:'ndi',to:'dhy',k:'loop',p:R=>D(R.ndi,R.dhy)},
+{f:'dhy',to:'rea',k:'loop',p:R=>Lf(R.dhy,R.rea)},
+{f:'rea',to:'main',k:'loop',p:R=>LR(R.rea,R.main)},
+{f:'main',to:'hcu',k:'main',p:R=>ST(R.main,R.hcu,'r',.75)},
+{f:'hcu',to:'nph',k:'main',p:R=>D(R.hcu,R.nph)},
+{f:'main',to:'ptl',k:'main',p:R=>ST(R.main,R.ptl,'r',.3)},
+{f:'main',to:'hrt',k:'main',p:R=>SC(R.main,R.hrt,3,.3)},
+{f:'cns',to:'k1',k:'main',p:R=>D(R.cns,R.k1)},
+{f:'dhy',to:'k2',k:'main',p:R=>D(R.dhy,R.k2)},
+{f:'nph',to:'k3',k:'main',p:R=>D(R.nph,R.k3)},
+{f:'hrt',to:'k4',k:'main',p:R=>D(R.hrt,R.k4)}],
+markers:[R=>[(R.rea.cx+R.ndi.l)/2,R.ndi.cy]],
+loops:[["main","ndi","dhy","rea"]],
+overview:[["Что происходит","Ионизированный Ca²⁺ растёт, мембраны стабилизируются: возбудимость нервов и мышц падает. Почки не удерживают воду, образуются камни."],["Главное звено","Стабилизация мембран и активация CaSR в почках."],["Компенсация","ПТГ подавляется, кальцитонин растёт; почки выводят больше Ca²⁺ (при ПТГ-независимых причинах)."],["Порочный круг","Полиурия и рвота вызывают дегидратацию; СКФ падает, реабсорбция Ca²⁺ растёт, гиперкальциемия усиливается."],["Точка лечения","NaCl в/в (восполнение объёма), затем петлевой диуретик; золедроновая кислота, деносумаб, кальцитонин; лечение причины."]]},
+pHypo:{name:"Гипофосфатемия",full:"Гипофосфатемия",vals:"P < 0,8 ммоль/л",lead:"Фосфат сыворотки ниже 0,8 ммоль/л, тяжёлая форма — ниже 0,32 ммоль/л. В клетках не хватает АТФ и 2,3-ДФГ, страдают энергоёмкие мышцы, нейроны и клетки крови.",
+nodes:[{"id":"e1","c":1,"r":0,"dir":"metab","type":"etio","t":"Переход в клетки: рефидинг, инсулин, алкалоз","term":"transcellular shift","s":["Фосфат входит в клетки.","Инсулин переносит глюкозу и фосфат в клетки; гликолизу нужно много фосфорилированных промежуточных продуктов. Алкалоз активирует фосфофруктокиназу.","Острая, иногда тяжёлая гипофосфатемия (синдром возобновлённого питания, лечение ДКА).","В первые дни питания после длительного голодания.","Наращивать калорийность постепенно, тиамин; контроль P, K, Mg.","refeeding syndrome"]},{"id":"e2","c":3,"r":0,"dir":"organ","type":"etio","t":"Потери почками: гиперпаратиреоз, FGF23, синдром Фанкони","term":"phosphaturia","s":["Фосфат не реабсорбируется в проксимальном канальце.","ПТГ и FGF23 уменьшают число переносчиков NaPi-IIa/IIc (X-сцепленный гипофосфатемический рахит, онкогенная остеомаляция); при синдроме Фанкони повреждены канальцы.","Хроническая гипофосфатемия, остеомаляция.","Боли в костях, рахит.","Буросумаб (антитела к FGF23), удаление опухоли.","phosphaturia; FGF23"]},{"id":"e3","c":4,"r":0,"dir":"metab","type":"etio","t":"Всасывание ↓: антациды, дефицит D, алкоголизм","term":"malabsorption","s":["Фосфат пищи не всасывается.","Антациды с Al и Mg связывают фосфат; не хватает кальцитриола; при алкоголизме плохое питание.","Общий запас фосфата уменьшается.","Постепенно нарастающая слабость.","Отменить антацид, витамин D, фосфат внутрь.","phosphate malabsorption"]},{"id":"main","c":2,"r":1,"dir":"cell","type":"main","t":"P < 0,8: дефицит АТФ и 2,3-ДФГ","term":"ATP depletion","s":["Клетки не могут синтезировать достаточно АТФ; в эритроцитах падает 2,3-ДФГ.","Неорганический фосфат — субстрат окислительного фосфорилирования и гликолиза.","Страдают энергоёмкие клетки: мышцы, нейроны, эритроциты, лейкоциты.","Симптомы обычно при P < 0,32 ммоль/л.","При тяжёлой форме фосфат калия или натрия в/в; при лёгкой внутрь.","hypophosphataemia"]},{"id":"myo","c":0,"r":2,"dir":"organ","type":"damage","t":"Мышцы: миопатия, рабдомиолиз","term":"myopathy","s":["Слабеют проксимальные мышцы; в тяжёлых случаях мышцы разрушаются.","Для сокращения и целостности мембран мышц не хватает АТФ.","Креатинкиназа растёт.","Слабость, миалгии.","Восполнение фосфата.","myopathia; rhabdomyolysis"]},{"id":"dia","c":0,"r":3,"dir":"organ","type":"damage","t":"Слабость диафрагмы: дыхательная недостаточность","term":"respiratory failure","s":["Сокращение диафрагмы ослабевает.","Дефицит АТФ в мышцах.","Дыхательная недостаточность; трудно отлучить от ИВЛ.","Одышка, гиперкапния.","Восполнение фосфата, поддержка дыхания.","insufficientia respiratoria"]},{"id":"dpg","c":2,"r":2,"dir":"metab","type":"damage","t":"2,3-ДФГ ↓: тканевая гипоксия","term":"reduced 2,3-DPG","s":["Сродство гемоглобина к кислороду растёт.","Синтез 2,3-ДФГ в эритроцитах через шунт Рапопорта–Люберинг зависит от фосфата.","Кривая оксигемоглобина смещается влево, ткани плохо получают кислород.","Тканевая гипоксия при нормальной сатурации.","Восполнение фосфата.","left shift of dissociation curve"]},{"id":"hvn","c":2,"r":3,"dir":"neuro","type":"damage","t":"Гипервентиляция, респираторный алкалоз","term":"respiratory alkalosis","s":["Дыхание учащается, CO₂ снижается.","Тканевая гипоксия возбуждает дыхательный центр.","pH растёт, развивается респираторный алкалоз.","Частое дыхание, PaCO₂ снижен.","Устранить причину гипоксии.","alkalosis respiratoria"]},{"id":"gly","c":1,"r":3,"dir":"metab","type":"damage","t":"Гликолиз активируется, фосфат входит в клетки","term":"glycolysis activation","s":["Фосфат переходит из крови в клетки.","Алкалоз активирует фосфофруктокиназу и увеличивает количество фосфорилированных промежуточных продуктов.","Фосфат плазмы снижается ещё больше: порочный круг.","При гипервентиляции P может упасть до 0,3 ммоль/л.","Восполнение фосфата, устранение причины алкалоза.","glycolysis activation in alkalosis"]},{"id":"leu","c":3,"r":2,"dir":"immune","type":"damage","t":"Дисфункция лейкоцитов","term":"impaired phagocytosis","s":["Хемотаксис, фагоцитоз и киллинг бактерий ослабевают.","Движение и респираторный взрыв нейтрофилов зависят от АТФ.","Иммунная защита ослабевает.","Частые инфекции.","Восполнение фосфата.","impaired phagocytosis"]},{"id":"inf","c":3,"r":3,"dir":"immune","type":"damage","t":"Склонность к инфекциям, сепсис","term":"susceptibility to infection","s":["Учащаются бактериальные инфекции.","Нейтрофилы не могут уничтожать микробы.","Растёт риск сепсиса.","Лихорадка, очаги инфекции.","Лечение инфекции, восполнение фосфата.","susceptibility to infection"]},{"id":"cal","c":4,"r":2,"dir":"neuro","type":"protect","t":"Кальцитриол ↑, FGF23 ↓: почки сберегают P","term":"renal phosphate reabsorption","s":["Почки сберегают фосфат, всасывание в кишечнике растёт.","Гипофосфатемия стимулирует 1α-гидроксилазу и снижает образование FGF23; число NaPi-IIa растёт.","Фосфат мочи снижается. Рост кальцитриола может вызвать гиперкальциурию.","Фракционная экскреция фосфата < 5% (при внепочечной причине).","Измерение фракционной экскреции различает причины.","renal phosphate reabsorption"]},{"id":"org","c":4,"r":3,"dir":"organ","type":"damage","t":"Повреждение эритроцитов, миокарда, нейронов","term":"haemolysis, cardiomyopathy, encephalopathy","s":["Гемолиз, снижение сократимости миокарда, метаболическая энцефалопатия.","Мембрана эритроцитов, кардиомиоциты и нейроны зависят от АТФ.","Сердечная недостаточность, анемия, нарушение сознания.","Спутанность, парестезии, судороги; одышка.","Восполнение фосфата.","haemolysis; cardiomyopathy; encephalopathy"]},{"id":"k1","c":0,"r":4,"dir":"organ","type":"clinic","t":"Слабость, миалгии, одышка","term":"muscular signs","s":["Признаки со стороны мышц и дыхания.","Миопатия и слабость диафрагмы.","Дыхательная недостаточность.","Проксимальная слабость.","Восполнение фосфата.","muscle weakness"]},{"id":"k2","c":2,"r":4,"dir":"neuro","type":"clinic","t":"Частое дыхание, признаки гипоксии","term":"hyperventilation","s":["Нарушение дыхания.","Тканевая гипоксия.","Респираторный алкалоз.","Одышка, PaCO₂ снижен.","Восполнение фосфата.","hyperventilatio"]},{"id":"k3","c":3,"r":4,"dir":"immune","type":"clinic","t":"Лихорадка, частые инфекции","term":"infections","s":["Признаки инфекции.","Дисфункция лейкоцитов.","Риск сепсиса.","Температура, очаги воспаления.","Лечение инфекции.","infectious complications"]},{"id":"k4","c":4,"r":4,"dir":"organ","type":"clinic","t":"Гемолиз, сердечная недостаточность, спутанность","term":"multiorgan signs","s":["Органные признаки.","Дефицит АТФ в клетках.","В тяжёлых случаях кома.","Анемия, одышка, отёки, нарушение сознания.","При P < 0,32 ммоль/л фосфат в/в.","multiorgan manifestations"]}],
+edges:[{f:'e1',to:'main',k:'main',p:R=>BTo(R.e1,R.main,R.main.cx-40)},
+{f:'e2',to:'main',k:'main',p:R=>BTo(R.e2,R.main,R.main.cx+20)},
+{f:'e3',to:'main',k:'main',p:R=>BTo(R.e3,R.main,R.main.cx+60)},
+{f:'main',to:'myo',k:'main',p:R=>ST(R.main,R.myo,'l',.25)},
+{f:'myo',to:'dia',k:'main',p:R=>D(R.myo,R.dia)},
+{f:'main',to:'dpg',k:'loop',p:R=>D(R.main,R.dpg)},
+{f:'dpg',to:'hvn',k:'loop',p:R=>D(R.dpg,R.hvn)},
+{f:'hvn',to:'gly',k:'loop',p:R=>Lf(R.hvn,R.gly)},
+{f:'gly',to:'main',k:'loop',p:R=>LR(R.gly,R.main)},
+{f:'main',to:'leu',k:'main',p:R=>ST(R.main,R.leu,'r',.75)},
+{f:'leu',to:'inf',k:'main',p:R=>D(R.leu,R.inf)},
+{f:'main',to:'cal',k:'main',p:R=>ST(R.main,R.cal,'r',.3)},
+{f:'main',to:'org',k:'main',p:R=>SC(R.main,R.org,3,.3)},
+{f:'dia',to:'k1',k:'main',p:R=>D(R.dia,R.k1)},
+{f:'hvn',to:'k2',k:'main',p:R=>D(R.hvn,R.k2)},
+{f:'inf',to:'k3',k:'main',p:R=>D(R.inf,R.k3)},
+{f:'org',to:'k4',k:'main',p:R=>D(R.org,R.k4)}],
+markers:[R=>[(R.gly.cx+R.dpg.l)/2,R.dpg.cy]],
+loops:[["main","dpg","hvn","gly"]],
+overview:[["Что происходит","Фосфат уходит в клетки, теряется почками или не всасывается. Клеткам не хватает энергии."],["Главное звено","Дефицит внутриклеточного фосфата: снижаются АТФ и 2,3-ДФГ."],["Компенсация","Кальцитриол растёт, FGF23 снижается: почки сберегают фосфат, всасывание в кишечнике растёт."],["Порочный круг","Снижение 2,3-ДФГ и тканевая гипоксия вызывают гипервентиляцию; алкалоз активирует гликолиз и затягивает фосфат в клетки."],["Точка лечения","Фосфат внутрь; при тяжёлой форме (< 0,32 ммоль/л) в/в. При возобновлении питания калорийность наращивать постепенно."]]},
+pHyper:{name:"Гиперфосфатемия",full:"Гиперфосфатемия",vals:"P > 1,45 ммоль/л",lead:"Фосфат сыворотки выше 1,45 ммоль/л. Самая частая причина — хроническая болезнь почек. Фосфат кальция выпадает в осадок, развиваются гипокальциемия и кальциноз сосудов.",
+nodes:[{"id":"e1","c":0,"r":0,"dir":"organ","type":"etio","t":"Экскреция почками ↓: ХБП, ОПП","term":"reduced phosphate excretion","s":["Фильтруется меньше фосфата.","По мере гибели нефронов оставшиеся выводят больше фосфата (под действием FGF23 и ПТГ), но при СКФ ниже 30 мл/мин этого недостаточно.","Фосфат накапливается.","Признаки ХБП.","Ограничение фосфата в пище, фосфатсвязывающие препараты, диализ.","reduced phosphate excretion"]},{"id":"e2","c":1,"r":0,"dir":"neuro","type":"etio","t":"Реабсорбция ↑: гипопаратиреоз, акромегалия","term":"increased reabsorption","s":["В проксимальном канальце фосфат всасывается сильнее.","Нет действия ПТГ или FGF23 (гипо-, псевдогипопаратиреоз, семейный опухолевидный кальциноз); гормон роста усиливает реабсорбцию.","Гиперфосфатемия, часто с гипокальциемией.","Тетания (при гипопаратиреозе).","Активный витамин D, препараты Ca.","hypoparathyreosis; tumoral calcinosis"]},{"id":"e3","c":3,"r":0,"dir":"cell","type":"etio","t":"Выход из клеток: лизис опухоли, рабдомиолиз","term":"tumour lysis syndrome","s":["Внутриклеточный фосфат поступает в кровь.","После химиотерапии распадаются клетки опухоли; рабдомиолиз, гемолиз, лактатацидоз, ДКА до лечения.","Острая гиперфосфатемия, часто с гиперкалиемией и ОПП.","Олигурия, аритмии.","Профилактика: гидратация, аллопуринол или расбуриказа.","tumour lysis syndrome"]},{"id":"e4","c":4,"r":0,"dir":"metab","type":"etio","t":"Избыточное поступление: фосфатные клизмы, интоксикация D","term":"excess intake","s":["Фосфат в большом количестве всасывается в кишечнике.","Растворы фосфата натрия для очищения кишечника, особенно при ХБП; интоксикация витамином D.","Острая фосфатная нефропатия.","ОПП после очищения кишечника.","Избегать фосфатсодержащих препаратов.","acute phosphate nephropathy"]},{"id":"main","c":2,"r":1,"dir":"metab","type":"main","t":"P > 1,45: Ca × P ↑, фосфат кальция осаждается","term":"calcium-phosphate product","s":["Произведение кальция и фосфата в крови превышает предел растворимости.","Фосфат кальция плохо растворим; при произведении выше 4,4 ммоль²/л² (55 мг²/дл²) образуется осадок.","Кальциноз мягких тканей и сосудов; Ca²⁺ связывается, развивается гипокальциемия.","P > 1,45 ммоль/л; часто бессимптомно.","Ограничение фосфата в пище, фосфатсвязывающие препараты, диализ.","hyperphosphataemia; metastatic calcification"]},{"id":"osg","c":0,"r":2,"dir":"cell","type":"damage","t":"Клетки сосудов превращаются в остеобласты","term":"osteogenic transdifferentiation","s":["Гладкомышечные клетки сосудов превращаются в остеобластоподобные.","Фосфат входит в клетку через переносчик Pit-1 и активирует транскрипционный фактор Runx2.","Медия сосудов активно кальцифицируется (тип Мёнкеберга).","Кальциноз сосудов на рентгенограмме.","Контроль фосфата.","osteogenic transdifferentiation of VSMC"]},{"id":"stf","c":0,"r":3,"dir":"hemo","type":"damage","t":"Кальциноз и жёсткость сосудов","term":"arterial stiffness","s":["Артерии теряют эластичность.","Кальциноз медии сосудов.","Растут систолическое АД и пульсовое давление, развивается гипертрофия левого желудочка, коронарная перфузия снижается.","Высокое пульсовое давление.","Контроль АД, коррекция фосфата и ПТГ.","arterial stiffness"]},{"id":"hca","c":2,"r":2,"dir":"metab","type":"damage","t":"Гипокальциемия, кальцитриол ↓","term":"secondary hypocalcaemia","s":["Ионизированный Ca²⁺ и кальцитриол снижаются.","Ca²⁺ осаждается с фосфатом; фосфат и FGF23 тормозят 1α-гидроксилазу.","Стимулируются паращитовидные железы.","Тетания, парестезии.","Активный витамин D, препараты Ca (с осторожностью).","secondary hypocalcaemia"]},{"id":"pth","c":2,"r":3,"dir":"neuro","type":"damage","t":"ПТГ ↑: вторичный гиперпаратиреоз","term":"secondary hyperparathyroidism","s":["Паращитовидные железы гиперплазируются, ПТГ выделяется в избытке.","Гипокальциемия, снижение кальцитриола и прямое действие фосфата на железы.","Сначала фосфатурия (компенсация), затем резорбция кости.","ПТГ повышен.","Цинакалцет, активный витамин D, паратиреоидэктомия.","hyperparathyreosis secundaria"]},{"id":"res","c":1,"r":3,"dir":"organ","type":"damage","t":"Резорбция кости: высвобождается фосфат","term":"bone resorption","s":["Из кости в кровь выходят кальций и фосфат.","ПТГ активирует остеокласты.","Почки не могут вывести фосфат, и он растёт дальше: порочный круг.","Почечная остеодистрофия.","Фосфатсвязывающие препараты, цинакалцет.","renal osteodystrophy"]},{"id":"cpp","c":3,"r":2,"dir":"immune","type":"damage","t":"Кальципротеиновые частицы → NLRP3","term":"calciprotein particles","s":["Фосфат кальция вместе с белками образует кальципротеиновые частицы.","Макрофаги поглощают эти частицы и активируют инфламмасому NLRP3.","Выделяется IL-1β.","Маркеры воспаления повышены.","Контроль фосфата.","calciprotein particles; NLRP3 inflammasome"]},{"id":"inf","c":3,"r":3,"dir":"immune","type":"damage","t":"Хроническое воспаление, повреждение сосудов","term":"chronic inflammation","s":["Хроническое воспаление в стенке сосудов.","Действие IL-1β и других цитокинов.","Эндотелий повреждается, атеросклероз и кальциноз прогрессируют.","Сердечно-сосудистые осложнения.","Контроль фосфата и воспаления.","chronic vascular inflammation"]},{"id":"fgf","c":4,"r":2,"dir":"neuro","type":"protect","t":"FGF23 ↑: фосфатурия","term":"FGF23","s":["Остеоциты выделяют FGF23.","Нагрузка фосфатом и кальцитриол стимулируют синтез FGF23.","NaPi-IIa/IIc уменьшаются, фосфатурия растёт; но снижается и кальцитриол.","Очень высокий FGF23 связан с гипертрофией левого желудочка.","Ограничение фосфата снижает FGF23.","fibroblast growth factor 23"]},{"id":"clc","c":4,"r":3,"dir":"organ","type":"damage","t":"Кальциноз мягких тканей, кальцифилаксия","term":"calciphylaxis","s":["Кальцифицируются клапаны сердца, суставы, лёгкие, кожа, глаза; сосуды кожи тромбируются, развивается некроз.","Высокое произведение Ca × P.","Одна из главных причин сердечно-сосудистой смертности при ХБП.","Кожный зуд, боли в суставах, покраснение глаз.","Коррекция фосфата и Ca × P, тиосульфат натрия (при кальцифилаксии).","metastatic calcification; calciphylaxis"]},{"id":"k1","c":0,"r":4,"dir":"hemo","type":"clinic","t":"Систолическое АД ↑, гипертрофия левого желудочка","term":"arterial hypertension","s":["Сердечно-сосудистые признаки.","Жёсткость сосудов.","Риск сердечной недостаточности.","Высокое пульсовое давление.","Контроль АД.","hypertrophia ventriculi sinistri"]},{"id":"k2","c":2,"r":4,"dir":"organ","type":"clinic","t":"Боли в костях, переломы","term":"renal osteodystrophy","s":["Признаки со стороны костей.","Вторичный гиперпаратиреоз и остеодистрофия.","Патологические переломы.","Боли в костях, деформации.","Контроль ПТГ.","osteodystrophia renalis"]},{"id":"k3","c":3,"r":4,"dir":"immune","type":"clinic","t":"Сердечно-сосудистые осложнения","term":"cardiovascular complications","s":["Риск инфаркта миокарда и инсульта.","Воспаление и кальциноз сосудов.","Риск смерти растёт.","Стенокардия, одышка.","Контроль фосфата и воспаления.","cardiovascular complications"]},{"id":"k4","c":4,"r":4,"dir":"organ","type":"clinic","t":"Кожный зуд, некроз, боли в суставах","term":"skin signs","s":["Признаки со стороны кожи и суставов.","Отложения фосфата кальция в тканях.","При кальцифилаксии тяжёлый некроз кожи.","Зуд, болезненные язвы кожи.","Коррекция Ca × P.","pruritus; calciphylaxis"]}],
+edges:[{f:'e1',to:'main',k:'main',p:R=>BTo(R.e1,R.main,R.main.cx-60)},
+{f:'e2',to:'main',k:'main',p:R=>BTo(R.e2,R.main,R.main.cx-20)},
+{f:'e3',to:'main',k:'main',p:R=>BTo(R.e3,R.main,R.main.cx+20)},
+{f:'e4',to:'main',k:'main',p:R=>BTo(R.e4,R.main,R.main.cx+60)},
+{f:'main',to:'osg',k:'main',p:R=>ST(R.main,R.osg,'l',.25)},
+{f:'osg',to:'stf',k:'main',p:R=>D(R.osg,R.stf)},
+{f:'main',to:'hca',k:'loop',p:R=>D(R.main,R.hca)},
+{f:'hca',to:'pth',k:'loop',p:R=>D(R.hca,R.pth)},
+{f:'pth',to:'res',k:'loop',p:R=>Lf(R.pth,R.res)},
+{f:'res',to:'main',k:'loop',p:R=>LR(R.res,R.main)},
+{f:'main',to:'cpp',k:'main',p:R=>ST(R.main,R.cpp,'r',.75)},
+{f:'cpp',to:'inf',k:'main',p:R=>D(R.cpp,R.inf)},
+{f:'main',to:'fgf',k:'main',p:R=>ST(R.main,R.fgf,'r',.3)},
+{f:'main',to:'clc',k:'main',p:R=>SC(R.main,R.clc,3,.3)},
+{f:'stf',to:'k1',k:'main',p:R=>D(R.stf,R.k1)},
+{f:'pth',to:'k2',k:'main',p:R=>D(R.pth,R.k2)},
+{f:'inf',to:'k3',k:'main',p:R=>D(R.inf,R.k3)},
+{f:'clc',to:'k4',k:'main',p:R=>D(R.clc,R.k4)}],
+markers:[R=>[(R.res.cx+R.hca.l)/2,R.hca.cy]],
+loops:[["main","hca","pth","res"]],
+overview:[["Что происходит","Фосфат накапливается и образует осадок с кальцием. Развиваются гипокальциемия, вторичный гиперпаратиреоз и кальциноз сосудов."],["Главное звено","Рост произведения Ca × P и осаждение фосфата кальция."],["Компенсация","FGF23 и ПТГ усиливают фосфатурию; но при ХБП этого мало, а кальцитриол снижается."],["Порочный круг","Гипокальциемия повышает ПТГ; ПТГ высвобождает фосфат из кости, почки не могут его вывести, фосфат растёт дальше."],["Точка лечения","Ограничение фосфата в пище, фосфатсвязывающие препараты (севеламер, карбонат лантана, ацетат кальция), диализ, цинакалцет."]]},
+};
+const GROUPS=[{"id":"na","name":"Натрий","keys":["naHyper","naHypo"],"cmpTitle":"Сравнение гипер- и гипонатриемии","cmp":[["Определение","Na⁺ > 145 ммоль/л","Na⁺ < 135 ммоль/л"],["Осмолярность","> 295 мОсм/кг","< 275 мОсм/кг (при ложной форме нормальная)"],["Движение воды","Выходит из клеток","Входит в клетки"],["Клетки","Сморщиваются, мозг уменьшается","Набухают, отёк мозга"],["Жажда","Сильная (при сохранённом сознании)","Обычно нет"],["Компенсация","Жажда, АДГ; идиогенные осмоли в мозге","Выведение осмолитов из клеток мозга"],["Главная опасность","Внутримозговые кровоизлияния, гиперосмолярная кома","Отёк мозга, вклинение"],["Скорость коррекции","≤ 10–12 ммоль/л в сутки (риск отёка мозга)","≤ 8–10 ммоль/л в сутки (осмотическая демиелинизация)"],["Лечение","Вода, 5% глюкоза, 0,45% NaCl; десмопрессин","0,9% NaCl, ограничение воды; при тяжёлых симптомах 3% NaCl"]]},{"id":"k","name":"Калий","keys":["kHyper","kHypo"],"cmpTitle":"Сравнение гипер- и гипокалиемии","cmp":[["Определение","K⁺ > 5,0–5,5 ммоль/л","K⁺ < 3,5 ммоль/л"],["Мембрана","Деполяризация","Гиперполяризация"],["Возбудимость","Сначала ↑, затем деполяризационный блок","В мышцах ↓, в сердце эктопия ↑"],["ЭКГ","Острый T, удлинение PR, исчезновение P, расширение QRS, синусоида","Уплощение T, зубец U, снижение ST, удлинение QT(U)"],["Кислотно-основное состояние","Сочетается с ацидозом","Сочетается с алкалозом"],["Почки","Аммониогенез тормозится","Калиопеническая нефропатия, полиурия"],["Главная опасность","Асистолия, фибрилляция желудочков","Тахикардия «пируэт», паралич дыхательных мышц"],["Лечение","Глюконат кальция → инсулин + глюкоза, сальбутамол → диуретик, связывающий K⁺ препарат, диализ","KCl (в/в ≤ 10–20 ммоль/ч), коррекция Mg²⁺, калийсберегающие диуретики"]]},{"id":"cl","name":"Хлор","keys":["clHyper","clHypo"],"cmpTitle":"Сравнение гипер- и гипохлоремии","cmp":[["Определение","Cl⁻ > 107 ммоль/л","Cl⁻ < 98 ммоль/л"],["Кислотно-основное состояние","Метаболический ацидоз с нормальной анионной разницей","Метаболический алкалоз"],["HCO₃⁻","Снижается","Повышается"],["Дыхательная компенсация","Гипервентиляция (Куссмауль)","Гиповентиляция"],["Почки","Афферентная вазоконстрикция, СКФ ↓","РААС ↑, парадоксальная кислая моча"],["Сочетается с","Гиперкалиемией, гипернатриемией","Гипокалиемией, гиповолемией, гипонатриемией"],["Диагностический тест","Анионная разница мочи","Cl⁻ мочи (< 20 ммоль/л — хлорчувствительный)"],["Лечение","Сбалансированные кристаллоиды, лечение причины, NaHCO₃","0,9% NaCl + KCl; ацетазоламид"]]},{"id":"cap","name":"Кальций и фосфор","keys":["caHypo","caHyper","pHypo","pHyper"],"cmpTitle":"Сравнение нарушений обмена кальция и фосфора","cmp":[["Определение","Ca < 2,15; Ca²⁺ < 1,1 ммоль/л","Ca > 2,6; Ca²⁺ > 1,3 ммоль/л","P < 0,8 ммоль/л","P > 1,45 ммоль/л"],["Главное звено","Нервно-мышечная возбудимость ↑","Стабилизация мембран","Дефицит АТФ и 2,3-ДФГ","Ca × P ↑, кальциноз"],["ПТГ","↑ (кроме гипопаратиреоза)","↓ (при первичном гиперпаратиреозе ↑)","Зависит от причины","↑ (вторичный гиперпаратиреоз)"],["ЭКГ","QT удлинён","QT укорочен","Аритмии, сократимость ↓","Удлинение QT через гипокальциемию"],["Нервы и мышцы","Тетания, ларингоспазм, судороги","Слабость, гипорефлексия, спутанность","Миопатия, слабость диафрагмы","Тетания (из-за гипокальциемии)"],["Почки","При гипопаратиреозе фосфат задерживается","Полиурия, нефролитиаз","При почечной причине фосфатурия","Экскреция ↓ (ХБП)"],["Лечение","Глюконат кальция в/в; Ca + витамин D внутрь","NaCl в/в, бисфосфонат, кальцитонин","Фосфат внутрь или в/в","Ограничение фосфата, связывающие препараты, диализ"]]}];
+const PAGE={store:"ion-ru-tab"};
+
+</script>
+<script>
+(function(){
+const DIRS={
+  hemo:{name:'Гемодинамический',g:'Гд'},
+  neuro:{name:'Нейрогуморальный',g:'Нг'},
+  metab:{name:'Метаболический',g:'Мт'},
+  immune:{name:'Иммунно-воспалительный',g:'Ив'},
+  cell:{name:'Клеточно-молекулярный',g:'Км'},
+  organ:{name:'Органные повреждения',g:'Ор'}
+};
+const TYPES={
+  etio:{short:'Этиология',full:'Этиология',v:'--t-etio'},
+  main:{short:'Главное звено',full:'Главное звено',v:'--t-main'},
+  damage:{short:'Повреждающее',full:'Повреждающее звено',v:'--t-damage'},
+  protect:{short:'Компенсаторное',full:'Защитное / компенсаторное звено',v:'--t-protect'},
+  clinic:{short:'Клиника',full:'Клинический признак',v:'--t-clinic'}
+};
+const SEC=['Что происходит','Почему','Результат','Клиника','Точка лечения','Термин'];
+const KEYS=Object.keys(SCHEMES);
+const CW=1184, TOP=44, GAP=48;
+
+const canvas=document.getElementById('canvas');
+const svg=document.getElementById('edges');
+const panel=document.getElementById('panel');
+const scroller=document.getElementById('scroller');
+const tabsEl=document.getElementById('tabs');
+const leadEl=document.getElementById('lead');
+const cmpEl=document.getElementById('cmp');
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+canvas.style.width=CW+'px';
+
+let S,N,E,byId,els,sel=null,cur=null;
+
+/* legend (once) */
+(function(){
+  let h='';
+  for(const k in DIRS) h+=`<span class="lg"><span class="tag" style="--d:var(--d-${k})">${DIRS[k].g}</span>${DIRS[k].name}</span>`;
+  h+='<span class="lg-sep"></span>';
+  const tl={etio:'Этиология',main:'Главное звено',damage:'Повреждающее звено',protect:'Защитное / компенсаторное',clinic:'Клинический признак'};
+  for(const k in tl) h+=`<span class="lg"><span class="dot" style="--t:var(${TYPES[k].v})"></span>${tl[k]}</span>`;
+  h+='<span class="lg-sep"></span>';
+  const ln=(c,dash)=>`<svg width="30" height="10" viewBox="0 0 30 10"><line x1="1" y1="5" x2="22" y2="5" style="stroke:var(${c});stroke-width:1.5${dash?';stroke-dasharray:4 3':''}"/><path d="M29 5 L21 1 L21 9 Z" style="fill:var(${c})"/></svg>`;
+  h+=`<span class="lg">${ln('--arrow')}Причина → следствие</span>`;
+  h+=`<span class="lg">${ln('--t-loop')}Порочный круг</span>`;
+  h+=`<span class="lg">${ln('--t-cross',1)}Перекрёстная связь</span>`;
+  h+=`<span class="lg"><svg width="30" height="12" viewBox="0 0 30 12"><line x1="1" y1="6" x2="27" y2="6" style="stroke:var(--t-protect);stroke-width:1.5"/><line x1="27" y1="1" x2="27" y2="11" style="stroke:var(--t-protect);stroke-width:2"/></svg>Торможение</span>`;
+  document.getElementById('legend').innerHTML=h;
+})();
+
+/* group + scheme tabs */
+const groupsEl=document.getElementById('groups');
+const cmpH=document.getElementById('cmp-h');
+const groupOf=k=>GROUPS.find(g=>g.keys.includes(k));
+let curG=null;
+groupsEl.innerHTML=GROUPS.map(g=>`<button type="button" class="gtab" role="tab" id="grp-${g.id}" data-g="${g.id}" aria-selected="false">${g.name}</button>`).join('');
+groupsEl.addEventListener('click',e=>{const b=e.target.closest('[data-g]');if(!b)return;const g=GROUPS.find(x=>x.id===b.dataset.g);if(g!==curG)mount(g.keys[0])});
+function renderTabs(g){
+  tabsEl.innerHTML=g.keys.map(k=>`<button type="button" class="tab" role="tab" id="tab-${k}" data-k="${k}" aria-selected="false"><span class="tn">${SCHEMES[k].name}</span><span class="tv">${SCHEMES[k].vals}</span></button>`).join('');
+}
+tabsEl.addEventListener('click',e=>{const b=e.target.closest('[data-k]');if(b&&b.dataset.k!==cur)mount(b.dataset.k)});
+tabsEl.addEventListener('keydown',e=>{
+  if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft')return;
+  const ks=curG.keys,i=ks.indexOf(cur),n=ks[(i+(e.key==='ArrowRight'?1:ks.length-1))%ks.length];
+  mount(n); document.getElementById('tab-'+n).focus();
+});
+
+function renderTable(){
+  const ks=curG.keys; cmpH.textContent=curG.cmpTitle;
+  let h='<thead><tr><th scope="col">Показатель</th>'+ks.map((k,i)=>`<th scope="col"${k===cur?' class="cur"':''}>${SCHEMES[k].name}</th>`).join('')+'</tr></thead><tbody>';
+  curG.cmp.forEach(r=>{
+    h+=`<tr><th scope="row">${esc(r[0])}</th>`+ks.map((k,i)=>`<td${k===cur?' class="cur"':''}>${esc(r[i+1])}</td>`).join('')+'</tr>';
+  });
+  cmpEl.innerHTML=h+'</tbody>';
+}
+
+function pathD(pts,rad){
+  let d=`M${pts[0][0]},${pts[0][1]}`;
+  for(let i=1;i<pts.length-1;i++){
+    const p0=pts[i-1],p=pts[i],p1=pts[i+1];
+    const li=Math.hypot(p[0]-p0[0],p[1]-p0[1]),lo=Math.hypot(p1[0]-p[0],p1[1]-p[1]);
+    if(!li||!lo){d+=` L${p[0]},${p[1]}`;continue}
+    const r=Math.min(rad,li/2,lo/2);
+    const di=[(p[0]-p0[0])/li,(p[1]-p0[1])/li],dout=[(p1[0]-p[0])/lo,(p1[1]-p[1])/lo];
+    d+=` L${p[0]-di[0]*r},${p[1]-di[1]*r} Q${p[0]},${p[1]} ${p[0]+dout[0]*r},${p[1]+dout[1]*r}`;
+  }
+  const L=pts[pts.length-1];return d+` L${L[0]},${L[1]}`;
+}
+
+function draw(){
+  if(!N)return;
+  const rows=Math.max(...N.map(n=>n.r))+1, rh=new Array(rows).fill(0);
+  N.forEach(n=>{rh[n.r]=Math.max(rh[n.r],els[n.id].offsetHeight)});
+  const top=[];let y=TOP;
+  for(let r=0;r<rows;r++){top[r]=y;y+=(rh[r]||44)+GAP}
+  N.forEach(n=>{els[n.id].style.top=top[n.r]+'px'});
+  const H=y-GAP+28; canvas.style.height=H+'px';
+  const R={};
+  N.forEach(n=>{const el=els[n.id];const l=el.offsetLeft,t=top[n.r],w=el.offsetWidth,h=el.offsetHeight;
+    R[n.id]={l,t,w,h,r:l+w,b:t+h,cx:l+w/2,cy:t+h/2}});
+  svg.setAttribute('width',CW); svg.setAttribute('height',H); svg.setAttribute('viewBox',`0 0 ${CW} ${H}`);
+  let out='';
+  E.forEach((e,i)=>{
+    const raw=e.p(R); let pts=raw.map(p=>p.slice());
+    const a=pts[pts.length-2],z=pts[pts.length-1];
+    const len=Math.hypot(z[0]-a[0],z[1]-a[1]);const dx=(z[0]-a[0])/len,dy=(z[1]-a[1])/len;
+    let extra='';
+    if(e.k==='inh'){
+      const bx=z[0]-dx*3,by=z[1]-dy*3; pts[pts.length-1]=[bx,by];
+      extra=`<line class="bar" x1="${bx-dy*6}" y1="${by+dx*6}" x2="${bx+dy*6}" y2="${by-dx*6}" stroke-width="2"/>`;
+    }else{
+      pts[pts.length-1]=[z[0]-dx*8,z[1]-dy*8];
+      const bx=z[0]-dx*9,by=z[1]-dy*9;
+      extra=`<path class="hd" d="M${z[0]},${z[1]} L${bx-dy*4.5},${by+dx*4.5} L${bx+dy*4.5},${by-dx*4.5} Z"/>`;
+    }
+    let lab='',best=0,bi=0;
+    for(let j=0;j<raw.length-1;j++){const l=Math.hypot(raw[j+1][0]-raw[j][0],raw[j+1][1]-raw[j][1]);if(l>best){best=l;bi=j}}
+    if(e.lb&&best>=e.lb.length*8+24){
+      const p=raw[bi],q=raw[bi+1];
+      lab=Math.abs(p[1]-q[1])<1
+        ?`<text class="elabel" x="${(p[0]+q[0])/2}" y="${p[1]-8}" text-anchor="middle">${esc(e.lb)}</text>`
+        :`<text class="elabel" x="${p[0]+8}" y="${(p[1]+q[1])/2+4}" text-anchor="start">${esc(e.lb)}</text>`;
+    }
+    out+=`<g class="edge e-${e.k}" data-i="${i}"><path class="ln" d="${pathD(pts,8)}"/>${extra}${lab}</g>`;
+  });
+  (S.markers||[]).forEach((m,i)=>{
+    const [cx,cy0]=m(R),cy=cy0-10,r=15;
+    const a0=-50*Math.PI/180,a1=a0+300*Math.PI/180;
+    const sx=cx+r*Math.cos(a0),sy=cy+r*Math.sin(a0),ex=cx+r*Math.cos(a1),ey=cy+r*Math.sin(a1);
+    const tx=-Math.sin(a1),ty=Math.cos(a1),hb=[ex-tx*8,ey-ty*8];
+    out+=`<g class="loopmark" data-l="${i}"><path class="loop-ic" d="M${sx},${sy} A${r},${r} 0 1 1 ${ex-tx*3},${ey-ty*3}"/>`+
+      `<path class="loop-hd" d="M${ex+tx*2},${ey+ty*2} L${hb[0]-ty*4.5},${hb[1]+tx*4.5} L${hb[0]+ty*4.5},${hb[1]-tx*4.5} Z"/>`+
+      `<text class="loop-lb" x="${cx}" y="${cy+r+20}" text-anchor="middle">порочный круг</text></g>`;
+  });
+  svg.innerHTML=out;
+  applyFade();
+}
+
+function applyFade(){
+  const s=sel?byId[sel]:null;
+  N.forEach(n=>{
+    const el=els[n.id];
+    el.setAttribute('aria-pressed',String(n.id===sel));
+    el.classList.toggle('faded',!!s&&n.dir!==s.dir&&n.id!==s.id);
+  });
+  svg.querySelectorAll('.edge').forEach(g=>{
+    const e=E[+g.dataset.i];
+    const keep=!s||e.f===sel||e.to===sel||(byId[e.f].dir===s.dir&&byId[e.to].dir===s.dir);
+    g.classList.toggle('faded',!keep);
+  });
+  svg.querySelectorAll('.loopmark').forEach(g=>{
+    const ids=(S.loops||[])[+g.dataset.l]||[];
+    g.classList.toggle('faded',!!s&&!ids.includes(sel));
+  });
+}
+const narrow=()=>window.matchMedia('(max-width:1099px)').matches;
+function chip(id,suffix){
+  const n=byId[id];
+  return `<button type="button" class="chip" data-go="${id}" style="--d:var(--d-${n.dir})">${esc(n.t)}${suffix?' ('+suffix+')':''}</button>`;
+}
+const kindNote=k=>k==='inh'?'тормозит':k==='cross'?'перекрёстная':'';
+function renderPanel(){
+  const n=sel?byId[sel]:null;
+  if(!n){
+    panel.style.setProperty('--pd','var(--t-main)');
+    let h=`<div class="p-top"><h2>${esc(S.full||S.name)}</h2><button type="button" class="panel-close" data-close>Закрыть</button></div>`;
+    S.overview.forEach(([hd,p])=>{h+=`<div class="p-sec"><h3>${esc(hd)}</h3><p>${esc(p)}</p></div>`});
+    h+=`<div class="p-sec"><h3>Как читать схему</h3><p>Нажмите на узел: выбранное направление остаётся, остальные бледнеют. Клик по пустому месту или Esc снимает выбор.</p></div>`;
+    panel.innerHTML=h; return;
+  }
+  panel.style.setProperty('--pd',`var(--d-${n.dir})`);
+  const inc=E.filter(e=>e.to===n.id).map(e=>chip(e.f,kindNote(e.k)));
+  const out=E.filter(e=>e.f===n.id).map(e=>chip(e.to,kindNote(e.k)));
+  let h=`<div class="p-top"><h2>${esc(n.t)}</h2><button type="button" class="panel-close" data-close>Закрыть</button></div>
+    <div class="p-dir"><span class="tag" style="--d:var(--d-${n.dir})">${DIRS[n.dir].g}</span>${DIRS[n.dir].name}</div>
+    <div class="p-type"><span class="dot" style="--t:var(${TYPES[n.type].v})"></span>${TYPES[n.type].full}</div>`;
+  n.s.forEach((txt,i)=>{
+    h+=i===5?`<div class="p-sec"><h3>${SEC[i]}</h3><p class="term-txt">(${esc(txt)})</p></div>`
+            :`<div class="p-sec"><h3>${SEC[i]}</h3><p>${esc(txt)}</p></div>`;
+  });
+  if(inc.length||out.length){
+    h+=`<div class="p-sec"><h3>Связи</h3>`;
+    if(inc.length) h+=`<div class="chip-lb">Предыдущее звено</div><div class="chips">${inc.join('')}</div>`;
+    if(out.length) h+=`<div class="chip-lb">Следующее звено</div><div class="chips">${out.join('')}</div>`;
+    h+=`</div>`;
+  }
+  panel.innerHTML=h; panel.scrollTop=0;
+}
+function ensureVisible(id){
+  const el=els[id];
+  let nr=el.getBoundingClientRect(),cr=scroller.getBoundingClientRect();
+  if(nr.left<cr.left+16||nr.right>cr.right-16) scroller.scrollLeft+=(nr.left+nr.width/2)-(cr.left+cr.width/2);
+  if(narrow()){
+    nr=el.getBoundingClientRect();
+    const sheetTop=window.innerHeight-panel.offsetHeight;
+    if(nr.bottom>sheetTop-12||nr.top<12) window.scrollBy(0,nr.top-72);
+  }
+}
+function select(id){
+  sel=id; applyFade(); renderPanel();
+  panel.classList.toggle('open',!!id);
+  document.body.style.paddingBottom=(id&&narrow())?panel.offsetHeight+'px':'';
+  if(id) ensureVisible(id);
+}
+
+function mount(key){
+  cur=key; S=SCHEMES[key]; N=S.nodes; E=S.edges; byId={}; N.forEach(n=>byId[n.id]=n);
+  canvas.querySelectorAll('.node').forEach(b=>b.remove());
+  els={};
+  N.forEach(n=>{
+    const b=document.createElement('button');
+    b.type='button';
+    b.className='node'+(n.type==='main'?' main':'');
+    b.style.left=(20+n.c*236)+'px';
+    b.style.setProperty('--d',`var(--d-${n.dir})`);
+    b.setAttribute('aria-pressed','false');
+    b.title=DIRS[n.dir].name+' · '+TYPES[n.type].full;
+    b.innerHTML=`<span class="meta"><span class="ty"><span class="dot" style="--t:var(${TYPES[n.type].v})"></span>${TYPES[n.type].short}</span><span class="tag">${DIRS[n.dir].g}</span></span><span class="ttl">${esc(n.t)}</span><span class="term">(${esc(n.term)})</span>`;
+    b.addEventListener('click',e=>{e.stopPropagation();select(sel===n.id?null:n.id)});
+    canvas.appendChild(b); els[n.id]=b;
+  });
+  const g=groupOf(key);
+  if(g!==curG){curG=g;renderTabs(g);}
+  GROUPS.forEach(x=>document.getElementById('grp-'+x.id).setAttribute('aria-selected',String(x===g)));
+  g.keys.forEach(k=>document.getElementById('tab-'+k).setAttribute('aria-selected',String(k===key)));
+  try{history.replaceState(null,'','#'+key)}catch(_){}
+  leadEl.textContent=S.lead+' Нажмите на узел, чтобы открыть пояснение. Esc снимает выбор.';
+  renderTable();
+  sel=null; draw(); select(null); scroller.scrollLeft=0;
+  try{localStorage.setItem(PAGE.store,key)}catch(_){}
+}
+
+panel.addEventListener('click',e=>{
+  const g=e.target.closest('[data-go]'); if(g){select(g.dataset.go);els[g.dataset.go].focus({preventScroll:true});return}
+  if(e.target.closest('[data-close]')){const prev=sel;select(null);if(prev)els[prev].focus({preventScroll:true})}
+});
+canvas.addEventListener('click',()=>{if(sel)select(null)});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&sel)select(null)});
+window.addEventListener('resize',()=>{document.body.style.paddingBottom=(sel&&narrow())?panel.offsetHeight+'px':''});
+
+let start=KEYS[0];
+const h=(location.hash||'').slice(1);
+if(KEYS.includes(h)) start=h;
+else{try{const s=localStorage.getItem(PAGE.store);if(KEYS.includes(s))start=s}catch(_){}}
+mount(start);
+if(document.fonts&&document.fonts.ready) document.fonts.ready.then(draw);
+window.addEventListener('load',draw);
+})();
+</script>
+
+<script>
+/* viewer bridge: two-finger pinch is sent to the reader, zoom keeps the point under the fingers in place, theme follows the reader */
+(function(){
+  if (window.parent === window) return;
+  var z = 1, pinch = null, focal = null, lastW = innerWidth, lastH = innerHeight;
+  function send(m){ try { parent.postMessage(m, '*'); } catch (e) {} }
+  addEventListener('message', function(e){
+    var d = e.data;
+    if (!d || typeof d !== 'object') return;
+    if (d.__viewer === 'zoom' && typeof d.z === 'number') z = d.z;
+    if (d.__viewer === 'theme') {
+      if (d.theme) document.documentElement.setAttribute('data-theme', d.theme);
+      else document.documentElement.removeAttribute('data-theme');
+    }
+  });
+  function dist(t){ var dx = t[0].clientX - t[1].clientX, dy = t[0].clientY - t[1].clientY; return Math.sqrt(dx*dx + dy*dy); }
+  function mid(t){ return { x: (t[0].clientX + t[1].clientX) / 2, y: (t[0].clientY + t[1].clientY) / 2 }; }
+  document.addEventListener('touchstart', function(e){
+    if (e.touches.length === 2) { pinch = { d: dist(e.touches) * z, z: z }; focal = mid(e.touches); e.preventDefault(); }
+  }, { passive: false });
+  document.addEventListener('touchmove', function(e){
+    if (!pinch || e.touches.length !== 2) return;
+    e.preventDefault();
+    focal = mid(e.touches);
+    var d = dist(e.touches) * z;
+    if (pinch.d > 0) send({ __viewer: 'pinch', z: pinch.z * d / pinch.d });
+  }, { passive: false });
+  function end(e){
+    if (pinch && e.touches.length < 2) {
+      pinch = null; send({ __viewer: 'pinchend' });
+      setTimeout(function(){ if (!pinch) focal = null; }, 300);
+    }
+  }
+  document.addEventListener('touchend', end);
+  document.addEventListener('touchcancel', end);
+  ['gesturestart', 'gesturechange'].forEach(function(t){ document.addEventListener(t, function(e){ e.preventDefault(); }); });
+  /* trackpad pinch / ctrl + wheel on a computer */
+  var wt = 0;
+  addEventListener('wheel', function(e){
+    if (!e.ctrlKey) return;
+    e.preventDefault();
+    focal = { x: e.clientX, y: e.clientY };
+    send({ __viewer: 'pinch', z: z * Math.exp(-e.deltaY * 0.01) });
+    clearTimeout(wt);
+    wt = setTimeout(function(){ focal = null; send({ __viewer: 'pinchend' }); }, 400);
+  }, { passive: false });
+  addEventListener('resize', function(){
+    var w = innerWidth, h = innerHeight, r = lastW / w, rh = lastH / h;
+    var oldW = lastW, oldH = lastH;
+    lastW = w; lastH = h;
+    /* width and height change by the same factor only when the zoom changed (not on rotation) */
+    if (Math.abs(r - 1) < 0.01 || Math.abs(r - rh) > 0.04 * r) return;
+    var f = focal || { x: oldW / 2, y: oldH / 2 };
+    var dx = f.x - f.x / r, dy = f.y - f.y / r;
+    window.scrollBy(0, dy);
+    var el = document.elementFromPoint(f.x / r, f.y / r);
+    while (el && el !== document.body && el !== document.documentElement) {
+      if (el.scrollWidth > el.clientWidth + 1) {
+        var ox = getComputedStyle(el).overflowX;
+        if (ox === 'auto' || ox === 'scroll') { el.scrollLeft += dx; break; }
+      }
+      el = el.parentElement;
+    }
+    if (focal) focal = { x: f.x / r, y: f.y / r };
+  });
+  send({ __viewer: 'ready' });
+})();
+</script>
+</body></html>
