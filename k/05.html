@@ -1,0 +1,688 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Пролиферация және созылмалы қабыну</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap">
+<style>
+/* Layout: A4 оқу құралы — бір бағанды мәтін, кестелер мен карточкалар; патогенез 3 бағанды grid */
+:root{
+  --navy:#1E3A8A;
+  --ink:#1F2937;
+  --accent:#2563EB;
+  --latin:#64748B;
+  --danger:#DC2626;
+  --danger-bg:#FEF2F2;
+  --add-bg:#EFF6FF;
+  --paper:#FFFFFF;
+  --soft:#F8FAFC;
+  --line:#CBD5E1;
+  --line-soft:#E2E8F0;
+  --font:"Inter","Roboto","Segoe UI",system-ui,-apple-system,Arial,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{
+  background:var(--paper);color:var(--ink);font-family:var(--font);
+  font-size:14.5px;line-height:1.55;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));
+  padding-block:28px 40px;
+}
+.doc{max-width:900px;margin:0 auto}
+h1,h2,h3,h4{color:var(--navy);text-wrap:balance;line-height:1.25;margin:0}
+h1{font-size:26px;font-weight:800;letter-spacing:-.01em}
+h2{font-size:19px;font-weight:800;padding-bottom:6px;border-bottom:2.5px solid var(--navy);margin-bottom:14px;display:flex;gap:10px;align-items:baseline}
+h2 .num{font-variant-numeric:tabular-nums;color:var(--accent)}
+h3{font-size:15px;font-weight:700;margin:18px 0 8px}
+h4{font-size:13px;font-weight:700;margin:0 0 6px;letter-spacing:.01em}
+p{margin:0 0 9px}
+ul{margin:4px 0 8px;padding-left:18px}
+li{margin:2px 0}
+.kw{color:var(--accent);font-weight:700}
+.lat{color:var(--latin);font-style:italic}
+.subtitle{color:var(--latin);font-size:13px;margin-top:6px}
+
+/* Белгілер */
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;margin:16px 0 10px;font-size:12.5px}
+.legend .lbl{font-weight:800;color:var(--navy);text-transform:uppercase;letter-spacing:.06em;font-size:11.5px}
+.legend .item{display:flex;align-items:center;gap:7px}
+.bdg{display:inline-block;padding:2px 8px;border-radius:5px;color:#fff;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;line-height:1.5;white-space:nowrap;vertical-align:1px}
+.b-main{background:#1F2937}
+.b-add{background:#2563EB}
+.b-risk{background:#DC2626}
+.b-tag{background:var(--paper);color:var(--accent);border:1.5px solid var(--accent);padding:1px 7px}
+.rule{height:0;border:0;border-top:5px solid var(--navy);margin:0 0 22px}
+
+/* Блоктар */
+.box{border:1px solid var(--line);border-radius:8px;padding:12px 14px;background:var(--paper);margin:0 0 12px}
+.box.add{background:var(--add-bg);border:1.5px solid var(--accent)}
+.box.add h4,.box.add .ttl{color:var(--accent)}
+.box-head{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:6px}
+.box-head h4{margin:0}
+.danger{border-left:5px solid var(--danger);border-top:1px solid var(--danger);border-right:1px solid var(--danger);border-bottom:1px solid var(--danger);background:var(--danger-bg);border-radius:0 8px 8px 0;padding:10px 14px;margin:0 0 12px}
+.danger .ttl{color:var(--danger);font-weight:800;font-size:13px;display:flex;gap:8px;align-items:center;margin-bottom:5px}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:12px}
+.two > *{min-width:0;margin-bottom:0}
+
+/* Кестелер */
+.tw{overflow-x:auto;margin:0 0 12px}
+table{width:100%;border-collapse:collapse;font-size:13px;line-height:1.42}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+thead th{background:var(--navy);color:#fff;font-weight:700;font-size:12px;letter-spacing:.02em}
+tbody th{background:var(--soft);font-weight:700;color:var(--ink)}
+tr.grp td{background:#E0E7FF;color:var(--navy);font-weight:800;font-size:11.5px;text-transform:uppercase;letter-spacing:.06em}
+tr.add-row td,tr.add-row th{background:var(--add-bg)}
+td.num,th.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+caption{caption-side:top;text-align:left;font-size:12px;color:var(--latin);font-weight:600;padding-bottom:5px}
+
+/* Ағынды схемалар */
+svg.a{display:block;margin:3px auto;color:var(--ink)}
+svg.a.blue{color:var(--accent)}
+svg.a.red{color:var(--danger)}
+.trigger{border:2.5px solid var(--ink);border-radius:10px;padding:12px 16px;background:var(--paper)}
+.trigger .ttl{font-weight:800;font-size:14px;color:var(--ink);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.trig-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;font-size:13px}
+.trig-grid > div{min-width:0;border-top:2px solid var(--line-soft);padding-top:6px}
+
+.levels{display:grid;grid-template-columns:minmax(0,1fr) 26px minmax(0,1fr) 26px minmax(0,1fr);gap:0;align-items:stretch}
+.col{min-width:0;display:flex;flex-direction:column}
+.col-h{background:var(--navy);color:#fff;border-radius:7px 7px 0 0;padding:7px 10px;font-weight:800;font-size:12px;letter-spacing:.06em;text-transform:uppercase;text-align:center}
+.col-h small{display:block;font-weight:500;letter-spacing:0;text-transform:none;font-size:11px;opacity:.85}
+.col-b{border:1.5px solid var(--navy);border-top:0;border-radius:0 0 7px 7px;padding:10px 8px;flex:1;background:var(--soft)}
+.link-col{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:120px;color:var(--navy)}
+.cd{border:1.5px solid var(--ink);background:var(--paper);color:var(--ink);border-radius:7px;padding:8px 9px;font-size:12.5px;line-height:1.42}
+.cd .ct{font-weight:800;font-size:12.5px;margin-bottom:3px;display:block}
+.cd.add{background:var(--add-bg);border-color:var(--accent);color:var(--accent)}
+.cd.add .ct{color:var(--accent)}
+.cd.add .lat{color:#3B6FD8}
+.cd.risk{border:2px solid var(--danger);background:var(--danger-bg)}
+.cd.risk .ct{color:var(--danger)}
+.cd .bdg{font-size:9px;padding:1px 6px;margin-bottom:4px}
+
+.flowrow{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px}
+.flowrow .cd{flex:1 1 150px;min-width:0}
+
+/* Тұйық шеңбер */
+.vicious{border:2.5px solid var(--danger);border-radius:10px;padding:12px 14px 14px;background:var(--paper);margin-top:16px}
+.vicious .ttl{color:var(--danger);font-weight:800;font-size:14px;margin-bottom:10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.vnodes{display:flex;align-items:stretch;gap:4px}
+.vnodes .cd{flex:1 1 0;min-width:0;border-color:var(--danger)}
+.vnodes .arr{display:flex;align-items:center;color:var(--danger);flex:0 0 auto}
+.loopback{position:relative;height:22px;margin:0 9% 0 9%;border:3.5px solid var(--danger);border-top:0;border-radius:0 0 14px 14px}
+.loopback::before{content:"";position:absolute;left:-9.5px;top:-12px;border-left:8px solid transparent;border-right:8px solid transparent;border-bottom:13px solid var(--danger)}
+.loopback span{position:absolute;left:50%;bottom:-11px;transform:translateX(-50%);background:var(--paper);padding:0 8px;color:var(--danger);font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+
+/* 16-сызбанұсқа */
+.lanes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.lane{min-width:0;display:flex;flex-direction:column}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.split > *{min-width:0}
+
+.sec{margin-top:34px}
+.sec:first-of-type{margin-top:0}
+
+@media (max-width:700px){
+  body{font-size:14px}
+  .two,.trig-grid,.lanes{grid-template-columns:minmax(0,1fr)}
+  .levels{grid-template-columns:minmax(0,1fr)}
+  .link-col{flex-direction:row;gap:14px;padding:6px 0}
+  .link-col svg{transform:rotate(90deg)}
+  .vnodes{flex-direction:column}
+  .vnodes .arr svg{transform:rotate(90deg)}
+  .vnodes .arr{justify-content:center}
+  .loopback{display:none}
+  .vicious .backnote{display:block}
+}
+.vicious .backnote{display:none;color:var(--danger);font-weight:700;font-size:12px;text-align:center;margin-top:6px}
+
+@page{size:A4;margin:13mm 12mm 14mm}
+@media print{
+  body{padding:0;font-size:9.6pt;line-height:1.45}
+  .doc{max-width:none}
+  h1{font-size:18pt}
+  h2{font-size:13pt}
+  h3{font-size:10.5pt}
+  table{font-size:8.6pt}
+  thead th{font-size:8.2pt}
+  .cd{font-size:8.2pt;padding:6px 7px}
+  .cd .ct{font-size:8.4pt}
+  .trig-grid{font-size:8.6pt}
+  .col-h{font-size:8pt}
+  table,.box,.danger,.cd,.trigger,.vicious,.two,.lane,.legend,tr{break-inside:avoid !important;page-break-inside:avoid !important}
+  h1,h2,h3,h4{break-after:avoid !important;page-break-after:avoid !important}
+  .sec + .sec{break-before:page;page-break-before:always;margin-top:0}
+  .levels,.lanes,.trig-grid,.two{grid-template-columns:revert}
+  .levels{grid-template-columns:minmax(0,1fr) 20px minmax(0,1fr) 20px minmax(0,1fr)}
+  .lanes,.trig-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .two{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .link-col{flex-direction:column;gap:110px}
+  .link-col svg{transform:none}
+  .vnodes{flex-direction:row}
+  .vnodes .arr svg{transform:none}
+  .loopback{display:block}
+  .vicious .backnote{display:none}
+
+  .patho,.levels{break-inside:avoid !important;page-break-inside:avoid !important}
+  .patho > svg.a{width:16px;height:18px;margin:2px auto}
+  .levels .cd{font-size:7pt;line-height:1.3;padding:4px 6px}
+  .levels .cd .ct{font-size:7.6pt;margin-bottom:1px}
+  .levels .cd .bdg{font-size:6.3pt;padding:0 4px;margin-bottom:2px}
+  .levels svg.a{width:14px;height:15px;margin:1px auto}
+  .levels .col-b{padding:6px 5px}
+  .link-col{gap:80px}
+  .trigger{padding:7px 10px}
+  .trig-grid{font-size:7.8pt}
+  .trigger .ttl{font-size:9pt;margin-bottom:3px}
+  .vicious{break-before:page;page-break-before:always}
+}
+
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="ad" viewBox="0 0 24 30"><path d="M12 2v20" stroke="currentColor" stroke-width="4.2" stroke-linecap="round" fill="none"/><path d="M3.5 16.5 12 27l8.5-10.5" stroke="currentColor" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></symbol>
+    <symbol id="ar" viewBox="0 0 30 24"><path d="M2 12h20" stroke="currentColor" stroke-width="4.2" stroke-linecap="round" fill="none"/><path d="M16.5 3.5 27 12l-10.5 8.5" stroke="currentColor" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></symbol>
+    <symbol id="alr" viewBox="0 0 26 24"><path d="M5 8h17M21 16H4" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" fill="none"/><path d="M17 3.5 22.5 8 17 12.5M9 11.5 3.5 16 9 20.5" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></symbol>
+  </defs>
+</svg>
+
+<div class="doc">
+
+<h1>Пролиферация, созылмалы қабыну және жасуша бүліністерінің этиологиясы</h1>
+<div class="subtitle"><span class="lat">Proliferatio · Inflammatio chronica · Granuloma · Aetiologia laesionis cellulae</span></div>
+
+<div class="legend">
+  <span class="lbl">Белгілер:</span>
+  <span class="item"><span class="bdg b-main">Басты тізбек</span> оқулық мәтіні</span>
+  <span class="item"><span class="bdg b-add">Қосымша</span> тереңдетілген талдау (оқулықта жоқ)</span>
+  <span class="item"><span class="bdg b-risk">Қауіп</span> асқыну, ескерту</span>
+</div>
+<hr class="rule">
+
+<!-- ===================== 1 ===================== -->
+<section class="sec">
+<h2><span class="num">1.</span> Негізгі ұғым және жіктелуі</h2>
+
+<div class="box">
+  <div class="box-head"><span class="bdg b-main">Басты тізбек</span><h4>Экссудация сатысының қорытындысы: екі жағы</h4></div>
+  <div class="tw"><table>
+    <thead><tr><th style="width:50%">Жағымды жақтары</th><th>Жағымсыз жақтары</th></tr></thead>
+    <tbody><tr>
+      <td><ul>
+        <li>Қан нәруыздарымен шыққан <span class="kw">антиденелер мен ферменттер</span> микробтарды және олардың уыттарын ыдыратады</li>
+        <li>Лейкоциттер бактерияларды <span class="kw">фагоциттейді</span></li>
+        <li>Уытты өнімдер денеге тарамай, <span class="kw">қабыну ошағында ұсталып</span> тұрады</li>
+      </ul></td>
+      <td><ul>
+        <li>Жалқық тамырларды қысып, тіннің <span class="kw">оттегімен және қоректік заттармен</span> қамтылуын бұзады</li>
+        <li>Жалқық сезімтал жүйке аяқшаларын қысып, <span class="kw">ауыру сезімін</span> туындатады</li>
+        <li><span class="kw">Ірінді жалқық</span> айналасындағы сау тіндерді ыдыратады</li>
+        <li><span class="kw">Тұйық кеңістіктердегі</span> жалқық организмге уытты әсер етеді</li>
+        <li>Қабынған ағзаның қызметі бұзылады</li>
+      </ul></td>
+    </tr></tbody>
+  </table></div>
+</div>
+
+<div class="box">
+  <div class="box-head"><span class="bdg b-main">Басты тізбек</span><h4>Пролиферация <span class="lat">(proliferatio; proles — ұрпақ, fero — әкелу)</span></h4></div>
+  <p>Қабынуға қатысатын, әсіресе <span class="kw">макрофагтар мен лимфоциттердің</span>, сондай-ақ жергілікті тін жасушаларының өсіп-өнуі. Нәтижесінде ошақты қоршайтын <span class="kw">тығыз сіңбе (инфильтрат)</span> түзіледі. Ол бактериялардың, олардың уыттарының және қабыну дәнекерлерінің бүкіл денеге тарауына жол бермейтін <span class="kw">тосқауылдық қызмет</span> атқарады.</p>
+  <ul>
+    <li>Ошаққа шыққан <b>нейтрофилдер</b> фагоцитоз нәтижесінде тіршілігін жоғалтады; <b>моноциттер мен лимфоциттер</b> сақталып қалады.</li>
+    <li>Макрофагтарда <span class="kw">антиоксиданттық ферменттер</span> нейтрофилдерге қарағанда басым, сондықтан олар ошақта төзімдірек.</li>
+    <li>Макрофагтар жасушалар мен жасуша аралық заттың ыдырау өнімдерін жойып, тін қалпына келуіне <b>орын тазалайды</b> және регенерацияға қажетті <b>қабынуға қарсы медиаторлар</b> өндіреді.</li>
+    <li>Сондықтан пролиферацияның дамуында <span class="kw">негізгі орын макрофагтарға</span> беріледі.</li>
+  </ul>
+</div>
+
+<div class="tw"><table>
+  <caption>Пролиферацияны реттейтін медиаторлар</caption>
+  <thead><tr><th style="width:27%">Медиатор</th><th style="width:30%">Өндірілетін жері</th><th>Әсері</th></tr></thead>
+  <tbody>
+    <tr class="grp"><td colspan="3">Сергітетін медиаторлар</td></tr>
+    <tr><th>Эпидермистің өсу факторы <span class="lat">(EGF)</span></th><td>—</td><td>Мембранадағы <span class="kw">тирозинкиназалық рецепторлар</span> арқылы эпителий жасушалары мен фибробластардың өсіп-өнуін сергітеді</td></tr>
+    <tr><th>Өзгерген α-өсу факторы <span class="lat">(TGF-α)</span></th><td>—</td><td>Тирозинкиназалық рецепторлар арқылы әсер етеді</td></tr>
+    <tr><th>Тромбоциттердің өсу факторы <span class="lat">(PDGF)</span></th><td>Тромбоциттер, макрофагтар, эндотелий, тегіс салалы ет жасушалары</td><td>Фибробластардың, тегіс ет жасушаларының, моноциттердің өсіп-өнуін сергітеді</td></tr>
+    <tr><th>Фибробластардың өсу факторы <span class="lat">(FGF)</span></th><td>Әсерленген макрофагтар</td><td>Фибробластардың өсіп-өнуін және <span class="kw">жаңа қан тамырларының өсуін</span> арттырады</td></tr>
+    <tr><th>Эндотелийдің өсу факторы <span class="lat">(VEGF)</span></th><td>—</td><td>Эндотелий өсіп-өнуін арттырып, жаңа тамырлардың өсуін сергітеді</td></tr>
+    <tr><th>Интерлейкин-1 <span class="lat">(IL-1)</span></th><td>Макрофагтар</td><td>Т-лимфоциттердің өсіп-өнуін арттырады</td></tr>
+    <tr class="grp"><td colspan="3">Тежейтін медиаторлар</td></tr>
+    <tr><th>Өспелерді жоятын фактор <span class="lat">(TNF)</span></th><td>Макрофагтар, табиғи жендет (NK) жасушалар</td><td>Пролиферацияны тежейді</td></tr>
+    <tr><th>Өзгерген β-өсу факторы <span class="lat">(TGF-β)</span></th><td>Эндотелий, тромбоциттер, Т-лимфоциттер, макрофагтар; <b>қан плазмасында әсерленеді</b></td><td><b>Аз мөлшерде:</b> PDGF түзілуін сергітеді, фибробластардың <span class="kw">коллаген мен фибронектин</span> түзуін арттырады. <b>Артық мөлшерде:</b> керісінше пролиферацияны тежейді</td></tr>
+    <tr><th>γ-интерферон <span class="lat">(IFN-γ)</span></th><td>Макрофагтар</td><td>Пролиферацияны тежейді</td></tr>
+    <tr><th>APC нәруызы <span class="lat">(Adenomatosis polyposis coli)</span></th><td>Түзілуін APC супрессор-гені қадағалайды</td><td>Жасуша өсіп-өнуін тежейді</td></tr>
+    <tr><th>Адгезиялық молекулалар</th><td>Кадгериндер, интегриндер</td><td>Көрші жасушалардың өсіп-өнуін тежейді</td></tr>
+    <tr class="add-row"><td colspan="3"><span class="bdg b-add">Қосымша</span> γ-интерферонның негізгі көзі — Th1-лимфоциттер мен NK-жасушалар; ол макрофагты әсерлендіреді (M1). APC нәруызы β-катенинді ыдырауға бағыттап, Wnt-сигналын өшіреді; APC мутациясы — отбасылық аденоматоздық полипоздың себебі. Кадгериндер мен интегриндердің әсері <span class="lat">контактілі тежелу</span> деп аталады.</td></tr>
+  </tbody>
+</table></div>
+
+<div class="danger">
+  <div class="ttl"><span class="bdg b-risk">Қауіп</span> Пролиферацияның шамадан тыс болуы</div>
+  <p style="margin:0">Тым артық пролиферация ағзаның сыртқы пішінін өзгертетін және қызметін бұзатын <b>артық тыртық тіннің</b> өсуіне әкеледі: полиартриттерде <b>буындардың пішіні бұзылады</b>. Әсіресе <b>жүрек қақпақшаларының</b> және <b>ми қабықтарының</b> қабынуында өте қауіпті. Сондықтан ошақта дәнекер тін жасушаларының өсіп-өнуі белгілі мөлшерде <b>шектеліп тұруы қажет</b>; оны жоғарыдағы тежейтін дәнекерлер қамтамасыз етеді.</p>
+  <p style="margin:6px 0 0"><span class="bdg b-add">Қосымша</span> Ревматизмдік вальвулитте қақпақша жармалары қалыңдап бітісіп, <span class="lat">stenosis</span> немесе жеткіліксіздік ақауы қалыптасады; менингиттен кейінгі жабысқақтар ликвор ағынын бөгеп, окклюзиялық гидроцефалия туғызуы мүмкін.</p>
+</div>
+
+<div class="tw"><table>
+  <caption>Созылмалы қабынудың жіктелуі және пролиферацияның аяқталуы</caption>
+  <thead><tr><th style="width:26%">Белгі бойынша</th><th>Түрлері</th></tr></thead>
+  <tbody>
+    <tr><th>Басталу жолы</th><td>1) Дер кезінде дұрыс емделмеген <b>жіті (қауырт) қабынудың нәтижесі</b>; 2) өз бетінше <b>бірден созылмалы</b> болып басталуы. Қай жолмен дамуы себепкер ықпалдың түрі мен ерекшеліктеріне байланысты</td></tr>
+    <tr><th>Негізгі механизм</th><td>Макрофагтардың <span class="kw">фагоцитоздық белсенділігінің төмен болуы</span></td></tr>
+    <tr><th>Жасушалық құрамы</th><td>Жітіде — көп ядролы лейкоциттер (<b>нейтрофилдер</b>); созылмалыда — <b>бір ядролы жасушалар</b> (моноциттер, лимфоциттер, макрофагтар)</td></tr>
+    <tr><th>Морфологиясы</th><td>Бір ядролы жасушалардың ошақталып жиналуынан майда түйіршіктер түзіледі: <span class="kw">түйіршіктелген қабыну</span>, <span class="lat">granuloma</span>; гранулема қабынудың ұзақ созылмалы ағымына ықпал етеді</td></tr>
+    <tr><th>Макрофаг әсерленуінің себебі</th><td>1) Макрофаг ішінде ұзақ тіршілік етіп көбейетін <b>микробтар</b>; 2) макрофаг ферменттерімен <b>ыдыратылмайтын заттар</b> (толығы 4-бөлімде)</td></tr>
+    <tr><th>Пролиферацияның аяқталуы</th><td>Кішігірім бүліністе — тіннің <span class="kw">толық қалпына келуі</span> (регенерация); тым көп жасуша өлгенде — ақау <span class="kw">дәнекер тінмен</span> алмасып, <b>тыртық</b> түзіледі</td></tr>
+  </tbody>
+</table></div>
+</section>
+
+<!-- ===================== 2 ===================== -->
+<section class="sec">
+<h2><span class="num">2.</span> Интеграция: физиология және биохимия негіздері</h2>
+
+<div class="two">
+  <div class="box add">
+    <div class="box-head"><span class="bdg b-add">Қосымша</span><span class="bdg b-tag">Физиология</span></div>
+    <h4>Мононуклеарлық фагоциттер жүйесі</h4>
+    <ul>
+      <li>Сүйек кемігінде монобласт → промоноцит → <b>моноцит</b>; моноцит қанда шамамен 1–3 тәулік айналып, тінге өтіп <b>макрофагқа</b> айналады.</li>
+      <li>Тіндік макрофагтар: бауырда — <span class="kw">Купфер жасушалары</span>, өкпеде — альвеолалық макрофагтар, ОЖЖ-де — микроглия, сүйекте — остеокласттар.</li>
+      <li>Нейтрофил тінде 1–2 тәулік өмір сүреді, сондықтан ұзаққа созылған ошақта оның орнын ұзақ өмірлі макрофаг басады.</li>
+      <li>Макрофаг қызметтері: фагоцитоз, антиген ұсыну (МНС-II арқылы CD4⁺ Т-хелперге), цитокин бөлу, тінді тазалау және жөндеу.</li>
+      <li>Макрофаг фенотиптері: <b>M1</b> (IFN-γ әсерінен, бактерицидті, бүлдіргіш) және <b>M2</b> (IL-4/IL-13 әсерінен, репарация мен фиброз).</li>
+    </ul>
+  </div>
+  <div class="box add">
+    <div class="box-head"><span class="bdg b-add">Қосымша</span><span class="bdg b-tag">Биохимия</span></div>
+    <h4>Ошақтағы негізгі биохимиялық тізбектер</h4>
+    <ul>
+      <li><b>Оттектік жарылыс:</b> NADPH-оксидаза O₂ → O₂•⁻ → (СОД) H₂O₂ → (Fe²⁺, Фентон) •OH → мембрана липидтерінің <span class="kw">асқын тотығуы</span> (МДА жиналады).</li>
+      <li><b>Антиоксиданттар:</b> СОД, каталаза, глутатионпероксидаза, Е және С витаминдері. Макрофагта бұлар көп, сондықтан ол нейтрофилден төзімді.</li>
+      <li><b>Азот оксиді:</b> индуцибельді NO-синтаза: L-аргинин → NO + цитруллин; NO + O₂•⁻ → пероксинитрит (бүлдіргіш).</li>
+      <li><b>Араҳидон тізбегі:</b> ФЛА₂ → арахидон қышқылы → ЦОГ: PGE₂, тромбоксан A₂; 5-ЛОГ: LTB₄, LTC₄, LTD₄.</li>
+      <li><b>Коллаген синтезі:</b> пролил- және лизилгидроксилаза (С витамині, Fe²⁺, α-кетоглутарат қажет); ыдырауы — коллагеназа (матрикс металлопротеиназалары).</li>
+      <li><b>Өсу факторлары:</b> рецепторлық тирозинкиназа димерленеді → автофосфорлану → Ras → MAPK → ядрода пролиферация гендері.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tw"><table>
+  <caption><span class="bdg b-add">Қосымша</span> Қалыпты көрсеткіштер және созылмалы қабынудағы өзгерістер</caption>
+  <thead><tr><th style="width:34%">Көрсеткіш</th><th style="width:26%">Қалыпты мәні</th><th>Созылмалы қабынуда</th></tr></thead>
+  <tbody>
+    <tr><th>Лейкоциттер</th><td class="num">4,0–9,0 × 10⁹/л</td><td>Қалыпты немесе қалыпты лейкоцитоз; асқынуда артады</td></tr>
+    <tr><th>Сегментті нейтрофилдер</th><td class="num">47–72 %</td><td>Ремиссияда қалыпты; асқынуда нейтрофилез, солға ығысу</td></tr>
+    <tr><th>Таяқша ядролы нейтрофилдер</th><td class="num">1–6 %</td><td>Жіті кезеңде артады</td></tr>
+    <tr><th>Лимфоциттер</th><td class="num">19–37 %</td><td>Жиі <span class="kw">лимфоцитоз</span> (туберкулез, бруцеллез)</td></tr>
+    <tr><th>Моноциттер</th><td class="num">3–11 %</td><td><span class="kw">Моноцитоз</span>: сүйек кемігінде моноцитопоэз артады</td></tr>
+    <tr><th>ЭТЖ</th><td class="num">ер 1–10; әйел 2–15 мм/сағ</td><td>Ұзақ уақыт жоғары (фибриноген, глобулиндер артады)</td></tr>
+    <tr><th>С-реактивті нәруыз</th><td class="num">&lt; 5 мг/л</td><td>Артады (жедел фаза нәруызы)</td></tr>
+    <tr><th>α₁-антитрипсин</th><td class="num">0,9–2,0 г/л</td><td>Артады</td></tr>
+    <tr><th>Фибриноген</th><td class="num">2–4 г/л</td><td>Артады</td></tr>
+    <tr><th>Жалпы нәруыз / γ-глобулиндер</th><td class="num">65–85 г/л / 12–22 %</td><td>Гиперглобулинемия</td></tr>
+    <tr><th>Дене қызуы (қолтықта)</th><td class="num">36,0–36,9 °C</td><td>Субфебрилитет, асқынуда қызба</td></tr>
+  </tbody>
+</table></div>
+</section>
+
+<!-- ===================== 3 ===================== -->
+<section class="sec">
+<h2><span class="num">3.</span> Созылмалы қабынудың патогенезі</h2>
+
+<div class="patho"><div class="trigger">
+  <div class="ttl"><span class="bdg b-main">Басты тізбек</span> Этиологиялық триггер: созылмалы бүліністі ықпал</div>
+  <div class="trig-grid">
+    <div><b>Жасушаішілік микробтар</b> — макрофаг ішінде ұзақ тіршілік етіп көбейеді: туберкулез таяқшалары, құлғана <span class="lat">(lepra)</span>, сарып <span class="lat">(brucellosis)</span>, токсоплазмоз т.б.</div>
+    <div><b>Ыдыратылмайтын заттар</b> — макрофаг ферменттері ыдырата алмайды: күрделі поликанттар, декстран, зимозан, көмір, кремний ұнтақтары; бауыр, өкпе макрофагтары жұтады</div>
+    <div><b>Қолайсыз жағдай</b> — дұрыс емделмеген жіті қабыну; макрофагтардың <span class="kw">фагоцитоздық белсенділігінің төмендігі</span></div>
+  </div>
+</div>
+<svg class="a" width="26" height="30"><use href="#ad"/></svg>
+
+<div class="levels">
+  <!-- ЖҮЙЕЛІК -->
+  <div class="col">
+    <div class="col-h">Жүйелік деңгей<small>нейрогуморальды, гемодинамикалық</small></div>
+    <div class="col-b">
+      <div class="cd"><span class="bdg b-main">Басты тізбек</span><span class="ct">Сүйек кемігінің жауабы</span>Әсерленген макрофаг сүйек кемігінде <span class="kw">моноциттер өндірілуін ұлғайтатын</span> зат шығарады</div>
+      <svg class="a" width="22" height="26"><use href="#ad"/></svg>
+      <div class="cd add"><span class="bdg b-add">Қосымша</span><span class="ct">Цитокиндік сигнал</span>IL-1, IL-6, TNF-α қанға түседі → гипоталамуста PGE₂ → термореттеу нүктесі көтеріледі; IL-6 → бауыр гепатоциттері</div>
+      <svg class="a" width="22" height="26"><use href="#ad"/></svg>
+      <div class="cd"><span class="bdg b-main">Басты тізбек</span><span class="ct">Жалпы организмге әсері</span><span class="kw">Лейкоцитоз</span>; <span class="kw">дене қызуының көтерілуі</span>; иммундық жүйенің өзгерістері; жедел фаза нәруыздары: <b>α₁-антитрипсин, С-реактивті нәруыз</b></div>
+      <svg class="a" width="22" height="26"><use href="#ad"/></svg>
+      <div class="cd add"><span class="bdg b-add">Қосымша</span><span class="ct">Гемодинамика және қан</span>Қызбада тахикардия; фибриноген артып <b>ЭТЖ жоғарылайды</b>; IL-6 → гепсидин → темір қолжетімсіз → <b>созылмалы ауру анемиясы</b>; ГГБ осі → кортизол (қабынуды тежеуші кері байланыс)</div>
+      <svg class="a" width="22" height="26"><use href="#ad"/></svg>
+      <div class="cd"><span class="bdg b-main">Басты тізбек</span><span class="ct">Реактивтілік</span>Қабынудың өтуі организмнің <b>иммундық, жүйкелік, эндокриндік</b> жүйелерінің жағдайына байланысты</div>
+    </div>
+  </div>
+
+  <div class="link-col" aria-hidden="true">
+    <svg width="22" height="22"><use href="#alr"/></svg>
+    <svg width="22" height="22"><use href="#alr"/></svg>
+    <svg width="22" height="22"><use href="#alr"/></svg>
+  </div>
+
+  <!-- АҒЗАЛЫҚ -->
+  <div class="col">
+    <div class="col-h">Ағзалық деңгей<small>перфузия, тамырлық реакциялар</small></div>
+    <div class="col-b">
+      <div class="cd"><span class="bdg b-main">Басты тізбек</span><span class="ct">Тамыр өткізгіштігі артады</span>LTC₄, LTD₄, тромбоксан, лизосомалық ферменттер әсерінен; <span class="kw">коллагеннің ыдырау өнімдері</span> қандағы моноциттерге күшті хемотаксистік әсер етеді</div>
+      <svg class="a" width="22" height="26"><use href="#ad"/></svg>
+      <div class="cd"><span class="bdg b-main">Басты тізбек</span><span class="ct">Моноциттердің тінге шығуы</span>Әсерленген макрофагтың айналасына қаннан шыққан моноциттер жиналады</div>
+      <svg class="a" width="22" height="26"><use href="#ad"/></svg>
+      <div class="cd"><span class="bdg b-main">Басты тізбек</span><span class="ct">Фибронектин</span>Сіңбеге түскен моноциттер фибронектин өндіреді → макрофагтар дәнекер тіннің <b>коллаген талшықтарына жайылып жабысады</b>; бұл фагоцитоз үшін маңызды</div>
+      <svg class="a" width="22" height="26"><use href="#ad"/></svg>
+      <div class="cd"><span class="bdg b-main">Басты тізбек</span><span class="ct">Гранулема <span class="lat">(granuloma)</span></span>Макрофагтар жинақталады → эпителий тәрізді жасушалар → <span class="kw">көпядролы алып жасушалар</span>; ошақ ұзақ сақталады</div>
+      <svg class="a" width="22" height="26"><use href="#ad"/></svg>
+      <div class="cd add"><span class="bdg b-add">Қосымша</span><span class="ct">Гранулема құрылысы</span>Орталығы (микроб, бөгде дене немесе казеозды некроз) → эпителиоидты жасушалар және Лангханс / бөгде дене алып жасушалары → шетінде лимфоциттер белдеуі → фибробласттар капсуласы. Ішінде перфузия нашар</div>
+      <svg class="a red" width="22" height="26"><use href="#ad"/></svg>
+      <div class="cd risk"><span class="bdg b-risk">Қауіп</span><span class="ct">Беріштену <span class="lat">(sclerosis)</span></span>Дәнекер тін бүлінуі қайталанып, жаңа талшықтар өседі: бауыр → <b>цирроз</b>, өкпе → <b>пневмосклероз</b>, бүйрек → <b>нефросклероз</b></div>
+    </div>
+  </div>
+
+  <div class="link-col" aria-hidden="true">
+    <svg width="22" height="22"><use href="#alr"/></svg>
+    <svg width="22" height="22"><use href="#alr"/></svg>
+    <svg width="22" height="22"><use href="#alr"/></svg>
+  </div>
+
+  <!-- МОЛЕКУЛАЛЫҚ -->
+  <div class="col">
+    <div class="col-h">Молекулалық / жасушалық<small>митохондрия, АТФ, сорғылар, ацидоз</small></div>
+    <div class="col-b">
+      <div class="cd"><span class="bdg b-main">Басты тізбек</span><span class="ct">Макрофагтың әсерленуі</span><b>Иммундық:</b> әсерленген Т-жасушадан γ-интерферон. <b>Бейиммундық:</b> эндотоксин, фибронектин, химиялық медиаторлар</div>
+      <svg class="a" width="22" height="26"><use href="#ad"/></svg>
+      <div class="cd"><span class="bdg b-main">Басты тізбек</span><span class="ct">Химиялық тартқыштар</span>Моноциттердің хемотаксистік протеині-1, C₄- және D₄-лейкотриендер, E₂-простагландиндер, комплемент құрамбөлшектері</div>
+      <svg class="a" width="22" height="26"><use href="#ad"/></svg>
+      <div class="cd"><span class="bdg b-main">Басты тізбек</span><span class="ct">Тотықтырғыштар мен ферменттер</span>Биологиялық тотықтырғыштар көрші жасуша мембраналарында <span class="kw">липидтердің асқын тотығуын</span> туғызады; лизосомалық <b>коллагеназа</b> коллагенді ыдыратады</div>
+      <svg class="a blue" width="22" height="26"><use href="#ad"/></svg>
+      <div class="cd add"><span class="bdg b-add">Қосымша</span><span class="ct">Энергетикалық тапшылық</span>Оттектік жарылыс пен гранулема ішіндегі нашар перфузия → гипоксия → митохондрияда тотығу фосфорлануы азаяды → <b>АТФ ↓</b> → анаэробтық гликолиз → лактат → <b>ацидоз</b>; Na⁺/K⁺-АТФаза мен Ca²⁺-сорғылары әлсірейді → жасуша ісінеді, Ca²⁺ жиналып ФЛА₂ белсенеді</div>
+      <svg class="a" width="22" height="26"><use href="#ad"/></svg>
+      <div class="cd"><span class="bdg b-main">Басты тізбек</span><span class="ct">Макрофаг ↔ Т-лимфоцит</span>Макрофаг микробты жартылай ыдыратып, антигенді мембранаға шығарып, иммундық жауап күшін анықтайтын гендердің нәруыздарымен байланыстырады; Т-лимфоцит тек осы өңделген антигенді таниды — <b>антигенге тәуелді әрекет</b></div>
+      <svg class="a" width="22" height="26"><use href="#ad"/></svg>
+      <div class="cd"><span class="bdg b-main">Басты тізбек</span><span class="ct">Цитокиндік күшейту</span>Макрофаг <b>IL-1</b> → лимфоциттер өсіп-өнеді. Лимфоцит цитокиндері (көбі гликопротеидтер): миграцияны тежейтін цитокин — жабысқақтық ↑, медиаторлар ↑; макрофагтардың жабысуы, өсіп-өнуі, бірігуі ↑ → алып жасушалар; бактерияларды жою әсері ↑</div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div class="vicious">
+  <div class="ttl"><span class="bdg b-risk">Қауіп</span> Тұйық шеңбер <span class="lat" style="color:var(--danger)">(circulus vitiosus)</span>: созылмалы қабынудың өзін-өзі ұстап тұруы</div>
+  <div class="vnodes">
+    <div class="cd"><span class="ct">1. Әсерленген макрофаг</span>Хемоаттрактанттар бөледі, сүйек кемігінде моноцитопоэзді күшейтеді</div>
+    <div class="arr"><svg width="26" height="22"><use href="#ar"/></svg></div>
+    <div class="cd"><span class="ct">2. Жаңа моноциттер ошаққа</span>Әсерленген макрофагтардың орнын <b>ұдайы толтырып</b> тұрады</div>
+    <div class="arr"><svg width="26" height="22"><use href="#ar"/></svg></div>
+    <div class="cd"><span class="ct">3. Сіңбе тарамайды</span>Мезгіл-мезгіл нейтрофилдер мен жаңа макрофагтар түсіп, <b>асқынулар</b> болады</div>
+    <div class="arr"><svg width="26" height="22"><use href="#ar"/></svg></div>
+    <div class="cd"><span class="ct">4. Дәнекер тін қайта бүлінеді</span>Тотықтырғыштар мен протеазалар жаңа бүліністі, ал ол жаңа әсерленуді тудырады</div>
+  </div>
+  <div class="loopback"><span>Кері бағыт: 4 → 1</span></div>
+  <div class="backnote">↻ 4-сатыдан қайтадан 1-сатыға</div>
+  <p style="margin:18px 0 0;font-size:12.5px">Нәтижесінде қабыну <b>өмір бойы созылуы</b> мүмкін, ал әр асқыну беріштенуді күшейтіп, ағза қызметін бұзады.</p>
+</div>
+
+<h3>16-сызбанұсқа: созылмалы қабынудың даму жолдары</h3>
+<div class="box">
+  <div class="box-head"><span class="bdg b-main">Басты тізбек</span></div>
+  <div class="cd" style="text-align:center;font-weight:800;max-width:280px;margin:0 auto">Созылмалы бүлініс</div>
+  <svg class="a" width="22" height="26"><use href="#ad"/></svg>
+  <div class="lanes">
+    <div class="lane">
+      <div class="cd">Моноциттердің бактериялық және тіндік хемотаксистік факторлары</div>
+      <svg class="a" width="20" height="24"><use href="#ad"/></svg>
+      <div class="cd">Моноциттердің қаннан тінге шығуы</div>
+    </div>
+    <div class="lane">
+      <div class="cd">Т-лимфоциттердің белсенділігі көтерілуі</div>
+      <svg class="a" width="20" height="24"><use href="#ad"/></svg>
+      <div class="split">
+        <div class="cd">Хемотаксистік фактор<br><small>→ моноциттердің тінге шығуы</small></div>
+        <div class="cd">Өсу факторлары<br><small>→ макрофагтардың өсіп-өнуі</small></div>
+      </div>
+    </div>
+    <div class="lane">
+      <div class="cd">Тіндік митогендік өнім</div>
+      <svg class="a" width="20" height="24"><use href="#ad"/></svg>
+      <div class="cd">Тіндік макрофагтардың өсіп-өнуі</div>
+    </div>
+  </div>
+  <svg class="a" width="22" height="26"><use href="#ad"/></svg>
+  <div class="flowrow">
+    <div class="cd">Ұзақ сақталатын тіндік макрофагтар</div>
+    <svg width="26" height="22" style="transform:scaleX(-1)"><use href="#ar"/></svg>
+    <div class="cd" style="border-width:2.5px;font-weight:700">Қабыну ошағында макрофагтардың жинақталуы</div>
+    <svg width="26" height="22"><use href="#ar"/></svg>
+    <div class="cd">Эпителий тәрізді жасушалар</div>
+    <svg width="26" height="22"><use href="#ar"/></svg>
+    <div class="cd">Көпядролы алып жасушалар</div>
+  </div>
+</div>
+
+<h3>9-сурет: созылмалы қабынудағы макрофагтың маңызы</h3>
+<div class="box">
+  <div class="box-head"><span class="bdg b-main">Басты тізбек</span></div>
+  <div class="flowrow">
+    <div class="cd">Т-жасушасының әсерленуі <br><small>→ γ-интерферон</small></div>
+    <svg width="26" height="22"><use href="#ar"/></svg>
+    <div class="cd" style="border-width:2.5px;font-weight:700;text-align:center">Моноцит / макрофаг <br>→ <span class="kw">макрофагтың әсерленуі</span></div>
+    <svg width="26" height="22" style="transform:scaleX(-1)"><use href="#ar"/></svg>
+    <div class="cd">Бейиммундық әсерлену: эндотоксин, фибронектин, химиялық медиаторлар</div>
+  </div>
+  <svg class="a" width="22" height="26"><use href="#ad"/></svg>
+  <div class="two" style="margin:0">
+    <div class="cd risk"><span class="ct">Тіндердің бүлінуі</span>Метаболизмдік уытты тотықтар; протеазалар; қан ұю факторлары; нитроксид т.б.</div>
+    <div class="cd"><span class="ct">Фиброздың дамуы</span>Өсу факторлары; фиброздық цитокиндер; ангиогенездік фактор; коллагеннің қайта құрылуы</div>
+  </div>
+</div>
+</section>
+
+<!-- ===================== 4 ===================== -->
+<section class="sec">
+<h2><span class="num">4.</span> Клиника және дифференциалды диагностика</h2>
+
+<div class="tw"><table>
+  <caption>6-кесте (кеңейтілген): жіті және созылмалы қабынудың айырмашылықтары</caption>
+  <thead><tr><th style="width:24%">Сипаттамасы</th><th style="width:36%">Жіті қабыну</th><th>Созылмалы қабыну</th></tr></thead>
+  <tbody>
+    <tr><th>Басталу жолы</th><td>Қан тамырларының өзгерістерімен (микроциркуляция бұзылыстары)</td><td>Әсерленген макрофагтардың көп мөлшерде жиналуымен</td></tr>
+    <tr><th>Қатысатын жасушалар</th><td>Нейтрофилдер</td><td>Макрофагтар, лимфоциттер</td></tr>
+    <tr><th>Өту жылдамдығы</th><td>Тез</td><td>Баяу</td></tr>
+    <tr><th>Экссудация</th><td>Елеулі (басым)</td><td>Өте аз мөлшерде</td></tr>
+    <tr><th>Аяқталуы</th><td>Жалқық шығарумен</td><td>Дәнекер тін өсіп-өніп беріштенумен</td></tr>
+    <tr class="add-row"><th>Ұзақтығы <span class="bdg b-add">Қосымша</span></th><td>Сағаттар — бірнеше күн</td><td>Апталар, айлар, жылдар</td></tr>
+    <tr class="add-row"><th>Жергілікті белгілер <span class="bdg b-add">Қосымша</span></th><td>Қызару, ісіну, қызу, ауыру, қызмет бұзылуы айқын</td><td>Әлсіз; түйін, тығыздалу, деформация басым</td></tr>
+    <tr class="add-row"><th>Қан көрсеткіштері <span class="bdg b-add">Қосымша</span></th><td>Нейтрофилдік лейкоцитоз, солға ығысу; СРН тез көтеріледі</td><td>Моноцитоз, лимфоцитоз; ЭТЖ ұзақ жоғары; гиперглобулинемия; анемия</td></tr>
+  </tbody>
+</table></div>
+
+<div class="tw"><table>
+  <caption>Жергілікті қабыну мен жалпы организмнің байланысы</caption>
+  <thead><tr><th style="width:30%">Жалпы өзгеріс</th><th>Мазмұны</th></tr></thead>
+  <tbody>
+    <tr><th>Қандағы лейкоциттер</th><td>Саны <span class="kw">көбейеді</span> (лейкоцитоз)</td></tr>
+    <tr><th>Дене қызуы</th><td><span class="kw">Көтеріледі</span></td></tr>
+    <tr><th>Иммундық жүйе</th><td>Өзгерістері байқалады</td></tr>
+    <tr><th>Жедел фаза нәруыздары</th><td>Қабынудың жіті сатыларына тән нәруыздар түзіледі: <b>α-антитрипсин</b>, <b>С-реактивті нәруыз</b> т.б.</td></tr>
+  </tbody>
+</table></div>
+
+<div class="two">
+  <div class="box">
+    <div class="box-head"><span class="bdg b-main">Басты тізбек</span><h4>Қорғаныштық жағы</h4></div>
+    <ul>
+      <li>Ошақты <span class="kw">оқшаулау</span>: зиянды заттарға қарсы күрес бір жерде шоғырланып, зардаптардың таралуы тежеледі.</li>
+      <li>Ошақ өзіндегі заттарды ұстап қана қоймай, <b>қандағы уытты заттарды сорып алады</b>: айналасында бір бағытта ғана өткізетін тосқауыл түзіледі.</li>
+      <li>Тосқауыл алдымен лимфа мен қан тамырларын бітеу және тамыр сыртындағы тасымалдануды бөгеу арқылы, кейін дәнекер тін жасушаларының көбеюімен толық қалыптасады.</li>
+      <li>Тәжірибе: жануарды өлтіретін мөлшердегі <b>стрихнинді</b> қабыну ошағына енгізгенде, жануар тірі қалады.</li>
+      <li>Микробтарға қолайсыз орта: фагоциттер, арнайы антиденелер, ыдырататын ферменттер, <b>катиондық нәруыздар</b>.</li>
+      <li>Қорғаныштық жағы <b>пролиферация мен регенерация</b> сатыларында басымырақ.</li>
+    </ul>
+  </div>
+  <div class="danger" style="margin:0">
+    <div class="ttl"><span class="bdg b-risk">Қауіп</span> Бүлдіргіш жағы</div>
+    <ul style="margin:0">
+      <li>Қабыну әрқашан ағзалар мен тіндердің <b>бүліністеріне</b> әкеледі; күрес меншікті жасушалардың өлуімен қабаттасады.</li>
+      <li><b>Альтерация басым</b> болса, тіннің немесе тұтас организмнің өліміне әкелуі мүмкін.</li>
+      <li><b>Экссудация көп</b> болса: тін қоректенуі бұзылады, ферменттер ыдырайды, гипоксия, жалпы уыттану дамиды.</li>
+      <li>Дәнекер тін өсіп, паренхима жасушаларының орнын басады: <span class="lat">sclerosis</span>, ағза қызметі бұзылады.</li>
+      <li>Біртектес дерттік үдеріс ретінде қабыну мәні бойынша <b>қарама-қайшы</b>: қорғану мен бүліну тығыз байланысқан.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tw"><table>
+  <caption><span class="bdg b-add">Қосымша</span> Гранулемалық (созылмалы) қабынудың дифференциалды диагностикасы</caption>
+  <thead><tr><th style="width:20%">Себебі</th><th style="width:26%">Гранулема ерекшелігі</th><th style="width:26%">Жиі зақымдалатын ағзалар</th><th>Негізгі анықтау әдістері</th></tr></thead>
+  <tbody>
+    <tr><th>Туберкулез <span class="lat">(M. tuberculosis)</span></th><td>Ортасында <span class="kw">казеозды некроз</span>, Пирогов-Лангханс алып жасушалары</td><td>Өкпе, лимфа түйіндері, бүйрек, сүйек</td><td>Қақырық бактериоскопиясы (Циль-Нильсен), ПТР, Манту / Диаскинтест, рентген / КТ</td></tr>
+    <tr><th>Құлғана <span class="lat">(lepra)</span></th><td>Вирхов жасушалары (көпіршікті макрофагтар); лепромалар</td><td>Тері, шеткі нервтер, мұрын шырышты қабаты</td><td>Тері қырындысы мен биопсия, сезімталдық бұзылыстары</td></tr>
+    <tr><th>Сарып <span class="lat">(brucellosis)</span></th><td>Казеозсыз, ұсақ эпителиоидты гранулемалар</td><td>Бауыр, көкбауыр, сүйек кемігі, буындар</td><td>Райт, Хаддлсон реакциялары, ИФА, қан егу; эпиданамнез (мал, сүт)</td></tr>
+    <tr><th>Токсоплазмоз</th><td>Лимфа түйінінде эпителиоидты жасушалардың ұсақ топтары</td><td>Лимфа түйіндері, көз, ОЖЖ</td><td>ИФА (IgM, IgG, авидтілік), ПТР</td></tr>
+    <tr><th>Көмір, кремний ұнтақтары</th><td>Бөгде дене гранулемасы; кремнийде <span class="kw">силикоздық түйіндер</span></td><td>Өкпе, лимфа түйіндері</td><td>Кәсіби анамнез, рентген / КТ, тыныс алу қызметі</td></tr>
+    <tr><th>Поликанттар, декстран, зимозан</th><td>Бөгде дене типті макрофагтық гранулема</td><td>Бауыр, өкпе (макрофагтар жұтқан жерде)</td><td>Анамнез, биопсия</td></tr>
+  </tbody>
+</table></div>
+
+<div class="danger">
+  <div class="ttl"><span class="bdg b-risk">Қауіп</span> Созылмалы қабынудың нәтижелері</div>
+  <p style="margin:0">Созылмалы қабыну науқастың <b>өмір бойына созылуы</b> мүмкін; мезгіл-мезгіл нейтрофилдер мен жаңа макрофагтар түсуінен <b>асқынулар</b> болады. Дәнекер тін бүліністері қайталанып, жаңа талшықтар өседі және ағза қызметін бұзатын <b>беріштену</b> дамиды: созылмалы гепатит → <span class="kw">бауыр циррозы</span> <span class="lat">(cirrhosis hepatis)</span>; өкпе қабынуы → <span class="kw">пневмосклероз</span>; бүйрек қабынуы → <span class="kw">нефросклероз</span>.</p>
+</div>
+</section>
+
+<!-- ===================== 5 ===================== -->
+<section class="sec">
+<h2><span class="num">5.</span> Қабынуды емдеудің жалпы патогенездік негіздері</h2>
+
+<div class="tw"><table>
+  <thead><tr><th style="width:24%">Бағыты</th><th style="width:38%">Тәсілдер мен дәрілер</th><th>Механизмі <span class="bdg b-add" style="margin-left:4px">Қосымша</span></th></tr></thead>
+  <tbody>
+    <tr><th>Себепкермен күрес (этиотропты)</th><td>Жұқпаларға қарсы <span class="kw">бактерияларды жоятын дәрілер</span></td><td>Себепкерді аластау қабынудың өзін-өзі ұстап тұратын себебін жояды</td></tr>
+    <tr><th>Микроциркуляцияны қалпына келтіру</th><td>Құрғақ қыздыру, физиотерапия әдістері</td><td>Перфузия жақсарып, зат алмасу бұзылыстары түзеледі, жазылу жылдамдайды</td></tr>
+    <tr><th>Медиаторлар әсерін шектеу</th><td>Түзілу ферменттерін тежеу: гистидиндекарбоксилаза, 5-окситриптаминдекарбоксилаза; ыдырататын ферменттерді сергіту: гистаминаза. Простагландиндер түзілуін шектеу: <span class="kw">ҚҚСД (салицилаттар)</span>, стероидтық гормондар</td><td>ҚҚСД циклооксигеназаны (ЦОГ-1/2) тежейді; глюкокортикоидтар липокортин (аннексин-1) арқылы ФЛА₂-ні тежеп, арахидон тізбегін бастапқы сатыда тоқтатады</td></tr>
+    <tr><th>Мембраналарды тұрақтандыру</th><td>Жасуша, әсіресе <b>лизосома</b> мембраналарын: антиоксиданттар, витаминдер, стероидтық гормондар</td><td>Липидтердің асқын тотығуы мен лизосомалық ферменттердің шығуы азаяды</td></tr>
+    <tr><th>Қан ұю жүйесін реттеу</th><td>Фибринолизді арттыру; <span class="kw">гепарин</span> қан ұюын тежеп, тромб түзілуін азайтады, гистаминді байланыстырып қабынуға қарсы әсер етеді</td><td>Антитромбин III арқылы тромбин мен Xa факторын бейтараптайды; микротромбоз азайып, перфузия сақталады</td></tr>
+    <tr><th>Иммундық жүйені реттеу</th><td>Иммундық модуляторлар</td><td>Макрофаг пен Т-лимфоцит байланысын қалыпқа келтіру</td></tr>
+    <tr><th>Іріңді қабыну</th><td>Хирургиялық жолмен <span class="kw">іріңді жару</span></td><td>Тұйық кеңістіктегі уытты жалқықты шығару</td></tr>
+    <tr><th>Уыттануға қарсы</th><td>Гемодез, полидез, энтеродез т.б. ерітінділер; бауыр, ішек қабынуында маңызы зор</td><td>Уыттарды байланыстырып, шығарылуын тездетеді</td></tr>
+    <tr><th>Созылмалы қабынуда пролиферацияны күшейту</th><td>Нәруыз түзілуін арттыратын дәрілер: <span class="kw">фолий қышқылы, B₁₂ витамині</span>, анаболизмдік гормондар</td><td>ДНҚ синтезі мен жасуша бөлінуіне қажет; регенерацияны қамтамасыз етеді</td></tr>
+  </tbody>
+</table></div>
+
+<div class="box">
+  <div class="box-head"><span class="bdg b-main">Басты тізбек</span><h4>Емдеудің басты қағидасы</h4></div>
+  <p style="margin:0">Үдерістің <b>қарама-қайшы мәнін</b> естен шығармау керек: бүліну үдерістерін шектеп, аластаумен бірге <span class="kw">қорғаныштық-икемделістік үдерістерді арттыру</span> қажет. Пролиферацияның икемделістік мәні маңызды болғандықтан, оны арттыру созылмалы қабынуда өте маңызды.</p>
+</div>
+</section>
+
+<!-- ===================== 6 ===================== -->
+<section class="sec">
+<h2><span class="num">6.</span> Жасуша патофизиологиясы: бүліністердің этиологиясы</h2>
+
+<div class="tw"><table>
+  <caption>Жасуша бүліністерін туғызатын себепкер ықпалдардың жіктелуі</caption>
+  <thead><tr><th style="width:22%">Топ</th><th style="width:24%">Түрі</th><th>Мысалдары</th></tr></thead>
+  <tbody>
+    <tr class="grp"><td colspan="3">Экзогендік (сырттан әсер ететін): инфекциялық және бейинфекциялық</td></tr>
+    <tr><th rowspan="5">Экзогендік</th><th>Биологиялық</th><td>Микробтар, вирустар, қарапайым жәндіктер, майда саңырауқұлақтар, <b>аутоантиденелер</b>, цитотоксиндік Т-жасушалар</td></tr>
+    <tr><th>Физикалық</th><td>Иондағыш сәулелер, ыстық немесе суық температура, электр соққысы, электромагниттік толқындар</td></tr>
+    <tr><th>Механикалық</th><td>Жарақат, жаншылу, қысылу</td></tr>
+    <tr><th>Химиялық</th><td>Органикалық және бейорганикалық улы заттар, кейбір дәрілер, <span class="kw">гипоксия</span>, <span class="kw">реоксигенация</span></td></tr>
+    <tr><th>Психогендік</th><td>Жан жарақаты, рухани күйзелістер, ауыр эмоциялар</td></tr>
+    <tr class="grp"><td colspan="3">Эндогендік (организмнің өзінде пайда болатын)</td></tr>
+    <tr><th rowspan="3">Эндогендік</th><th>Туа біткен</th><td>Жасуша мембранасындағы <b>тұқым қуалайтын ақаулар</b>: мембрана құрамында кейбір нәруыздар, фосфолипидтер немесе ферменттер болмауы мүмкін</td></tr>
+    <tr><th rowspan="2">Жүре пайда болған</th><td>Жүйкелік-эндокриндік реттелудің біріншілік бұзылыстары</td></tr>
+    <tr><td>Иммундық бұзылыстар немесе аллергиялық үдерістер</td></tr>
+  </tbody>
+</table></div>
+
+<div class="two">
+  <div class="box add">
+    <div class="box-head"><span class="bdg b-add">Қосымша</span><h4>Мысалдар мен механизмдер</h4></div>
+    <ul>
+      <li><b>Туа біткен мембрана ақауы:</b> тұқым қуалайтын микросфероцитоз — спектрин немесе анкирин ақауы, эритроцит мембранасы тұрақсыз, көкбауырда гемолиз.</li>
+      <li><b>Гипоксия:</b> митохондрияда АТФ азаяды → Na⁺/K⁺-АТФаза әлсірейді → Na⁺ мен су жиналып, жасуша ісінеді; гликолиз → лактат → ацидоз.</li>
+      <li><b>Иондағыш сәуле:</b> судың радиолизі → •OH → ДНҚ мен мембрана бүлінеді.</li>
+    </ul>
+  </div>
+  <div class="danger" style="margin:0">
+    <div class="ttl"><span class="bdg b-risk">Қауіп</span> Реоксигенациялық бүлініс</div>
+    <p style="margin:0">Оқулық реоксигенацияны химиялық бүлдіргіш ықпалдарға жатқызады. <span class="bdg b-add" style="margin:2px 0">Қосымша</span> Ишемиядан кейін оттек қайта келгенде ксантиноксидаза мен бүлінген митохондрия тыныс тізбегі көп мөлшерде оттектің белсенді түрлерін түзеді; Ca²⁺ жүктемесі артып, жасуша тіпті ишемия кезіндегіден де ауыр бүлінуі мүмкін (миокард, ми реперфузиясы).</p>
+  </div>
+</div>
+</section>
+
+</div>
+
+<script>
+/* viewer bridge: two-finger pinch is sent to the reader, zoom keeps the point under the fingers in place, theme follows the reader */
+(function(){
+  if (window.parent === window) return;
+  var z = 1, pinch = null, focal = null, lastW = innerWidth, lastH = innerHeight;
+  function send(m){ try { parent.postMessage(m, '*'); } catch (e) {} }
+  addEventListener('message', function(e){
+    var d = e.data;
+    if (!d || typeof d !== 'object') return;
+    if (d.__viewer === 'zoom' && typeof d.z === 'number') z = d.z;
+    if (d.__viewer === 'theme') {
+      if (d.theme) document.documentElement.setAttribute('data-theme', d.theme);
+      else document.documentElement.removeAttribute('data-theme');
+    }
+  });
+  function dist(t){ var dx = t[0].clientX - t[1].clientX, dy = t[0].clientY - t[1].clientY; return Math.sqrt(dx*dx + dy*dy); }
+  function mid(t){ return { x: (t[0].clientX + t[1].clientX) / 2, y: (t[0].clientY + t[1].clientY) / 2 }; }
+  document.addEventListener('touchstart', function(e){
+    if (e.touches.length === 2) { pinch = { d: dist(e.touches) * z, z: z }; focal = mid(e.touches); e.preventDefault(); }
+  }, { passive: false });
+  document.addEventListener('touchmove', function(e){
+    if (!pinch || e.touches.length !== 2) return;
+    e.preventDefault();
+    focal = mid(e.touches);
+    var d = dist(e.touches) * z;
+    if (pinch.d > 0) send({ __viewer: 'pinch', z: pinch.z * d / pinch.d });
+  }, { passive: false });
+  function end(e){
+    if (pinch && e.touches.length < 2) {
+      pinch = null; send({ __viewer: 'pinchend' });
+      setTimeout(function(){ if (!pinch) focal = null; }, 300);
+    }
+  }
+  document.addEventListener('touchend', end);
+  document.addEventListener('touchcancel', end);
+  ['gesturestart', 'gesturechange'].forEach(function(t){ document.addEventListener(t, function(e){ e.preventDefault(); }); });
+  /* trackpad pinch / ctrl + wheel on a computer */
+  var wt = 0;
+  addEventListener('wheel', function(e){
+    if (!e.ctrlKey) return;
+    e.preventDefault();
+    focal = { x: e.clientX, y: e.clientY };
+    send({ __viewer: 'pinch', z: z * Math.exp(-e.deltaY * 0.01) });
+    clearTimeout(wt);
+    wt = setTimeout(function(){ focal = null; send({ __viewer: 'pinchend' }); }, 400);
+  }, { passive: false });
+  addEventListener('resize', function(){
+    var w = innerWidth, h = innerHeight, r = lastW / w, rh = lastH / h;
+    var oldW = lastW, oldH = lastH;
+    lastW = w; lastH = h;
+    /* width and height change by the same factor only when the zoom changed (not on rotation) */
+    if (Math.abs(r - 1) < 0.01 || Math.abs(r - rh) > 0.04 * r) return;
+    var f = focal || { x: oldW / 2, y: oldH / 2 };
+    var dx = f.x - f.x / r, dy = f.y - f.y / r;
+    window.scrollBy(0, dy);
+    var el = document.elementFromPoint(f.x / r, f.y / r);
+    while (el && el !== document.body && el !== document.documentElement) {
+      if (el.scrollWidth > el.clientWidth + 1) {
+        var ox = getComputedStyle(el).overflowX;
+        if (ox === 'auto' || ox === 'scroll') { el.scrollLeft += dx; break; }
+      }
+      el = el.parentElement;
+    }
+    if (focal) focal = { x: f.x / r, y: f.y / r };
+  });
+  send({ __viewer: 'ready' });
+})();
+</script>
+</body></html>
