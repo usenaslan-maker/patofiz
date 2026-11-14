@@ -1,0 +1,543 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Қызба конспектісі</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap">
+<style>
+/* Layout: A4-like single column sheet; tables and a 3-column pathogenesis grid; every block is print-safe */
+:root{
+  --navy:#1E3A8A; --ink:#1F2937; --accent:#2563EB; --muted:#64748B; --danger:#DC2626;
+  --paper:#FFFFFF; --ground:#EEF2F7; --tint:#EFF6FF; --rose:#FEF2F2; --line:#CBD5E1; --head:#E8EEFB;
+  --font:"Inter","Roboto","Segoe UI",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+body{background:var(--ground);color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.55;
+  padding-block:24px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.sheet{background:var(--paper);color:var(--ink);max-width:860px;margin:0 auto;padding:36px 40px;border:1px solid var(--line)}
+h1{color:var(--navy);font-size:30px;line-height:1.15;font-weight:800;margin:0 0 4px;text-wrap:balance}
+.sub{color:var(--muted);margin:0 0 16px;font-size:14px}
+h2{color:var(--navy);font-size:21px;font-weight:800;margin:0 0 12px;padding-bottom:6px;border-bottom:3px solid var(--navy);text-wrap:balance}
+h3{color:var(--navy);font-size:16px;font-weight:700;margin:20px 0 8px}
+p{margin:0 0 10px}
+ul,ol{margin:0 0 10px;padding-left:20px}
+li{margin-bottom:3px}
+.k{color:var(--accent);font-weight:700}
+.lat{color:var(--muted);font-style:italic}
+.b{display:inline-block;color:#FFFFFF;font-size:11px;font-weight:700;letter-spacing:.05em;padding:3px 9px;border-radius:6px;vertical-align:middle;white-space:nowrap}
+.b-main{background:#1F2937}.b-add{background:#2563EB}.b-risk{background:#DC2626}.b-tag{background:var(--navy)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;font-size:13px}
+.legend strong{color:var(--navy)}
+.legend span.t{color:var(--ink);margin-left:6px}
+hr.rule{border:0;border-top:5px solid var(--navy);margin:14px 0 26px}
+section{margin-bottom:34px}
+.tw{overflow-x:auto;margin:0 0 14px}
+table{border-collapse:collapse;width:100%;font-size:13.5px;line-height:1.4}
+th,td{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}
+th{background:var(--head);color:var(--navy);font-weight:700}
+td.n,th.n{white-space:nowrap;font-variant-numeric:tabular-nums}
+.card{border:1.5px solid var(--ink);border-radius:8px;padding:10px 14px;margin:0 0 14px;background:var(--paper)}
+.add{border:1.5px solid var(--accent);background:var(--tint);color:#1E40AF;border-radius:8px;padding:10px 14px;margin:0 0 14px}
+.add .k{color:#1D4ED8}
+blockquote.risk{border:2px solid var(--danger);border-left-width:8px;background:var(--rose);color:var(--ink);border-radius:6px;margin:0 0 14px;padding:10px 14px}
+blockquote.risk p:last-child,.card p:last-child,.add p:last-child,.card ul:last-child,.add ul:last-child,blockquote.risk ul:last-child{margin-bottom:0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.two>*{min-width:0;margin:0}
+.two{margin-bottom:14px}
+
+/* pathogenesis */
+.pg{margin:0 0 14px}
+.trigger{border:2.5px solid var(--navy);background:var(--head);border-radius:10px;padding:12px 16px;text-align:center}
+.trigger .ttl{color:var(--navy);font-weight:800;letter-spacing:.06em;font-size:12px;text-transform:uppercase}
+.arr{text-align:center;color:var(--navy);font-size:30px;font-weight:800;line-height:1;margin:5px 0}
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.col{min-width:0;border:1.5px solid var(--line);border-radius:10px;padding:10px;background:#F8FAFC}
+.col h4{margin:0 0 10px;text-align:center;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#FFFFFF;background:var(--navy);border-radius:6px;padding:6px 4px}
+.col h4 small{display:block;font-weight:500;letter-spacing:0;text-transform:none;font-size:10.5px;opacity:.9}
+.st{border:1.5px solid var(--ink);background:#FFFFFF;color:var(--ink);border-radius:7px;padding:7px 9px;font-size:12.5px;line-height:1.38}
+.st.x{border-color:var(--accent);background:var(--tint);color:#1D4ED8}
+.st b{font-weight:700}
+.col .arr{font-size:24px;margin:3px 0}
+.order{font-size:12.5px;color:var(--navy);font-weight:600;text-align:center;margin:8px 0 0}
+.cv{border:2.5px solid var(--danger);background:var(--rose);border-radius:10px;padding:12px 14px;margin-top:12px}
+.cv .ttl{color:var(--danger);font-weight:800;font-size:13px;letter-spacing:.04em;margin-bottom:8px}
+.loop{display:flex;flex-wrap:wrap;align-items:stretch;gap:6px}
+.loop .st{flex:1 1 120px;border-color:var(--danger);min-width:0}
+.loop .ra{align-self:center;color:var(--danger);font-size:24px;font-weight:800;line-height:1}
+.back{display:flex;align-items:center;gap:8px;margin-top:8px;color:var(--danger);font-weight:700;font-size:12.5px}
+.back svg{flex:0 0 auto}
+.chain{counter-reset:c;list-style:none;padding:0;margin:0 0 14px}
+.chain li{counter-increment:c;position:relative;padding:7px 10px 7px 42px;border:1.5px solid var(--ink);border-radius:7px;margin:0;font-size:13.5px}
+.chain li::before{content:counter(c);position:absolute;left:10px;top:6px;width:22px;height:22px;border-radius:50%;background:var(--ink);color:#FFFFFF;font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center}
+.chain li+li{margin-top:22px}
+.chain li+li::after{content:"\2193";position:absolute;left:50%;top:-23px;transform:translateX(-50%);color:var(--navy);font-weight:800;font-size:20px;line-height:1.1}
+
+@media (max-width:640px){
+  .sheet{padding:20px 16px}
+  .cols,.two{grid-template-columns:1fr}
+  h1{font-size:24px}
+}
+@page{size:A4;margin:14mm 13mm}
+@media print{
+  *{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important}
+  :root{padding:0 !important}
+  body{background:#FFFFFF;padding:0;font-size:10.5pt;line-height:1.45}
+  .sheet{border:0;max-width:none;padding:0;margin:0}
+  .tw{overflow:visible}
+  table{font-size:9.3pt}
+  table,tr,.card,.add,blockquote.risk,.trigger,.col,.st,.cv,.pg,.legend,.chain li,.two>*{break-inside:avoid !important;page-break-inside:avoid !important}
+  h1,h2,h3,h4{break-after:avoid !important;page-break-after:avoid !important}
+  section.pb{break-before:page;page-break-before:always}
+  section{margin-bottom:0}
+  .cols{grid-template-columns:repeat(3,1fr) !important;gap:8px}
+  .two{grid-template-columns:1fr 1fr !important}
+  .st{font-size:8.6pt;padding:5px 7px}
+  .col{padding:7px}
+  .col .arr{font-size:16pt;margin:1px 0}
+  .arr{font-size:20pt;margin:3px 0}
+  thead{display:table-header-group}
+}
+</style>
+
+<div class="sheet">
+
+<h1>Қызба <span class="lat" style="font-weight:500;font-size:.7em">(febris)</span></h1>
+<p class="sub">Патологиялық физиология. Типтік дерттік үрдістер. High-Yield конспект</p>
+
+<div class="legend">
+  <strong>Белгілер:</strong>
+  <span><span class="b b-main">БАСТЫ ТІЗБЕК</span><span class="t">оқулық мәтіні</span></span>
+  <span><span class="b b-add">ҚОСЫМША</span><span class="t">тереңдетілген талдау (оқулықта жоқ)</span></span>
+  <span><span class="b b-risk">ҚАУІП</span><span class="t">асқыну, ескерту</span></span>
+</div>
+<hr class="rule">
+
+<!-- 1 -->
+<section>
+<h2>1. Негізгі ұғым және жіктелуі</h2>
+
+<div class="card">
+<p><span class="b b-main">БАСТЫ ТІЗБЕК</span> <span class="k">Қызба</span> <span class="lat">(лат. febris)</span> — жануарлардың даму сатыларында пайда болған, <span class="k">дене қызымының көтерілуімен</span> көрінетін, әрі бүліндіргіш, әрі қорғаныстық-икемделістік құбылыстармен сипатталатын <span class="k">біртектес (типтік) дерттік үрдіс</span>.</p>
+<p>Мәні: <span class="k">пирогендік заттардың</span> <span class="lat">(грек. pyretos — ыстық, gen — туындататын)</span> әсерінен термореттеу орталықтарының әрекеті өзгереді; <span class="k">термореттеу тетіктері бұзылмай сақталып, жоғары деңгейге көтеріледі</span>.</p>
+</div>
+
+<h3>Филогенез және онтогенез</h3>
+<ul>
+<li>Қызба қабынуға қарағанда біршама <span class="k">кеш пайда болған</span> үрдіс; тек ОЖЖ жақсы дамыған және термореттеу қызметі қалыптасқан жануарларда дамиды.</li>
+<li>Жаңа туған балалар мен жануарларда <span class="k">химиялық термореттеу</span> (жылу өндіруді реттеу) біршама жетілген, ал <span class="k">физикалық термореттеу</span> (жылуды сыртқа шығаруды реттеу) көпке дейін жетілмеген. Сондықтан олар ересектерге қарағанда тез қызады және жылдам мұздайды; дене қызуы біресе көтеріліп, біресе төмендеп тұрады.</li>
+<li>Тері тамырларының тез жиырылу қабілеті қалыптаспай, организмде жылу өндірілу көтерілгенмен <span class="k">қызба пайда болмайды</span>.</li>
+</ul>
+
+<h3>Этиологиясы бойынша жіктелуі</h3>
+<div class="tw"><table>
+<thead><tr><th style="width:24%">Түрі</th><th>Себептері</th></tr></thead>
+<tbody>
+<tr><td><span class="k">Инфекциялық қызба</span></td><td>Бактериялар, вирустар, қарапайым жәндіктер, майда саңырауқұлақтар</td></tr>
+<tr><td><span class="k">Бейинфекциялық қызба</span></td><td>Тіндердің бүлінуіне әкелетін сыртқы және ішкі ықпалдар: күйік, жарақат, инфаркт, қан құю, ішке қан құйылу, аллергия, өспе өсуі, цирроз т. б.</td></tr>
+</tbody></table></div>
+
+<h3>Пирогендік заттар</h3>
+<div class="tw"><table>
+<thead><tr><th style="width:20%">Белгісі</th><th style="width:40%">Экзогендік пирогендер</th><th>Эндогендік (лейкоциттік) пирогендер</th></tr></thead>
+<tbody>
+<tr><td>Шығу тегі</td><td>Микробтардың тіршілігінен немесе ыдырауынан пайда болатын заттар</td><td>Негізінен <span class="k">нейтрофильдерде, моноциттерде, тіндік макрофагтарда</span> өндіріледі</td></tr>
+<tr><td>Химиялық табиғаты</td><td>Нәруыздардан ажыратылған <span class="k">липополиқанттар</span> (бактерия мембранасынан); таза күйінде алынғандары: пирогенал, пиромен, пироксаль</td><td><span class="k">Интерлейкин-1</span>, өспелерді жоятын фактор, аз мөлшерде интерлейкин-6, интерферондар, катиондық нәруыздар т. б.</td></tr>
+<tr><td>Әсер ету мөлшері / жолы</td><td>Тым мардымсыз мөлшері — <span class="k">0,0001 мг/кг</span> қызба дамытады; дене қызуын <span class="k">эндогендік пирогендердің өндірілуін күшейту арқылы</span> көтереді (жанама)</td><td>Гипоталамустың «орнықтыру нүктесіне» простагландин Е<sub>1</sub>, Е<sub>2</sub> қатысуымен тікелей әсер етеді</td></tr>
+<tr><td>Қайталап енгізгенде</td><td>Белсенділігі <span class="k">азая береді</span> (төзімділік)</td><td>Белсенділігін <span class="k">жоғалтпайды</span></td></tr>
+<tr><td>Қасиеттері</td><td>Гранулоциттермен, моноциттермен, макрофагтармен әрекеттесіп, белсенділігін арттырады, жартылай фагоциттеледі</td><td>Қыздыруға <span class="k">шыдамсыз</span>; жануардың түріне <span class="k">қарамай</span> қызымды көтереді; өндірілуіне энергия <span class="k">анаэробты гликолизден</span> түзіледі</td></tr>
+</tbody></table></div>
+
+<div class="two">
+<div class="card">
+<p><span class="b b-main">БАСТЫ ТІЗБЕК</span> <strong>Лимфоциттердің рөлі</strong></p>
+<p>Өз беттерінше пироген <span class="k">өндірмейді</span>. Экзогендік пирогеннің антигендік әсеріне жауап қайтарып, макрофагтардың эндогендік пироген өндіруін сергітетін <span class="k">цитокиндер</span> бөледі.</p>
+</div>
+<div class="card">
+<p><span class="b b-main">БАСТЫ ТІЗБЕК</span> <strong>Интерлейкин-1 әсерлері</strong></p>
+<ul>
+<li>дене қызуын көтереді;</li>
+<li>иммундық жауапқа қатысады;</li>
+<li>қанда лейкоциттер санын көбейтеді;</li>
+<li>бұлшықеттерді сырқыратады;</li>
+<li>ұйқы келтіреді, тәбетті азайтады.</li>
+</ul>
+</div>
+</div>
+
+<h3>Организм реактивтілігінің және гормондардың маңызы</h3>
+<div class="tw"><table>
+<thead><tr><th style="width:36%">Жағдай</th><th>Қызбаға әсері</th></tr></thead>
+<tbody>
+<tr><td>Қарттар, қатты жүдеген адамдар</td><td>Бөліктік (крупозды) пневмония дене қызымы <span class="k">көтерілмей-ақ ауыр</span> өтеді. Себептері: жалпы төзімділіктің төмендеуі; энергия түзуге қажетті заттардың жеткіліксіздігі; зат алмасу қарқынының аздығы; эндогендік пирогендер түзілуінің бұзылуы</td></tr>
+<tr><td><span class="k">Тиреотоксикоз</span></td><td>Жұқпалы аурулар тым қатты ет ысуымен қабаттасады</td></tr>
+<tr><td><span class="k">Гипотиреоз</span></td><td>Қызба сирек дамиды</td></tr>
+<tr><td><span class="k">Глюкокортикоидтар</span></td><td>Ет ысуын азайтады</td></tr>
+</tbody></table></div>
+
+<h3>Қызбаның сатылары</h3>
+<div class="tw"><table>
+<thead><tr><th style="width:27%">Саты</th><th style="width:24%">Жылу балансы</th><th>Сипаттамасы</th></tr></thead>
+<tbody>
+<tr><td><span class="k">I. Температураның көтерілу сатысы</span><br><span class="lat">stadium incrementum</span></td><td>Жылу өндіру &gt; жылу шығару</td><td>Шеткері тамырлар жиырылады, тер шығу тежеледі; тері бозарып, суиды; қалтырау, тоңу сезімі. Кенет, бірнеше сағатта (бөліктік пневмония, тұмау, безгек, бөртпе сүзек) немесе біртіндеп, бірнеше күнде (іш сүзегі, қызылша) басталады</td></tr>
+<tr><td><span class="k">II. Жоғары деңгейде тұрақтану сатысы</span><br><span class="lat">stadium fastigium</span></td><td>Жылу өндіру = жылу шығару (жаңа жоғары деңгейде)</td><td>Бірнеше сағат, күн. Жылу өндірілуіне сәйкес жылу шығару да жоғарылайды: тері қызарып, ысиды, тыныс алу жиілейді</td></tr>
+<tr><td><span class="k">III. Қалыпты деңгейге түсу сатысы</span><br><span class="lat">stadium decrementum</span></td><td>Жылу шығару &gt; жылу өндіру</td><td>Тері тамырлары кеңиді, терлеу, тыныс жиілейді. Түсуі: <span class="k">лизистік</span> (біртіндеп, бірнеше тәулікте) немесе <span class="k">кризистік</span> (күрт)</td></tr>
+</tbody></table></div>
+
+<h3>Температураның көтерілу деңгейі бойынша жіктелуі (II сатыда)</h3>
+<div class="tw"><table>
+<thead><tr><th>Түрі</th><th class="n">Дене қызымы</th></tr></thead>
+<tbody>
+<tr><td>Шамалы (<span class="k">субфебрильдік</span>) қызба</td><td class="n">38 °С-қа дейін</td></tr>
+<tr><td>Орташа қызба</td><td class="n">38–39 °С</td></tr>
+<tr><td>Қатты қызба</td><td class="n">39–40 °С</td></tr>
+<tr><td>Асқын (<span class="k">гиперпиреттік</span>) қызба</td><td class="n">41 °С-тан астам</td></tr>
+</tbody></table></div>
+<p>Температураның жаңа деңгейі мен тәуліктік өзгеруі <span class="k">пирогендердің мөлшеріне</span> және оларға <span class="k">термореттеу орталықтарының сезімталдығына</span> байланысты.</p>
+</section>
+
+<!-- 2 -->
+<section class="pb">
+<h2>2. Интеграция: қалыпты физиология және биохимия</h2>
+
+<h3><span class="b b-tag">ФИЗИОЛОГИЯ</span> Термореттеудің қалыпты тетігі</h3>
+<div class="card">
+<p><span class="b b-main">БАСТЫ ТІЗБЕК</span> Дене қызымының тұрақтылығы ОЖЖ қадағалайтын <span class="k">жылу өндіру</span> мен <span class="k">жылуды сыртқа шығарудың тепе-теңдігімен</span> қамтамасыз етіледі. Жылылық орталығы — <span class="k">алдыңғы гипоталамуста</span>.</p>
+</div>
+<div class="tw"><table>
+<thead><tr><th style="width:30%">Құрылым</th><th>Қызметі</th></tr></thead>
+<tbody>
+<tr><td>Қызуды сезетін аумақ (<span class="k">«термостат»</span>)</td><td>Ми артерияларымен ағатын қанның қызымын қадағалайды; терінің, басқа тіндердің терморецепторларынан және ОЖЖ бөліктерінен ұдайы серпіндер қабылдайды. Серпіндерді біріктіріп, талдау негізінде дене қызымы анықталады</td></tr>
+<tr><td>Қызуды орнықтыратын аумақ (<span class="k">«орнықтыратын нүкте»</span>)</td><td>«Термостаттан» хабар алып, жылу өндіру және жылу шығару орталықтарын қадағалайды, қызымды белгілі дәрежеде ұстайды. Қызым төмендесе: жылу өндіруді күшейтеді, жылу шығаруды азайтады. Қызым көтерілсе: керісінше</td></tr>
+<tr><td>Жылу өндіру және жылу шығару орталықтары</td><td>Алдыңғы және артқы гипоталамуста бөлек орналасқан, бірақ өзара тығыз байланыста; вегетативтік жүйке жүйесі мен эндокриндік бездер (гипофиз, бүйрек үсті бездері, қалқанша без) арқылы әрекет етеді</td></tr>
+</tbody></table></div>
+
+<div class="tw"><table>
+<thead><tr><th style="width:22%"></th><th style="width:39%">Артқы гипоталамус — симпатикалық орталық</th><th>Алдыңғы гипоталамус — парасимпатикалық орталық</th></tr></thead>
+<tbody>
+<tr><td>Тері тамырлары</td><td>Жиырылады</td><td>Кеңиді (тері мен шырышты қабықтарда)</td></tr>
+<tr><td>Тер бөліну</td><td>Азаяды</td><td>Артады</td></tr>
+<tr><td>Гормондар</td><td>Адреналин, норадреналин, тиреоидтық гормондар қанға, тіндерге артық түседі</td><td>—</td></tr>
+<tr><td><span class="k">Қорытынды</span></td><td><span class="k">Жылу шығару азаяды, жылу өндіру артады</span></td><td><span class="k">Жылу шығару көбейеді</span></td></tr>
+</tbody></table></div>
+
+<div class="add">
+<p><span class="b b-add">ҚОСЫМША</span> <strong>Қалыпты көрсеткіштер</strong></p>
+<ul>
+<li>Қолтық астындағы қызым: 36,0–37,0 °С; тәуліктік ауытқу 0,5–1 °С (ең төмені таңғы 4–6-да, ең жоғарысы 16–18-де).</li>
+<li>Жылу шығару жолдары (тыныштықта, жайлы температурада): сәулелену шамамен 60 %, булану 20–25 %, конвекция шамамен 15 %, жылу өткізу шамамен 3 %.</li>
+<li>Жиырылулық емес термогенездің негізгі көзі нәрестелерде — қоңыр май тіні (UCP1, термогенин; β<sub>3</sub>-адренорецепторлар арқылы).</li>
+</ul>
+</div>
+
+<h3><span class="b b-tag">БИОХИМИЯ</span> Қалыпты алмасу негіздері</h3>
+<div class="tw"><table>
+<thead><tr><th style="width:30%">Үрдіс</th><th style="width:35%">Қалыпты жағдайда</th><th>Қызба кезінде</th></tr></thead>
+<tbody>
+<tr><td>Арахидон қышқылы → <span class="k">циклооксигеназа</span> → простагландиндер</td><td>ПГЕ түзілуі аз, «орнықтыру нүктесі» қалыпты деңгейде</td><td>Эндогендік пирогендер циклооксигеназаны әсерлендіреді → <span class="k">ПГЕ<sub>1</sub>, ПГЕ<sub>2</sub></span> → цАМФ</td></tr>
+<tr><td>Тотығу мен <span class="k">тотығулық фосфорланудың</span> қабысуы</td><td>Тотығу энергиясының негізгі бөлігі АТФ-қа жинақталады</td><td>Пирогендер әсерінен <span class="k">ажырау</span>: энергия АТФ орнына жылуға айналады</td></tr>
+<tr><td>Нейрон мембранасының <span class="k">Ca<sup>2+</sup> сорғысы</span></td><td>Преоптикалық аумақты мұздатса Ca<sup>2+</sup> сыртқа шығуы артады; қыздырса — тежеледі</td><td>Пирогендер әсерінен Ca<sup>2+</sup> жасуша сыртына шығарылуы көбейеді (нейрон «суықты» сезгендей жауап береді)</td></tr>
+<tr><td>Гликоген ↔ глюкоза</td><td>Бауыр мен бұлшықетте гликоген қоры сақталады</td><td>Гликоген азаяды, <span class="k">гипергликемия</span></td></tr>
+<tr><td>Май қышқылдарының β-тотығуы</td><td>Аяғына дейін жүреді</td><td>Аяғына дейін жүрмейді → <span class="k">кетондық денелер</span>, ацетонурия</td></tr>
+<tr><td>Азоттық баланс</td><td>Тепе-теңдікте</td><td><span class="k">Теріс азоттық баланс</span>, несепте зәрнәсіл көбейеді</td></tr>
+</tbody></table></div>
+
+<div class="add">
+<p><span class="b b-add">ҚОСЫМША</span> <strong>Фармакологиялық байланыс</strong></p>
+<ul>
+<li>Аспирин циклооксигеназаны қайтымсыз ацетилдейді; парацетамол негізінен ОЖЖ-дегі циклооксигеназаны тежейді. Екеуі де ПГЕ<sub>2</sub> түзілуін азайтып, «орнықтыру нүктесін» қалпына келтіреді, сондықтан қалыпты қызымды төмендетпейді.</li>
+<li>Глюкокортикоидтар фосфолипаза А<sub>2</sub>-ні (липокортин арқылы) және цитокиндер синтезін тежейді — қызбаны азайту тетігі.</li>
+</ul>
+</div>
+</section>
+
+<!-- 3 -->
+<section class="pb">
+<h2>3. Патогенездің үш деңгейлі сызбасы</h2>
+
+<div class="pg">
+  <div class="trigger">
+    <div class="ttl">Бастапқы этиологиялық триггер</div>
+    <div><b>Экзогендік пироген</b> (микробтық липополиқант, 0,0001 мг/кг) немесе <b>тіннің бүлінуі</b> (күйік, жарақат, инфаркт, өспе, аллергия)</div>
+    <div class="arr">&#8595;</div>
+    <div>Гранулоциттер, моноциттер, тіндік макрофагтар белсенеді, пирогенді жартылай фагоциттейді; лимфоциттер цитокин бөліп, макрофагтарды сергітеді</div>
+    <div class="arr">&#8595;</div>
+    <div><b>Эндогендік пирогендер:</b> ИЛ-1, өспелерді жоятын фактор, ИЛ-6, интерферондар, катиондық нәруыздар</div>
+  </div>
+  <div class="arr">&#8595;</div>
+
+  <div class="cols">
+    <div class="col">
+      <h4>Жүйелік деңгей<small>нейрогуморальды реттелу</small></h4>
+      <div class="st"><b>«Орнықтыру нүктесі»</b> жаңа жоғары деңгейге ауысады: қалыпты дене қызымы «төмен» деп қабылданады</div>
+      <div class="arr">&#8595;</div>
+      <div class="st"><b>Симпатикалық</b> орталықтар (артқы гипоталамус) қозады; <b>парасимпатикалық</b> жүйе тежеледі</div>
+      <div class="arr">&#8595;</div>
+      <div class="st">Қанға, тіндерге <b>адреналин, норадреналин, тиреоидтық гормондар</b> артық түседі; бүйрек үсті безі глюкокортикоидтарды артық түзеді</div>
+      <div class="arr">&#8595;</div>
+      <div class="st"><b>Жылу өндіру артады, жылу шығару шектеледі</b> → дене қызымы көтеріледі</div>
+      <div class="arr">&#8595;</div>
+      <div class="st">Тепе-теңдік <b>жаңа жоғары деңгейде</b> қалыптасады; термореттеу тетіктері сақталған</div>
+      <div class="arr">&#8595;</div>
+      <div class="st x"><b>Қосымша:</b> эндогендік антипиретиктер (вазопрессин, α-МСГ, ИЛ-10, глюкокортикоидтар) қызымның шектен тыс көтерілуін тежейді</div>
+    </div>
+
+    <div class="col">
+      <h4>Ағзалық деңгей<small>тамырлық реакция, термогенез</small></h4>
+      <div class="st"><b>Шеткері тамырлар жиырылады</b>, тер шығу тежеледі → жылу шығару азаяды (қызым көтерілуінде <b>бірінші орында</b>)</div>
+      <div class="arr">&#8595;</div>
+      <div class="st">Теріге қан аз келеді: тері бозарып, суиды → <b>терморецепторлар</b> қозады</div>
+      <div class="arr">&#8595;</div>
+      <div class="st">Серпіндер мидың <b>торлы құрылымы</b> арқылы қимылдық жүйкелермен бұлшықеттерге барады</div>
+      <div class="arr">&#8595;</div>
+      <div class="st"><b>Қалтырау</b>: арқа, қол, қаңқа еттерінің еріксіз жиырылуы, пайдалы жұмыс жоқ — <b>жиырылулық термогенез</b> (екінші орында)</div>
+      <div class="arr">&#8595;</div>
+      <div class="st">Бауыр мен ішкі ағзаларда тотығу-тотықсыздану артады — <b>жиырылулық емес термогенез</b></div>
+      <div class="arr">&#8595;</div>
+      <div class="st">Синус торабы ыстық қанмен қозады: <b>тахикардия</b>, минөттік көлем артады; I сатыда АҚ көтеріледі, ішкі ағза тамырлары кеңиді</div>
+    </div>
+
+    <div class="col">
+      <h4>Молекулалық / жасушалық деңгей<small>ферменттер, сорғылар, АТФ</small></h4>
+      <div class="st">Фагоциттерде эндогендік пироген синтезі; энергия көзі — <b>анаэробты гликолиз</b></div>
+      <div class="arr">&#8595;</div>
+      <div class="st">Гипоталамуста <b>циклооксигеназаның әсерленуі</b></div>
+      <div class="arr">&#8595;</div>
+      <div class="st"><b>Простагландин Е<sub>1</sub>, Е<sub>2</sub></b> түзілуі</div>
+      <div class="arr">&#8595;</div>
+      <div class="st"><b>цАМФ</b> → нейрон мембранасындағы <b>Ca<sup>2+</sup> сорғысының</b> қызметі өзгереді: Ca<sup>2+</sup> жасуша сыртына шығуы көбейеді</div>
+      <div class="arr">&#8595;</div>
+      <div class="st">Шеткері тіндерде <b>тотығу мен тотығулық фосфорланудың ажырауы</b>: АТФ орнына жылу</div>
+      <div class="arr">&#8595;</div>
+      <div class="st x"><b>Қосымша:</b> липополиқант → TLR4/CD14 → NF-κB → ИЛ-1β, ӨЖФ-α, ИЛ-6 гендері. Пирогендер ГЭБ өткізгіш аймақта (OVLT) эндотелийдің ЦОГ-2-сін қосады; ПГЕ<sub>2</sub> EP3-рецепторлар арқылы жылуға сезімтал нейрондарды тежейді</div>
+    </div>
+  </div>
+  <p class="order">Тізбектің себеп-салдарлық реті: триггер &#8594; молекулалық баған &#8594; жүйелік баған &#8594; ағзалық баған</p>
+
+  <div class="cv">
+    <div class="ttl">ТҰЙЫҚ ШЕҢБЕР (CIRCULUS VITIOSUS) — гиперпиреттік қызба, 41 °С-тан астам <span class="b b-add">ҚОСЫМША</span></div>
+    <div class="loop">
+      <div class="st">Қызым әр 1 °С көтерілгенде негізгі алмасу 10–13 % артады</div><div class="ra">&#8594;</div>
+      <div class="st">Оттекке сұраныс артады, тахикардия, жүрек жүктемесі</div><div class="ra">&#8594;</div>
+      <div class="st">Тіндік гипоксия, лактат жиналуы, метаболизмдік ацидоз, кетоз</div><div class="ra">&#8594;</div>
+      <div class="st">АТФ тапшылығы, ион сорғыларының әлсіреуі, нәруыздардың зақымдануы, жасуша бүлінуі</div><div class="ra">&#8594;</div>
+      <div class="st">Жаңа эндогендік пирогендер + сусыздану (терлеу, жылу шығару азаяды)</div>
+    </div>
+    <div class="back">
+      <svg width="120" height="26" viewBox="0 0 120 26" aria-hidden="true"><path d="M116 4 V17 H14" fill="none" stroke="#DC2626" stroke-width="5"/><path d="M18 8 L4 17 L18 26 Z" fill="#DC2626"/></svg>
+      <span>кері бағыттама: температура одан әрі көтеріледі, шеңбер тұйықталады</span>
+    </div>
+  </div>
+</div>
+
+<h3>Простагландиндер мен Ca<sup>2+</sup> рөлінің дәлелдері</h3>
+<div class="tw"><table>
+<thead><tr><th style="width:55%">Тәжірибе</th><th>Нәтиже</th></tr></thead>
+<tbody>
+<tr><td>Жануар миының бүйірлік қарыншаларына өте аз мөлшерде ПГЕ<sub>1</sub> немесе ПГЕ<sub>2</sub> енгізу</td><td>Дене қызымы көтеріледі</td></tr>
+<tr><td>Қызымы көтерілген жануарға, адамға простагландин түзілуін тежейтін <span class="k">аспирин, парацетамол</span> енгізу</td><td>Дене қызымы қалыпты деңгейге түседі</td></tr>
+<tr><td>Гипоталамустың преоптикалық аумағын мұздату</td><td>Нейрондардан Ca<sup>2+</sup> сыртқа шығуы артады</td></tr>
+<tr><td>Преоптикалық аумақты қыздыру</td><td>Ca<sup>2+</sup> сыртқа шығарылуы тежеледі</td></tr>
+<tr><td>Преоптикалық аумаққа пироген енгізу</td><td>Ca<sup>2+</sup> жасуша сыртына шығарылуы көбейеді</td></tr>
+</tbody></table></div>
+
+<h3>I сатыдағы қосымша мәліметтер</h3>
+<ul>
+<li>Тері мен ішкі ағзалар температураларының айырмашылығы неғұрлым көп болса, <span class="k">қалтырау соғұрлым күшті</span>. Температура біртіндеп көтерілсе, қалтырау болмайды.</li>
+<li>Жануарларда жүн түбіндегі тегіс еттердің жиырылуынан жүн тікірейеді: жылу шығаруды азайтатын ауа қабаты үлкейеді (адамда — «қаз терісі»).</li>
+</ul>
+
+<h3>Емтиханға арналған патогенез тізбегі</h3>
+<ol class="chain">
+<li>Экзогендік пироген (липополиқант) немесе тіннің бүлінуі</li>
+<li>Фагоциттердің (нейтрофиль, моноцит, макрофаг) белсенуі, лимфоцит цитокиндерінің көмегі</li>
+<li>Эндогендік пирогендердің түзілуі: ИЛ-1, ӨЖФ, ИЛ-6, интерферондар</li>
+<li>Гипоталамуста циклооксигеназаның әсерленуі → ПГЕ<sub>1</sub>, ПГЕ<sub>2</sub> → цАМФ → Ca<sup>2+</sup> сорғысы қызметінің өзгеруі</li>
+<li>«Орнықтыру нүктесінің» жоғары деңгейге ауысуы</li>
+<li>Симпатикалық жүйенің қозуы, парасимпатикалық жүйенің тежелуі</li>
+<li>Жылу шығарудың шектелуі (тамыр спазмы, тер азаюы) + жылу өндірудің артуы (қалтырау, бауыр, тотығулық фосфорланудың ажырауы)</li>
+<li>Дене қызымының көтерілуі және жаңа жоғары деңгейде тұрақтануы</li>
+<li>Пирогендер азайғанда «орнықтыру нүктесі» қалпына келеді: тамырлар кеңиді, терлеу → қызым лизистік немесе кризистік түседі</li>
+</ol>
+</section>
+
+<!-- 4 -->
+<section class="pb">
+<h2>4. Клиника және дифференциалды диагностика</h2>
+
+<h3>Ағзалар мен жүйелердің өзгерістері</h3>
+<p>Қызба белгілі бір дерттермен бірге жүретіндіктен, өзгерістер аурудың патогенезіне де, ет ысуына да байланысты; таза қызбаның әсерін тек жануарларда зерттеуге болады.</p>
+<div class="tw"><table>
+<thead><tr><th style="width:21%">Жүйе</th><th>Өзгерістері және тетігі</th></tr></thead>
+<tbody>
+<tr><td><span class="k">Қан айналым</span> (ең айқын өзгерістер)</td><td>Қызымның 1 °С-қа көтерілуі тамыр соғуын <span class="k">минөтіне 8–10-ға</span> жиілетеді: синус торабының ыстық қанмен қозуы + симпатикалық межеқуаттың артуы. Қанның минөттік көлемі үлкейеді. I сатыда АҚ көтеріледі, тері тамырлары жиырылады, ішкі ағза тамырлары кеңиді. III сатыда қызым күрт түссе, артерия межеқуаты қатты азайып, <span class="k">коллапс</span> дамуы мүмкін</td></tr>
+<tr><td>Ерекшелік</td><td><span class="k">Іш сүзегі, соқпа сүзек</span> кезінде қызымға қарамай <span class="k">брадикардия</span> — микроб уыттарымен уыттанудан</td></tr>
+<tr><td><span class="k">Тыныс алу</span></td><td>I сатыда біршама сирейді. Қызым жоғары деңгейге жеткенде кейде 2–3 есе жиілейді, тереңдігі азаяды, бірақ өкпенің минөттік желдетілуі өзгермейді. Себебі: тыныс орталығының ыстық қанмен қозуы</td></tr>
+<tr><td><span class="k">Ас қорыту</span></td><td>Сілекей бөлінуі азаяды (ауыз құрғайды, тілде таңдақтар); асқазан сөлінің бөлінуі мен қышқылдығы төмендейді; ішек-қарынның қимылдық әрекеті әлсірейді</td></tr>
+<tr><td><span class="k">Эндокриндік жүйе</span></td><td>Бүйрек үсті безінің сыртқы қабаты глюкокортикоидтарды артық түзеді. Жұқпалы аурулар кезінде қалқанша без гормондары көп түзіледі → негізгі алмасу көтеріледі</td></tr>
+<tr><td><span class="k">ОЖЖ</span></td><td>Қозу мен тежелу арақатынасы өзгереді, жоғары жүйке әрекеті әлсірейді: бас ауыруы, шаршау, ұйқы басу немесе көз ілінбеу. Жұқпалы ауруларда, әсіресе жас балаларда: естен тану, сандырақтау, елестеу. Бұлар қызым орташа көтерілгенде де болуы мүмкін — даму жолында <span class="k">уыттанудың</span> маңызы зор</td></tr>
+</tbody></table></div>
+
+<h3>Зат алмасудың өзгерістері</h3>
+<div class="tw"><table>
+<thead><tr><th style="width:21%">Алмасу түрі</th><th>Өзгерістері</th></tr></thead>
+<tbody>
+<tr><td><span class="k">Көмірсу</span> (ең алдымен бұзылады)</td><td>Бауыр мен бұлшықетте гликоген азаяды, <span class="k">гипергликемия</span>; глюкозаның тотығуы күшейеді</td></tr>
+<tr><td><span class="k">Май</span></td><td>Көмірсу қоры азайған соң майлардың пайдаланылуы артады; май қышқылдарының тотығуы аяғына дейін жүрмейді → <span class="k">кетондық денелер</span> жиналады, несеппен шығады (<span class="k">ацетонурия</span>). Жеңіл қорытылатын көмірсулар жеткілікті қабылданса, бұзылыс қалпына келеді — сондықтан науқастар, әсіресе балалар, <span class="k">тәтті сусынды көп ішуі керек</span></td></tr>
+<tr><td><span class="k">Нәруыз</span></td><td>Көптеген жұқпалы ауруларда <span class="k">теріс азоттық баланс</span>; несепте зәрнәсіл (мочевина) деңгейі көтеріледі — тіндердің ыдырауын көрсетеді</td></tr>
+</tbody></table></div>
+
+<div class="add">
+<p><span class="b b-add">ҚОСЫМША</span> Пульстің 1 °С-қа 8–10 соққыға жиілеуі — Либермейстер ережесі; қызым мен пульстің сәйкессіздігі (салыстырмалы брадикардия) — Фаже белгісі. Су-тұз алмасуы: I–II сатыда натрий мен су іркіледі (альдостерон), диурез азаяды; III сатыда терлеу мен диурез артып, сусыздану қаупі туады.</p>
+</div>
+
+<h3>Температуралық сызықтардың түрлері</h3>
+<p>Таңертеңгі және кешкі температуралардың айырмашылығы бойынша ажыратылады.</p>
+<div class="tw"><table>
+<thead><tr><th style="width:27%">Қызбаның түрі</th><th style="width:38%">Тәуліктік ауытқуы</th><th>Аурулар</th></tr></thead>
+<tbody>
+<tr><td><span class="k">Тұрақты қызба</span><br><span class="lat">febris continua</span></td><td>Қызым жоғары (39–40 °С), ауытқуы 1 °С-тан аспайды</td><td>Бөртпе сүзек, бөліктік пневмония, жәншау (скарлатина)</td></tr>
+<tr><td><span class="k">Босаңситын қызба</span><br><span class="lat">febris remittens</span></td><td>1,5–2 °С; қалыпты деңгейге дейін төмендемейді</td><td>Туберкулез, жалқықты плеврит</td></tr>
+<tr><td><span class="k">Ұстамалы қызба</span><br><span class="lat">febris intermittens</span></td><td>Бірнеше сағатта кешкісін 39–40 °С және одан жоғары көтеріліп, таңертең қалыптыға, кейде одан да төмен түседі</td><td>Безгек: күнбе-күн, әрбір екінші немесе үшінші күні ұстайды</td></tr>
+<tr><td><span class="k">Қалжырататын қызба</span><br><span class="lat">febris hectica</span></td><td>3–5 °С</td><td>Сепсис</td></tr>
+<tr><td><span class="k">Келбетсіз қызба</span><br><span class="lat">febris athypica</span></td><td>Бей-берекет, ешбір заңдылықсыз</td><td>Сепсис</td></tr>
+</tbody></table></div>
+<p>Жұқпалы ауруларды антибактериалық дәрілермен ерте емдеу нәтижесінде «классикалық» сызықтар қазір жиі кездеспейді, дегенмен ауруды нақтылауда маңызы зор.</p>
+
+<h3>Дифференциалды диагностика: қызба мен асқын қызыну (гипертермия)</h3>
+<div class="tw"><table>
+<thead><tr><th style="width:22%">Белгісі</th><th style="width:39%">Қызба</th><th>Гипертермия</th></tr></thead>
+<tbody>
+<tr><td>Негізгі себебі</td><td><span class="k">Пирогендер</span> (инфекциялық, бейинфекциялық)</td><td><span class="k">Сыртқы орта температурасының жоғары болуы</span>: ыстық өндіріс жұмысшылары, ыстық климат тұрғындары. Пирогендердің маңызы жоқ</td></tr>
+<tr><td>Термореттеу тетіктері</td><td>Сақталған; қызымды <span class="k">көтеруге бағытталған</span></td><td>Қызым көтерілуіне <span class="k">қарсы тұрады</span>, кейін жеткіліксіз болады</td></tr>
+<tr><td>«Орнықтыру нүктесі»</td><td>Жоғары деңгейге ауысқан</td><td>Өзгермеген</td></tr>
+<tr><td>Тері тамырлары (басында)</td><td>Жиырылады, тері бозғылт, суық; қалтырау</td><td>Кеңиді; тыныс пен жүрек соғуы жиілейді</td></tr>
+<tr><td>Даму жолы</td><td>Жылу шығарудың белсенді шектелуі + жылу өндірудің артуы</td><td>Икемделістік тетіктер белгілі уақытқа дейін қарсы тұрады → жеткіліксіздік → қызым көтеріледі</td></tr>
+<tr><td>Дәрілік үлгісі</td><td>Пирогенал, пиромен</td><td>Зат алмасуды арттыратын заттар: <span class="k">α-динитрофенол, кофеин, фенамин, тироксин</span> — тотығудың фосфорланудан ажырауы</td></tr>
+<tr><td>Аспирин, парацетамол <span class="b b-add">ҚОСЫМША</span></td><td>Тиімді</td><td>Тиімсіз; сырттан салқындату қажет</td></tr>
+</tbody></table></div>
+
+<h3>Қызбаның организм үшін маңызы</h3>
+<p>Тіндердің бүлінуі мен қорғану-икемделу үрдістері <span class="k">диалектикалық бірлікте</span> болады.</p>
+<div class="two">
+<div class="card">
+<p><span class="b b-main">БАСТЫ ТІЗБЕК</span> <strong>Пайдалы жақтары</strong></p>
+<ul>
+<li>микробтардың өсіп-өнуі баяулайды, антибиотиктерге және бактериостатикалық дәрілерге төзімділігі азаяды;</li>
+<li>жасушаларда зат алмасу артып, қызметтері жақсарады;</li>
+<li>лейкоциттердің фагоцитоздық әсері сергиді;</li>
+<li>антиденелердің өндірілуі артады;</li>
+<li>бауырдың уытсыздандыру қызметі күшейеді;</li>
+<li>қабыну ошағында нейтрофильдер мен макрофагтар бактерицидтік (катиондық нәруыздар, лизоцим), антитоксиндік және вирустарды тежейтін (интерферон) заттар өндіреді.</li>
+</ul>
+</div>
+<div class="card">
+<p><span class="b b-main">БАСТЫ ТІЗБЕК</span> <strong>Теріс жақтары</strong></p>
+<ul>
+<li>жоғары температураға даралық жоғары сезімталдық;</li>
+<li>естен тану, тырыспа-селкілдек ұстамалары;</li>
+<li>жүректің жұмысы ауырлайды;</li>
+<li>жұмысқа қабілет төмендейді, көңіл-күй нашарлайды;</li>
+<li>зат алмасудың барлық түрлері бұзылады.</li>
+</ul>
+</div>
+</div>
+
+<blockquote class="risk">
+<p><span class="b b-risk">ҚАУІП</span> <strong>Қауіпті асқынулар</strong></p>
+<ul>
+<li><span class="k">Коллапс</span>: III сатыда қызым <span class="k">кризистік (күрт)</span> түскенде тері тамырлары тым қатты кеңиді; уыттанумен қабаттасса, тіршілікке өте қауіпті.</li>
+<li><span class="k">Тырыспа-селкілдек ұстамалары, естен тану</span>: әсіресе жаңа туған балаларда — термореттеу жүйесі әлі толық қалыптаспаған.</li>
+<li><span class="k">Жүрек қызметінің жеткіліксіздігі</span>: қарттар мен жүрегі ауыратын адамдар ет ысуын ауыр көтереді.</li>
+<li><span class="k">Асқын (гиперпиреттік) қызба</span>, 41 °С-тан астам.</li>
+</ul>
+</blockquote>
+
+<blockquote class="risk">
+<p><span class="b b-risk">ҚАУІП</span> <strong>Қызу түсіретін дәрілерге қатысты ескерту</strong></p>
+<p>Дене қызымын дәрі-дәрмекпен төмендету негізгі аурумен байланысты дерттік өзгерістерді жоғалтпайды, керісінше, <span class="k">жұқпалы аурудың өтуін ауырлатуы мүмкін</span>. Ет ысуы тым қатты көтеріліп кетпесе, оны төмендететін дәрілерді пайдаланудан сақ болған жөн.</p>
+</blockquote>
+
+<div class="add">
+<p><span class="b b-add">ҚОСЫМША</span> Фебрильді тырыспалар көбіне 6 айдан 5 жасқа дейінгі балаларда кездеседі. Қызу түсіру негізделген жағдайлар: гиперпирексия, жүрек-тамыр және өкпе жеткіліксіздігі, тырыспаға бейімділік, жүктілік, қызымды ауыр көтеру.</p>
+</div>
+
+<h3>Пиротерапия</h3>
+<div class="card">
+<p><span class="b b-main">БАСТЫ ТІЗБЕК</span> <span class="k">Пиротерапия</span> — улы әсерлерінен тазартылған пирогендік заттарды (пирогенал, пиромен) енгізіп, дене қызуын жасанды түрде көтеру арқылы емдеу әдісі.</p>
+<ul>
+<li><strong>Қолданылуы:</strong> мерез, соз, тері аурулары (экзема, фурункулез), полиартриттер, ауыр өтетін гипертензиялар, өспелер.</li>
+<li><strong>Тыртықтарға әсері:</strong> күйіктен кейінгі бұжырланған (келлоидты; <span class="lat">грек. kele — өспе, eido — ұқсас</span>) тыртықтарды, жұлын мен шеткері жүйкелердің жарақаттық бүліністерін емдеуде жағымды әсер етеді: <span class="k">глиалдық және коллагендік тыртықтардың құрылуын тежейді, ескі тыртықтарды жұмсартады</span>.</li>
+<li><strong>Негіздемесі:</strong> дене қызуының көтерілуі жағымсыз ықпалдарға организмнің төзімділігін арттыруы мүмкін.</li>
+</ul>
+</div>
+</section>
+
+</div>
+
+<script>
+/* viewer bridge: two-finger pinch is sent to the reader, zoom keeps the point under the fingers in place, theme follows the reader */
+(function(){
+  if (window.parent === window) return;
+  var z = 1, pinch = null, focal = null, lastW = innerWidth, lastH = innerHeight;
+  function send(m){ try { parent.postMessage(m, '*'); } catch (e) {} }
+  addEventListener('message', function(e){
+    var d = e.data;
+    if (!d || typeof d !== 'object') return;
+    if (d.__viewer === 'zoom' && typeof d.z === 'number') z = d.z;
+    if (d.__viewer === 'theme') {
+      if (d.theme) document.documentElement.setAttribute('data-theme', d.theme);
+      else document.documentElement.removeAttribute('data-theme');
+    }
+  });
+  function dist(t){ var dx = t[0].clientX - t[1].clientX, dy = t[0].clientY - t[1].clientY; return Math.sqrt(dx*dx + dy*dy); }
+  function mid(t){ return { x: (t[0].clientX + t[1].clientX) / 2, y: (t[0].clientY + t[1].clientY) / 2 }; }
+  document.addEventListener('touchstart', function(e){
+    if (e.touches.length === 2) { pinch = { d: dist(e.touches) * z, z: z }; focal = mid(e.touches); e.preventDefault(); }
+  }, { passive: false });
+  document.addEventListener('touchmove', function(e){
+    if (!pinch || e.touches.length !== 2) return;
+    e.preventDefault();
+    focal = mid(e.touches);
+    var d = dist(e.touches) * z;
+    if (pinch.d > 0) send({ __viewer: 'pinch', z: pinch.z * d / pinch.d });
+  }, { passive: false });
+  function end(e){
+    if (pinch && e.touches.length < 2) {
+      pinch = null; send({ __viewer: 'pinchend' });
+      setTimeout(function(){ if (!pinch) focal = null; }, 300);
+    }
+  }
+  document.addEventListener('touchend', end);
+  document.addEventListener('touchcancel', end);
+  ['gesturestart', 'gesturechange'].forEach(function(t){ document.addEventListener(t, function(e){ e.preventDefault(); }); });
+  /* trackpad pinch / ctrl + wheel on a computer */
+  var wt = 0;
+  addEventListener('wheel', function(e){
+    if (!e.ctrlKey) return;
+    e.preventDefault();
+    focal = { x: e.clientX, y: e.clientY };
+    send({ __viewer: 'pinch', z: z * Math.exp(-e.deltaY * 0.01) });
+    clearTimeout(wt);
+    wt = setTimeout(function(){ focal = null; send({ __viewer: 'pinchend' }); }, 400);
+  }, { passive: false });
+  addEventListener('resize', function(){
+    var w = innerWidth, h = innerHeight, r = lastW / w, rh = lastH / h;
+    var oldW = lastW, oldH = lastH;
+    lastW = w; lastH = h;
+    /* width and height change by the same factor only when the zoom changed (not on rotation) */
+    if (Math.abs(r - 1) < 0.01 || Math.abs(r - rh) > 0.04 * r) return;
+    var f = focal || { x: oldW / 2, y: oldH / 2 };
+    var dx = f.x - f.x / r, dy = f.y - f.y / r;
+    window.scrollBy(0, dy);
+    var el = document.elementFromPoint(f.x / r, f.y / r);
+    while (el && el !== document.body && el !== document.documentElement) {
+      if (el.scrollWidth > el.clientWidth + 1) {
+        var ox = getComputedStyle(el).overflowX;
+        if (ox === 'auto' || ox === 'scroll') { el.scrollLeft += dx; break; }
+      }
+      el = el.parentElement;
+    }
+    if (focal) focal = { x: f.x / r, y: f.y / r };
+  });
+  send({ __viewer: 'ready' });
+})();
+</script>
+</body></html>
